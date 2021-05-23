@@ -1,0 +1,30 @@
+/* Element-Selectors */
+body {
+	max-width: 800px;
+	margin: auto;
+}
+
+/* Id-Selectors */
+#profile-picture {
+	width: 50%;
+	height: 50%;
+	margin: auto;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+/* Class-Selectors */
+.centerHorizontal {
+	margin: 0;
+	position: relative;
+	left: 50%;
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+.centerVertical {
+	margin: 0;
+	position: relative;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
