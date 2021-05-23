@@ -11,6 +11,9 @@
 		Mathieu's MakeUp Studio
 	</title>
 
+	<!--Imports für Skripts -->
+	<script src="js/printInitialDrawing.js"></script>
+
 	<!-- Trick gelernt von: https://css-tricks.com/emojis-as-favicons/ dabei habe Ich den Code des Inline-SVGs gespeichert und nutze hier nur den link auf die Datei. -->
 	<!-- Das Emoji "lipstick" (&#128132;) kommt von https://www.utf8icons.com/character/128132/lipstick -->
 	<link rel="shortcut icon" href="img/lipstick.svg">
@@ -55,22 +58,26 @@
 	<section id="draw">
 		<h2>MakeUp designen</h2>
 		<table>
-			<td id="controls" class="stackVertical">
-				<!-- https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ -->
-				<!-- https://stackoverflow.com/questions/40808493/how-to-add-a-svg-icon-within-an-input  -->
+			<td>
+				<canvas id="canvas"></canvas>
+				<!--ursprüngliche Zeichnung -->
+				<script>printInitialDrawing();</script>
+			</td>
+			<td id="controlColumn" class="stackVertical">
 				<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
-				<label id="uploadImage" for="uploadButton">
-					<input id="uploadButton" title="Bild hochladen" name="upload" type="file" />
+				<label title="Bild hochladen" id="fileContainer" class="w3-button">
+					<img alt="Symbol für upload" src="img/upload.svg" />
+					<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
+					<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png" />
 				</label>
-
 				<button title="Bild zurücksetzen" name="clearImage" class="w3-button">
 					&#10060;
 				</button>
 				<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
 				<button title="MakeUp zurücksetzen" name="clearDrawing" class="w3-button">
-					<img src="img/clear.svg">
+					<img alt="Symbol für löschen" src="img/clear.svg">
 				</button>
-				<button title="Freihandzeichnen" name="freehand" class="w3-button">
+				<button title="Freihand zeichnen" name="freehand" class="w3-button">
 					&#128393;
 				</button>
 				<button title="Linie zeichnen" name="line" class="w3-button">
@@ -80,7 +87,7 @@
 					&#9711;
 				</button>
 				<button title="Bogen zeichnen" name="arc" class="w3-button">
-					&#2054;
+					&#8276;
 				</button>
 				<button title="Rechteck zeichnen" name="rectangle" class="w3-button">
 					&rect;
@@ -89,16 +96,13 @@
 					&#9651;
 				</button>
 			</td>
-			<td>
-				<canvas id="canvas"></canvas>
-			</td>
 		</table>
 	</section>
 
 	<section id="submit">
 		<!-- Ich habe hier keine labels mit dem "for" Attribut genutzt, da mir das Design mit den Placeholder Attributen deutlich besser gefällt. mit dem "alt" Attribut wird Screenreadern auch genügend information geliefert.-->
 		<h2>Beitrag posten</h2>
-		<form name="submitForm">
+		<form name="submitForm" action="backend.php">
 			<div class="w3-col m6">
 				<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input w3-col l6"
 					alt="Vorname eingeben." />
