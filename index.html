@@ -11,9 +11,9 @@
 		Mathieu's MakeUp Studio
 	</title>
 
-	<!-- Trick gelernt von: https://css-tricks.com/emojis-as-favicons/ wobei das Emoji "lipstick" (&#128132;) von https://www.utf8icons.com/character/128132/lipstick kommt. Anpassung von %22 auf &quot; und von <> auf &lt, &gt-->
-	<link rel="shortcut icon"
-		href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;.9em&quot; font-size=&quot;90&quot;&gt;&#128132;&lt;/text&gt;&lt;/svg&gt;">
+	<!-- Trick gelernt von: https://css-tricks.com/emojis-as-favicons/ dabei habe Ich den Code des Inline-SVGs gespeichert und nutze hier nur den link auf die Datei. -->
+	<!-- Das Emoji "lipstick" (&#128132;) kommt von https://www.utf8icons.com/character/128132/lipstick -->
+	<link rel="shortcut icon" href="img/lipstick.svg">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link rel="stylesheet" href="css/main.css" />
 </head>
@@ -58,14 +58,10 @@
 			<td id="controls" class="stackVertical">
 				<!-- https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ -->
 				<!-- https://stackoverflow.com/questions/40808493/how-to-add-a-svg-icon-within-an-input  -->
+				<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
 				<label id="uploadImage" for="uploadButton">
 					<input id="uploadButton" title="Bild hochladen" name="upload" type="file" />
 				</label>
-				<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up"-->
-				<!-- <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-						<path fill="currentColor"
-							d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" />
-					</svg> -->
 
 				<button title="Bild zurücksetzen" name="clearImage" class="w3-button">
 					&#10060;
