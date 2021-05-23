@@ -1,10 +1,12 @@
 /* Element-Selectors */
+
 body {
 	max-width: 800px;
 	margin: auto;
 }
 
 /* Id-Selectors */
+
 #profile-picture {
 	width: 50%;
 	height: 50%;
@@ -13,7 +15,12 @@ body {
 	object-fit: cover;
 }
 
+#canvas {
+	border: 1px solid black;
+}
+
 /* Class-Selectors */
+
 .centerHorizontal {
 	margin: 0;
 	position: relative;
@@ -21,10 +28,16 @@ body {
 	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);
 }
+
 .centerVertical {
 	margin: 0;
 	position: relative;
 	top: 50%;
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
+}
+
+.stackVertical {
+	display: flex;
+	flex-flow: column;
 }
