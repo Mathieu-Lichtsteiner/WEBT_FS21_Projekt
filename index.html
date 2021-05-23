@@ -66,12 +66,9 @@
 				<button title="Bild zurücksetzen" name="clearImage" class="w3-button">
 					&#10060;
 				</button>
+				<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
 				<button title="MakeUp zurücksetzen" name="clearDrawing" class="w3-button">
-					<!-- Icon von https://materialdesignicons.com/ "autorenew"-->
-					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
-						<path fill="currentColor"
-							d="M12,6V9L16,5L12,1V4A8,8 0 0,0 4,12C4,13.57 4.46,15.03 5.24,16.26L6.7,14.8C6.25,13.97 6,13 6,12A6,6 0 0,1 12,6M18.76,7.74L17.3,9.2C17.74,10.04 18,11 18,12A6,6 0 0,1 12,18V15L8,19L12,23V20A8,8 0 0,0 20,12C20,10.43 19.54,8.97 18.76,7.74Z" />
-					</svg>
+					<img src="img/clear.svg">
 				</button>
 				<button title="Freihandzeichnen" name="freehand" class="w3-button">
 					&#128393;
@@ -99,6 +96,7 @@
 	</section>
 
 	<section id="submit">
+		<!-- Ich habe hier keine labels mit dem "for" Attribut genutzt, da mir das Design mit den Placeholder Attributen deutlich besser gefällt. mit dem "alt" Attribut wird Screenreadern auch genügend information geliefert.-->
 		<h2>Beitrag posten</h2>
 		<form name="submitForm">
 			<div class="w3-col m6">
