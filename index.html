@@ -20,7 +20,7 @@
 
 <body>
 
-	<nav class="w3-bar">
+	<nav class="w3-bar w3-white">
 		<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&#10094;&#10096;</a>
 		<!-- In den Unterlage &#2261, funktioniert aber in utf8 nicht!, mit &#8801 würde es gehen, aber die html-identity (Congruent & equiv) gefällt mir am besten. -->
 		<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
@@ -31,82 +31,96 @@
 		<a href="#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
 	</nav>
 
-	<section id="home">
-		<img id="profile-picture" title="Mathieu Lichtsteiner" src="img/profile.jpg" class="centerHorizontal" />
-		<h1>Mathieu's MakeUp-Studio</h1>
-		<h3>von Mathieu Lichtsteiner</h3>
-		<!-- Sollte ein relativer URL sein, da es sich aber in der Landing-Section (unbewertet) befindet ist es okay.-->
-		<a title="Github-Repository mit Github-Pages öffnen"
-			href="https://github.com/Mathieu-Lichtsteiner/WEBT_FS21_Projekt" target="_blank"
-			rel="noreferrer noopener">Github-Repository</a>
-	</section>
+	<div id="main">
+		<section id="home">
+			<img id="profile-picture" title="Mathieu Lichtsteiner" src="img/profile.jpg" class="centerHorizontal" />
+			<h1>Mathieu's MakeUp-Studio</h1>
+			<h3>von Mathieu Lichtsteiner</h3>
+			<!-- Sollte ein relativer URL sein, da es sich aber in der Landing-Section (unbewertet) befindet ist es okay.-->
+			<a id="test" title="Github-Repository mit Github-Pages öffnen"
+				href="https://github.com/Mathieu-Lichtsteiner/WEBT_FS21_Projekt" target="_blank"
+				rel="noreferrer noopener">Github-Repository</a>
+		</section>
 
-	<section id="information">
-		<h2>Informationen</h2>
-	</section>
+		<section id="information">
+			<h2>Informationen</h2>
+			<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+				et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+				rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
+				dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+				magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+				clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+			<img src="img/tutorial1.jpg" />
+		</section>
 
-	<section id="draw">
-		<h2>MakeUp designen</h2>
-		<table>
-			<td id="controls" class="stackVertical">
-				<button title="Bild hochladen" name="upload" class="w3-button">
-					<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up"-->
-					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
-						<path fill="currentColor"
-							d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" />
-					</svg>
-				</button>
-				<button title="Bild zurücksetzen" name="clearImage" class="w3-button">
-					&#10060;
-				</button>
-				<button title="MakeUp zurücksetzen" name="clearDrawing" class="w3-button">
-					<!-- Icon von https://materialdesignicons.com/ "autorenew"-->
-					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
-						<path fill="currentColor"
-							d="M12,6V9L16,5L12,1V4A8,8 0 0,0 4,12C4,13.57 4.46,15.03 5.24,16.26L6.7,14.8C6.25,13.97 6,13 6,12A6,6 0 0,1 12,6M18.76,7.74L17.3,9.2C17.74,10.04 18,11 18,12A6,6 0 0,1 12,18V15L8,19L12,23V20A8,8 0 0,0 20,12C20,10.43 19.54,8.97 18.76,7.74Z" />
-					</svg>
-				</button>
-				<button title="Freihandzeichnen" name="freehand" class="w3-button">
-					&#128393;
-				</button>
-				<button title="Linie zeichnen" name="line" class="w3-button">
-					&#9585;
-				</button>
-				<button title="Kreis zeichnen" name="circle" class="w3-button">
-					&#9711;
-				</button>
-				<button title="Bogen zeichnen" name="arc" class="w3-button">
-					&#2054;
-				</button>
-				<button title="Rechteck zeichnen" name="rectangle" class="w3-button">
-					&rect;
-				</button>
-				<button title="Dreieck zeichnen" name="triangle" class="w3-button">
-					&#9651;
-				</button>
-			</td>
-			<td>
-				<canvas id="canvas"></canvas>
-			</td>
-		</table>
-	</section>
+		<section id="draw">
+			<h2>MakeUp designen</h2>
+			<table>
+				<td id="controls" class="stackVertical">
+					<button title="Bild hochladen" name="upload" class="w3-button">
+						<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up"-->
+						<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+							<path fill="currentColor"
+								d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" />
+						</svg>
+					</button>
+					<button title="Bild zurücksetzen" name="clearImage" class="w3-button">
+						&#10060;
+					</button>
+					<button title="MakeUp zurücksetzen" name="clearDrawing" class="w3-button">
+						<!-- Icon von https://materialdesignicons.com/ "autorenew"-->
+						<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+							<path fill="currentColor"
+								d="M12,6V9L16,5L12,1V4A8,8 0 0,0 4,12C4,13.57 4.46,15.03 5.24,16.26L6.7,14.8C6.25,13.97 6,13 6,12A6,6 0 0,1 12,6M18.76,7.74L17.3,9.2C17.74,10.04 18,11 18,12A6,6 0 0,1 12,18V15L8,19L12,23V20A8,8 0 0,0 20,12C20,10.43 19.54,8.97 18.76,7.74Z" />
+						</svg>
+					</button>
+					<button title="Freihandzeichnen" name="freehand" class="w3-button">
+						&#128393;
+					</button>
+					<button title="Linie zeichnen" name="line" class="w3-button">
+						&#9585;
+					</button>
+					<button title="Kreis zeichnen" name="circle" class="w3-button">
+						&#9711;
+					</button>
+					<button title="Bogen zeichnen" name="arc" class="w3-button">
+						&#2054;
+					</button>
+					<button title="Rechteck zeichnen" name="rectangle" class="w3-button">
+						&rect;
+					</button>
+					<button title="Dreieck zeichnen" name="triangle" class="w3-button">
+						&#9651;
+					</button>
+				</td>
+				<td>
+					<canvas id="canvas"></canvas>
+				</td>
+			</table>
+		</section>
 
-	<section id="submit">
-		<h2>Beitrag posten</h2>
-		<form name="submitForm">
-			<div class="w3-col m6">
-				<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input w3-col l6" alt="Vorname eingeben."/>
-				<input id="lastName" name="lastName" type="text" placeholder="Mustermann" class="w3-input w3-col l6" alt="Nachname eingeben."/>
-				<input id="email" name="email" type="email" placeholder="ihre.email@provider.ch" class="w3-input w3-col" alt="Email-Adresse eingeben."/>
-			</div>
-			<textarea id="message" name="message" placeholder="Inspiriert von Lady Gaga!" class="w3-input w3-col m6" style="resize: none;" rows="3" alt="Nachricht eingeben."></textarea>
-			<input type="submit" name="submitButton" id="submitButton" class="w3-input">
-		</form>
-	</section>
+		<section id="submit">
+			<h2>Beitrag posten</h2>
+			<form name="submitForm">
+				<div class="w3-col m6">
+					<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input w3-col l6"
+						alt="Vorname eingeben." />
+					<input id="lastName" name="lastName" type="text" placeholder="Mustermann" class="w3-input w3-col l6"
+						alt="Nachname eingeben." />
+					<input id="email" name="email" type="email" placeholder="ihre.email@provider.ch"
+						class="w3-input w3-col" alt="Email-Adresse eingeben." />
+				</div>
+				<textarea id="message" name="message" placeholder="Inspiriert von Lady Gaga!" class="w3-input w3-col m6"
+					style="resize: none;" rows="3" alt="Nachricht eingeben."></textarea>
+				<input type="submit" name="submitButton" id="submitButton" class="w3-input">
+			</form>
+		</section>
 
-	<section id="posts">
-		<h2>Bisherige Beiträge ansehen.</h2>
-	</section>
+		<section id="posts">
+			<h2>Bisherige Beiträge ansehen.</h2>
+		</section>
+	</div>
+
 
 </body>
 

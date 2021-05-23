@@ -5,12 +5,26 @@ body {
 	margin: auto;
 }
 
+nav {
+	top: 0;
+	position: fixed;
+	z-index: 10;
+}
+
+h1, h2, h3, a {
+	display: flex;
+	justify-content: center;
+}
+
 /* Id-Selectors */
+
+#main {
+	margin-top: 100px;
+}
 
 #profile-picture {
 	width: 50%;
 	height: 50%;
-	margin: auto;
 	border-radius: 50%;
 	object-fit: cover;
 }
