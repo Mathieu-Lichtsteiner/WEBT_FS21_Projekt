@@ -93,6 +93,15 @@
 
 	<section id="submit">
 		<h2>Beitrag posten</h2>
+		<form name="submitForm">
+			<div class="w3-col m6">
+				<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input w3-col l6" alt="Vorname eingeben."/>
+				<input id="lastName" name="lastName" type="text" placeholder="Mustermann" class="w3-input w3-col l6" alt="Nachname eingeben."/>
+				<input id="email" name="email" type="email" placeholder="ihre.email@provider.ch" class="w3-input w3-col" alt="Email-Adresse eingeben."/>
+			</div>
+			<textarea id="message" name="message" placeholder="Inspiriert von Lady Gaga!" class="w3-input w3-col m6" style="resize: none;" rows="3" alt="Nachricht eingeben."></textarea>
+			<input type="submit" name="submitButton" id="submitButton" class="w3-input">
+		</form>
 	</section>
 
 	<section id="posts">
