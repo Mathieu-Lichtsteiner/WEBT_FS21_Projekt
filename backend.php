@@ -29,6 +29,35 @@
 	</nav>
 
 	<?php
+	function isRequiredPostSet($name) {
+		return isset($_POST[$name]) && $_POST[$name] != "";
+	}
+	function isFormDataValid() {
+		return isRequiredPostSet("firstName") &&
+			isRequiredPostSet("lastName") &&
+			isRequiredPostSet("email") &&
+			isRequiredPostSet("message");
+	}
+	function createNewFileName($fileExt) {
+		return "img/upload/" . uniqid("", true) . "." . $fileExt;
+	}
+	function getFileExtension($fileName) {
+		$split = explode(".", $fileName);
+		$last = end($split);
+		return strtolower($last);
+	}
+	function isImage($fileExt) {
+		$allowedExts = array("jpg", "jpeg", "png", "tif");
+		return in_array($fileExt, $allowedExts);
+	}
+	?>
+
+	<?php
+
+	if(isFormDataValid()){
+		
+	}
+
 	# Anleitung gemäss: https://www.youtube.com/watch?v=JaRq73y5MJk
 	if (isset($_FILES["fileInput"])) {
 		$file = $_FILES["fileInput"];
@@ -53,19 +82,6 @@
 		} else {
 			#Error falsches format
 		}
-	}
-
-	function createNewFileName($fileExt) {
-		return "img/upload/" . uniqid("", true) . "." . $fileExt;
-	}
-	function getFileExtension($fileName) {
-		$split = explode(".", $fileName);
-		$last = end($split);
-		return strtolower($last);
-	}
-	function isImage($fileExt) {
-		$allowedExts = array("jpg", "jpeg", "png", "tif");
-		return in_array($fileExt, $allowedExts);
 	}
 
 	?>

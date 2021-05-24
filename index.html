@@ -15,6 +15,7 @@
 	<script src="js/main.js"></script>
 	<script src="js/parseGetParameter.js"></script>
 	<script src="js/canvasFunctions.js"></script>
+	<script src="js/formValidation.js"></script>
 
 	<!-- Idee von https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preload -->
 	<link rel="preload" as="image" href="img/profile.jpg" />
@@ -113,15 +114,15 @@
 		<form name="submitForm" action="backend.php" method="POST">
 			<div class="w3-col m6">
 				<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input w3-col l6"
-					alt="Vorname eingeben." />
+					alt="Vorname eingeben." required minlength="2" maxlength="30"/>
 				<input id="lastName" name="lastName" type="text" placeholder="Mustermann" class="w3-input w3-col l6"
-					alt="Nachname eingeben." />
+					alt="Nachname eingeben." required minlength="2" maxlength="30" />
 				<input id="email" name="email" type="email" placeholder="ihre.email@provider.ch" class="w3-input w3-col"
-					alt="Email-Adresse eingeben." />
+					alt="Email-Adresse eingeben." required maxlength="100" pattern="(.+)(@)(.{2,})(\.)(.{2,})" /> <!-- Patternmatching mit RegEx: muss ein x@y.z enthalten, wobei x,y,z buchstaben & zahlen sein können. y&z müssen 2 oder länger sein -->
 			</div>
 			<textarea id="message" name="message" placeholder="Inspiriert von Lady Gaga!" class="w3-input w3-col m6"
 				style="resize: none;" rows="3" alt="Nachricht eingeben."></textarea>
-			<input type="submit" name="submitButton" id="submitButton" class="w3-input">
+			<input type="submit" name="submitButton" id="submitButton" onsubmit="validateForm()" class="w3-input">
 		</form>
 	</section>
 

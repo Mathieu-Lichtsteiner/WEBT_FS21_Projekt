@@ -13,7 +13,7 @@ create database portofolio;
 -- Datenbank verwenden (standard-verfahren)
 use portofolio;
 -- Tabelle "posts" erstellen (index wird für dateiname verwendet)
-create table posts (id numeric, firstName varchar(30), lastName varchar(30),  email varchar(80), created timestamp, descr varchar(1000));
+create table posts (id numeric, firstName varchar(30), lastName varchar(30), email varchar(100), created timestamp, descr varchar(1000));
 -- Abfrageindex für id erstellen
 create unique index posts_id on posts(id);
 -- Abfrageindex für firstName erstellen
