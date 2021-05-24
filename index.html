@@ -14,7 +14,7 @@
 	<!--Imports für Skripts -->
 	<script src="js/printInitialDrawing.js"></script>
 	<!-- Idee von https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preload -->
-	<link rel="preload" as="image" href="img/profile.jpg"/>
+	<link rel="preload" as="image" href="img/profile.jpg" />
 
 	<!-- Trick gelernt von: https://css-tricks.com/emojis-as-favicons/ dabei habe Ich den Code des Inline-SVGs gespeichert und nutze hier nur den link auf die Datei. -->
 	<!-- Das Emoji "lipstick" (&#128132;) kommt von https://www.utf8icons.com/character/128132/lipstick -->
@@ -66,12 +66,15 @@
 				<script>printInitialDrawing();</script>
 			</td>
 			<td id="controlColumn" class="stackVertical">
-				<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
-				<label title="Bild hochladen" id="fileContainer" class="w3-button">
-					<img alt="Symbol für upload" src="img/upload.svg" />
-					<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
-					<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png" />
-				</label>
+				<form action="backend.php" method="POST" enctype="multipart/form-data">
+					<label title="Bild hochladen" id="fileContainer" class="w3-button">
+						<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
+						<img alt="Symbol für upload" src="img/upload.svg" />
+						<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
+						<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png"
+							onchange="this.form.submit();" />
+					</label>
+				</form>
 				<button title="Bild zurücksetzen" name="clearImage" class="w3-button">
 					&#10060;
 				</button>
@@ -104,7 +107,7 @@
 	<section id="submit">
 		<!-- Ich habe hier keine labels mit dem "for" Attribut genutzt, da mir das Design mit den Placeholder Attributen deutlich besser gefällt. mit dem "alt" Attribut wird Screenreadern auch genügend information geliefert.-->
 		<h2>Beitrag posten</h2>
-		<form name="submitForm" action="backend.php">
+		<form name="submitForm" action="backend.php" method="POST">
 			<div class="w3-col m6">
 				<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input w3-col l6"
 					alt="Vorname eingeben." />

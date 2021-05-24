@@ -27,6 +27,39 @@
 		<a href="./index.html#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
 	</nav>
 
+	<?php
+	# Anleitung gemäss: https://www.youtube.com/watch?v=JaRq73y5MJk
+	if (isset($_FILES["fileInput"])) {
+		$file = $_FILES["fileInput"];
+		print_r($file);
+
+		$fileName = explode(".", $file["name"]);
+		$fileTmpName = $file["tmp_name"];
+		$fileSize = $file["size"];
+		$fileError = $file["error"];
+		$fileType = $file["type"];
+
+		$fileExt = strtolower(end($fileName));
+		$allowedExts = array("jpg", "jpeg", "png", "tif");
+		if (in_array($fileExt, $allowedExts)) {
+			if ($fileError === 0) {
+				if ($fileSize  < 200000) { // Entspricht 20mb
+					$fileNameNew = uniqid("", true) . "." . $fileExt;
+					$fileDestination = "img/upload/" . $fileNameNew;
+					move_uploaded_file($fileTmpName, $fileDestination);
+					header("Location: index.html?uploadSucess");
+				} else {
+					#Error zu gross
+				}
+			} else {
+				#Error in file
+			}
+		} else {
+			#Error falsches format
+		}
+	}
+	?>
+
 </body>
 
 </html>
