@@ -12,7 +12,10 @@
 	</title>
 
 	<!--Imports für Skripts -->
-	<script src="js/printInitialDrawing.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/parseGetParameter.js"></script>
+	<script src="js/canvasFunctions.js"></script>
+
 	<!-- Idee von https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preload -->
 	<link rel="preload" as="image" href="img/profile.jpg" />
 
@@ -62,8 +65,8 @@
 		<table>
 			<td>
 				<canvas id="canvas" width="940" height="600"></canvas>
-				<!--ursprüngliche Zeichnung -->
-				<script>printInitialDrawing();</script>
+				<!-- Canvas Bild aktualisieren -->
+				<script>updateCanvas();</script>
 			</td>
 			<td id="controlColumn" class="stackVertical">
 				<form action="backend.php" method="POST" enctype="multipart/form-data">

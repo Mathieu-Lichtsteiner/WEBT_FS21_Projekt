@@ -1,29 +1,11 @@
-function printInitialDrawing() {
-
-	// Canvas als Objektreferenz
-	var canvas = document.getElementById("canvas");
-	var context = canvas.getContext("2d");
-	context.lineWidth = 10;
-	context.strokeStyle = "black";
-
+function drawImage(context, url) {
 	// Image als Objektreferenz
 	var background = new Image();
-	background.src = "img/profile.jpg";
+	background.src = url;
 	background.onload = function () {
 		context.drawImage(background, 170, 0, 600, 600); // 1
 	}
 	console.log(background);
-
-	// Zeichenoperationen
-	// new Line(200, 200, 300, 300).draw(context);
-	// new Circle(200, 200, 50).draw(context);
-	// new Arc(300, 300, 400, 400, 20, 130).draw(context);
-	// new Rect(200, 300, 400, 400).draw(context);
-	// new Triangle(400, 100, 500, 100, 400, 200).draw(context);
-
-	// Debug informationen
-	console.log("Erstes bild geladen!");
-
 }
 
 function Line(xStart, yStart, xEnd, yEnd) {
@@ -60,7 +42,7 @@ function Arc(xStart, yStart, xEnd, yEnd, radius, angle) {
 	this.xEnd = xEnd;
 	this.yEnd = yEnd;
 	this.radius = radius;
-	this.angle = angle > Math.PI ? angle * Math.PI/180 : angle; // If in Degrees, conversion to Radians
+	this.angle = angle > Math.PI ? angle * Math.PI / 180 : angle; // If in Degrees, conversion to Radians
 
 	this.draw = function (context) {
 		context.beginPath();
@@ -108,3 +90,5 @@ function Triangle(x1, y1, x2, y2, x3, y3) {
 		console.log("Dreieck gezeichnet: (" + this.x1 + "/" + this.y1 + ") - (" + this.x2 + "/" + this.y2 + ") - (" + this.x3 + "/" + this.y3 + ")");
 	}
 }
+
+// export { drawImage, Line, Circle, Arc, Rect, Triangle };

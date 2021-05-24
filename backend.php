@@ -17,37 +17,33 @@
 
 <body>
 
-	<nav class="w3-bar">
-		<!-- In den Unterlage &#2261, funktioniert aber in utf8 nicht!, mit &#8801 würde es gehen, aber die html-identity gefällt mir am besten. -->
+	<nav class="w3-bar w3-white">
+		<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&#10094;&#10096;</a>
+		<!-- In den Unterlage &#2261, funktioniert aber in utf8 nicht!, mit &#8801 würde es gehen, aber die html-identity (Congruent & equiv) gefällt mir am besten. -->
 		<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
-		<a href="./index.html#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
-		<a href="./index.html#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
-		<a href="./index.html#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
-		<a href="./index.html#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
-		<a href="./index.html#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
+		<a href="#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
+		<a href="#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
+		<a href="#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
+		<a href="#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
+		<a href="#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
 	</nav>
 
 	<?php
 	# Anleitung gemäss: https://www.youtube.com/watch?v=JaRq73y5MJk
 	if (isset($_FILES["fileInput"])) {
 		$file = $_FILES["fileInput"];
-		print_r($file);
-
-		$fileName = explode(".", $file["name"]);
 		$fileTmpName = $file["tmp_name"];
 		$fileSize = $file["size"];
+		$maxSize = 5000000; // Entspricht 5mb
 		$fileError = $file["error"];
-		$fileType = $file["type"];
+		$fileExt = getFileExtension($file["name"]);
 
-		$fileExt = strtolower(end($fileName));
-		$allowedExts = array("jpg", "jpeg", "png", "tif");
-		if (in_array($fileExt, $allowedExts)) {
+		if (isImage($fileExt)) {
 			if ($fileError === 0) {
-				if ($fileSize  < 200000) { // Entspricht 20mb
-					$fileNameNew = uniqid("", true) . "." . $fileExt;
-					$fileDestination = "img/upload/" . $fileNameNew;
-					move_uploaded_file($fileTmpName, $fileDestination);
-					header("Location: index.html?uploadSucess");
+				if ($fileSize  < $maxSize) {
+					$newName = createNewFileName($fileExt);
+					move_uploaded_file($fileTmpName, $newName);
+					header("Location: index.html?background=$newName");
 				} else {
 					#Error zu gross
 				}
@@ -58,6 +54,20 @@
 			#Error falsches format
 		}
 	}
+
+	function createNewFileName($fileExt) {
+		return "img/upload/" . uniqid("", true) . "." . $fileExt;
+	}
+	function getFileExtension($fileName) {
+		$split = explode(".", $fileName);
+		$last = end($split);
+		return strtolower($last);
+	}
+	function isImage($fileExt) {
+		$allowedExts = array("jpg", "jpeg", "png", "tif");
+		return in_array($fileExt, $allowedExts);
+	}
+
 	?>
 
 </body>
