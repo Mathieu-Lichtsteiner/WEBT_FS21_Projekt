@@ -13,6 +13,8 @@
 
 	<!--Imports für Skripts -->
 	<script src="js/printInitialDrawing.js"></script>
+	<!-- Idee von https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preload -->
+	<link rel="preload" as="image" href="img/profile.jpg"/>
 
 	<!-- Trick gelernt von: https://css-tricks.com/emojis-as-favicons/ dabei habe Ich den Code des Inline-SVGs gespeichert und nutze hier nur den link auf die Datei. -->
 	<!-- Das Emoji "lipstick" (&#128132;) kommt von https://www.utf8icons.com/character/128132/lipstick -->
@@ -52,14 +54,14 @@
 			dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
 			magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
 			clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-		<img src="img/tutorial1.jpg" />
+		<!-- <img src="img/tutorial1.jpg" /> -->
 	</section>
 
 	<section id="draw">
 		<h2>MakeUp designen</h2>
 		<table>
 			<td>
-				<canvas id="canvas"></canvas>
+				<canvas id="canvas" width="940" height="600"></canvas>
 				<!--ursprüngliche Zeichnung -->
 				<script>printInitialDrawing();</script>
 			</td>
