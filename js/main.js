@@ -9,8 +9,8 @@ function updateCanvas() {
 	context.strokeStyle = "black";
 
 	var parameters = httpGetParameters();
-	var background = parameters['background'];
-	if (background !== "blank") { // keinen Hintergrund zeichnen
+	var background = parameters["background"];
+	if (background === "blank") { // keinen Hintergrund zeichnen
 		console.log("Background wird leer gelassen.");
 	} else { // falls kein paramter gesetzt ist, oder eine url angegeben wird.
 		var imgSource;
