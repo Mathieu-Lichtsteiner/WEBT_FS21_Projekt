@@ -63,17 +63,35 @@ function messageIsInvalid() {
 }
 
 # output-Functions
-function displayError($message) {
+function displayError($header, $message) {
 	echo ("<div class=\"w3-panel w3-pale-red w3-leftbar w3-border-red w3-border\">\n\t");
-	echo ("<h3>Es gab einen Fehler!</h3>\n\t<p>\n\t\t");
-	echo ($message);
-	echo ("\n\t</p>\n</div>");
+	displayContent($header, $message);
+	echo ("\n</div>");
 }
-function displaySuccess($message) {
+function displaySuccess($header, $message) {
 	echo ("<div class=\"w3-panel w3-pale-green w3-leftbar w3-border-green w3-border\">\n\t");
-	echo ("<h3>Formular erfolgreich eingereicht und gepostet!</h3>\n\t<p>\n\t\t");
+	displayContent($header, $message);
+	echo ("\n</div>");
+}
+function displayContent($header, $message) {
+	echo ("<h3>\n\t\t");
+	echo ($header);
+	echo ("\n\t</h3>\n\t<p>\n\t\t");
 	echo ($message);
-	echo ("\n\t</p>\n</div>");
+	echo ("\n\t</p>");
+}
+
+# SQL-Functions
+function insertNewCreation() {
+	$conn = mysqli_connect("localhost", "root", "", "portofolio");
+	if (!$conn) {
+		// Connection Failed
+		displayError(
+			"Fehler in der Datenbank!",
+			"Die Verbindung zur Datenbank konnte nicht hergestellt werden!"
+		);
+		return;
+	}
 }
 
 # File-Functions
@@ -129,23 +147,38 @@ function isImage($fileExt) {
 	if (isset($_POST["submitCreation"])) {
 		$formIsValid = true;
 		if (firstNameIsInvalid()) {
-			displayError("Der Vorname wurde vom Server ungültig empfangen! Bitte das Formular gültig ausfüllen!");
+			displayError(
+				"Formularfehler mit dem Vorname!",
+				"Der Vorname wurde vom Server ungültig empfangen. Bitte das Formular gültig ausfüllen!"
+			);
 			$formIsValid = false;
 		}
 		if (lastNameIsInvalid()) {
-			displayError("Der Nachname wurde vom Server ungültig empfangen! Bitte das Formular gültig ausfüllen!");
+			displayError(
+				"Formularfehler mit dem Nachname!",
+				"Der Nachname wurde vom Server ungültig empfangen. Bitte das Formular gültig ausfüllen!"
+			);
 			$formIsValid = false;
 		}
 		if (emailIsInvalid()) {
-			displayError("Die Email-Adresse wurde vom Server ungültig empfangen! Bitte eine gültige Email-Adresse eingeben!");
+			displayError(
+				"Formularfehler mit der Email-Adresse!",
+				"Die Email-Adresse wurde vom Server ungültig empfangen. Bitte eine gültige Email-Adresse eingeben!"
+			);
 			$formIsValid = false;
 		}
 		if (messageIsInvalid()) {
-			displayError("Die Nachricht wurde vom Server ungültig empfangen! Bitte eine anständige Nachricht mitteilen!");
+			displayError(
+				"Formularfehler mit der Nachricht!",
+				"Die Nachricht wurde vom Server ungültig empfangen. Bitte eine anständige Nachricht mitteilen!"
+			);
 			$formIsValid = false;
 		}
 		if ($formIsValid) { # Form ist korrekt ausgefüllt!
-			displaySuccess("Vielen Dank, dass Sie Ihr MakeUp mit mir teilen. Sie können auf der Homepage unter <a href=\"index.html?background=blank#posts\">\"Posts ansehen!\"</a> ihren Beitrag ansehen");
+			displaySuccess(
+				"Formular erfolgreich eingereicht und gepostet!",
+				"Vielen Dank, dass Sie Ihr MakeUp mit mir teilen. Sie können auf der Homepage unter <a href=\"index.html?background=blank#posts\">\"Posts ansehen!\"</a> ihren Beitrag ansehen"
+			);
 		}
 	}
 
