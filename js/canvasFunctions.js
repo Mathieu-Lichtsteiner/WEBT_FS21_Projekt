@@ -1,3 +1,5 @@
+// Canvas zu HTML-Image convertieren: https://meshworld.in/convert-canvas-to-an-image-using-javascript/
+
 function drawImage(context, url) {
 	// Image als Objektreferenz
 	var background = new Image();
@@ -8,11 +10,11 @@ function drawImage(context, url) {
 		const maxHeight = 600;
 		if (aspectRatio > maxWidth / maxHeight) { // Breiter als Canvas-Verhältnis
 			const newHeight = maxWidth / aspectRatio;
-			const yOffset = maxHeight/2 - newHeight/2;
+			const yOffset = maxHeight / 2 - newHeight / 2;
 			context.drawImage(this, 0, yOffset, maxWidth, newHeight);
 		} else { // Höher als Canvas-Verhältnis
 			const newWidth = maxHeight * aspectRatio;
-			const xOffset = maxWidth/2 - newWidth/2;
+			const xOffset = maxWidth / 2 - newWidth / 2;
 			context.drawImage(this, xOffset, 0, newWidth, maxHeight);
 		}
 	}

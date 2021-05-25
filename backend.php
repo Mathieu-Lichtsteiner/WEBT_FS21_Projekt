@@ -82,7 +82,7 @@ function displayContent($header, $message) {
 }
 
 # SQL-Functions
-function insertNewCreation() {
+function insertPostToDatabase() {
 	$conn = mysqli_connect("localhost", "root", "", "portofolio");
 	if (!$conn) {
 		// Connection Failed
@@ -101,6 +101,7 @@ function insertNewCreation() {
 	$message = $_POST["message"];
 	mysqli_stmt_bind_param($stmt, "ssss", $firstName, $lastName, $email, $message);
 	$res = mysqli_stmt_execute($stmt);
+	$created = mysqli_insert_id($conn); // https://www.php.net/manual/en/mysqli.insert-id.php
 	if ($res) {
 		displaySuccess(
 			"Upload Erfolgreich!",
@@ -114,6 +115,7 @@ function insertNewCreation() {
 		echo $res;
 	}
 	mysqli_close($conn);
+	return $created;
 }
 
 # File-Functions
@@ -128,6 +130,19 @@ function getFileExtension($fileName) {
 function isImage($fileExt) {
 	$allowedExts = array("jpg", "jpeg", "png", "tif");
 	return in_array($fileExt, $allowedExts);
+}
+function saveImageData($data, $fileName) {
+	$data = substr($data, strpos($data, ",") + 1); // Die Angaben vor dem Komma dienen zur identifizierung. z.B. png, usw... (aus logging entnommen)
+	$binary = base64_decode($data);
+	$resource = fopen($fileName, "wb"); // Schreiben und Binär erzwingen, siehe: https://www.php.net/manual/de/function.fopen.php
+	fwrite($resource, $binary);
+	fclose($resource);
+}
+function deleteTempImage($fileName) {
+	if (file_exists($fileName)) {
+		// See w3Schools: https://www.w3schools.com/php/func_filesystem_unlink.asp
+		unlink($fileName);
+	}
 }
 ?>
 
@@ -196,12 +211,24 @@ function isImage($fileExt) {
 			);
 			$formIsValid = false;
 		}
+		if (!isRequiredPostSet("submitCanvas")) {
+			displayError(
+				"Technischer Fehler im Bild!",
+				"Der Server hat leider Ihr gezeichnetes Bild nicht korrekt empfangen!"
+			);
+			$formIsValid = false;
+		}
 		if ($formIsValid) { # Form ist korrekt ausgefüllt!
 			displaySuccess(
 				"Formular erfolgreich eingereicht!",
 				"Vielen Dank, dass Sie Ihr MakeUp mit mir teilen. Sie können auf der Homepage unter <a href=\"index.html?background=blank#posts\">\"Posts ansehen!\"</a> ihren Beitrag ansehen"
 			);
-			insertNewCreation();
+
+			$index = insertPostToDatabase();
+			saveImageData($_POST["submitCanvas"], "img/creations/$index.png");
+			if (isRequiredPostSet("deleteImage")) { // Das Temporäre Bild wird, gelöscht, falls eines Hochgeladen wurde.
+				deleteTempImage($_POST["deleteImage"]);
+			}
 		}
 	}
 
