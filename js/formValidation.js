@@ -1,7 +1,7 @@
 function validateForm() {
 	var message = document.getElementById("message").value.trim();
 	if(message.length <= 3){
-		alert("Die Nachricht muss mindestens 3 Zeichen lang sein!");
+		alert("Die Nachricht muss mindestens 4 Zeichen lang sein!");
 		return false; // min. länge von 4
 	}
 	if(message.length > 1000){
