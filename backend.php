@@ -92,6 +92,12 @@ function insertNewCreation() {
 		);
 		return;
 	}
+	$query = "insert into posts (firstName, lastName, email, created, descr) values (?, ?, ?, now(), ?)";
+	$stmt = mysqli_prepare($conn, $query);
+	mysqli_stmt_bind_param($stmt, "ssss", $firstName, $lastName, $email, $message);
+
+	$res = mysqli_stmt_execute($stmt);
+	mysqli_close($conn);
 }
 
 # File-Functions
@@ -179,6 +185,7 @@ function isImage($fileExt) {
 				"Formular erfolgreich eingereicht und gepostet!",
 				"Vielen Dank, dass Sie Ihr MakeUp mit mir teilen. Sie können auf der Homepage unter <a href=\"index.html?background=blank#posts\">\"Posts ansehen!\"</a> ihren Beitrag ansehen"
 			);
+			insertNewCreation();
 		}
 	}
 
