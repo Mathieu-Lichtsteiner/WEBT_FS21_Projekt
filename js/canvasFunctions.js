@@ -3,7 +3,18 @@ function drawImage(context, url) {
 	var background = new Image();
 	background.src = url;
 	background.onload = function () {
-		context.drawImage(background, 170, 0, 600, 600); // 1
+		const aspectRatio = this.width / this.height;
+		const maxWidth = 940;
+		const maxHeight = 600;
+		if (aspectRatio > maxWidth / maxHeight) { // Breiter als Canvas-Verhältnis
+			const newHeight = maxWidth / aspectRatio;
+			const yOffset = maxHeight/2 - newHeight/2;
+			context.drawImage(this, 0, yOffset, maxWidth, newHeight);
+		} else { // Höher als Canvas-Verhältnis
+			const newWidth = maxHeight * aspectRatio;
+			const xOffset = maxWidth/2 - newWidth/2;
+			context.drawImage(this, xOffset, 0, newWidth, maxHeight);
+		}
 	}
 	console.log(background);
 }
