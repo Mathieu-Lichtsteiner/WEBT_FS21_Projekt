@@ -9,17 +9,17 @@ Reihen:
 */
 
 -- Datenbank "portofolio" erstellen
-create database portofolio;
+CREATE DATABASE portofolio;
 -- Datenbank verwenden (standard-verfahren)
-use portofolio;
--- Tabelle "posts" erstellen (index wird für dateiname verwendet)
-create table posts (id numeric not null AUTO_INCREMENT, firstName varchar(30) not null, lastName varchar(30) not null, email varchar(100) not null, created timestamp not null, descr varchar(1000) not null, primary key (id));
+USE portofolio;
+-- Tabelle "posts" erstellen (index wird für dateiname verwendet) (Achtung um Auto_increment zu brauchen, muss der typ von id ein int sein, was ich mit trial & error gemerkt habe)
+CREATE TABLE posts (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, firstName varchar(30) NOT NULL, lastName varchar(30) NOT NULL, email varchar(100) NOT NULL, created timestamp NOT NULL, descr varchar(1000) NOT NULL);
 -- Abfrageindex für id erstellen
-create unique index posts_id on posts(id);
+CREATE UNIQUE INDEX posts_id ON posts(id);
 -- Abfrageindex für firstName erstellen
-create index posts_firsName on posts(firstName);
+CREATE INDEX posts_firsName ON posts(firstName);
 -- Abfrageindex für lastName erstellen
-create index posts_lastName on posts(lastName);
+CREATE INDEX posts_lastName ON posts(lastName);
 
 -- Erste Einträge erstellen
-insert into posts (id, firstName, lastName, email, created, descr) values (1, "Mathieu", "Lichtsteiner", "mathieu.lichtsteiner@stud.hslu.ch", timestamp('2021-05-23 15:00:20'), "Das ist mein erstes Experiment!");
+INSERT INTO posts (firstName, lastName, email, created, descr) VALUES ("Mathieu", "Lichtsteiner", "mathieu.lichtsteiner@stud.hslu.ch", timestamp('2021-05-23 15:00:20'), "Das ist mein erstes Experiment!");

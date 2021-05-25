@@ -92,11 +92,27 @@ function insertNewCreation() {
 		);
 		return;
 	}
-	$query = "insert into posts (firstName, lastName, email, created, descr) values (?, ?, ?, now(), ?)";
+	$query = "INSERT INTO posts (firstName, lastName, email, created, descr) VALUES (?, ?, ?, now(), ?)";
 	$stmt = mysqli_prepare($conn, $query);
+	// Es müssen bereits alle Post-Parameter korrekt sein, bevor diese Methode aufgerufen wird.
+	$firstName = $_POST["firstName"];
+	$lastName = $_POST["lastName"];
+	$email = $_POST["email"];
+	$message = $_POST["message"];
 	mysqli_stmt_bind_param($stmt, "ssss", $firstName, $lastName, $email, $message);
-
 	$res = mysqli_stmt_execute($stmt);
+	if ($res) {
+		displaySuccess(
+			"Upload Erfolgreich!",
+			"Ihr Beitrag wurde erfolgreich in die Datenbank gespeichert!"
+		);
+	} else {
+		displayError(
+			"Fehler beim Upload!",
+			"Es ist ein Fehler aufgetreten, bei dem Versuch, ihren Beitrag zu speichern!"
+		);
+		echo $res;
+	}
 	mysqli_close($conn);
 }
 
@@ -147,7 +163,7 @@ function isImage($fileExt) {
 
 	<div name="nav-Abstand"></div>
 
-	<?php
+	<?php echo ("\n");
 
 	# Submit Creation
 	if (isset($_POST["submitCreation"])) {
@@ -182,7 +198,7 @@ function isImage($fileExt) {
 		}
 		if ($formIsValid) { # Form ist korrekt ausgefüllt!
 			displaySuccess(
-				"Formular erfolgreich eingereicht und gepostet!",
+				"Formular erfolgreich eingereicht!",
 				"Vielen Dank, dass Sie Ihr MakeUp mit mir teilen. Sie können auf der Homepage unter <a href=\"index.html?background=blank#posts\">\"Posts ansehen!\"</a> ihren Beitrag ansehen"
 			);
 			insertNewCreation();
