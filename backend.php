@@ -114,12 +114,14 @@ function isImage($fileExt) {
 		<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&#10094;&#10096;</a>
 		<!-- In den Unterlage &#2261, funktioniert aber in utf8 nicht!, mit &#8801 würde es gehen, aber die html-identity (Congruent & equiv) gefällt mir am besten. -->
 		<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
-		<a href="index.html#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
-		<a href="index.html#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
-		<a href="index.html#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
-		<a href="index.html#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
-		<a href="index.html#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
+		<a href="index.html#home?background=blank" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
+		<a href="index.html#information?background=blank" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
+		<a href="index.html#draw?background=blank" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
+		<a href="index.html#submit?background=blank" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
+		<a href="index.html#posts?background=blank" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
 	</nav>
+
+	<div name="nav-Abstand"></div>
 
 	<?php
 
@@ -143,7 +145,7 @@ function isImage($fileExt) {
 			$formIsValid = false;
 		}
 		if ($formIsValid) { # Form ist korrekt ausgefüllt!
-			displaySuccess("Vielen Dank, dass Sie Ihr MakeUp mit mir teilen. Sie können auf der Homepage unter <a href=\"index.html#posts?background=empty\">\"Posts ansehen!\"</a> ihren Beitrag ansehen");
+			displaySuccess("Vielen Dank, dass Sie Ihr MakeUp mit mir teilen. Sie können auf der Homepage unter <a href=\"index.html#posts?background=blank\">\"Posts ansehen!\"</a> ihren Beitrag ansehen");
 		}
 	}
 

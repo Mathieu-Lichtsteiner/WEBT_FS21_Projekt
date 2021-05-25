@@ -22,10 +22,6 @@ h1, h2, h3, a {
 
 /* Id-Selectors */
 
-#home {
-	margin-top: 100px;
-}
-
 #profile-picture {
 	width: 50%;
 	height: 50%;
@@ -46,6 +42,12 @@ h1, h2, h3, a {
 #fileInput {
 	position: relative;
 	top: -10000px;
+}
+
+/* Attribute-Selectors */
+
+div[name="nav-Abstand"] {
+	margin-top: 100px;
 }
 
 /* Class-Selectors */
@@ -69,4 +71,8 @@ h1, h2, h3, a {
 .stackVertical {
 	display: flex;
 	flex-flow: column;
+}
+
+.w3-panel {
+	text-align: center;
 }

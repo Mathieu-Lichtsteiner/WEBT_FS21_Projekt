@@ -8,16 +8,21 @@ function updateCanvas() {
 	context.lineWidth = 5;
 	context.strokeStyle = "black";
 
-	var imgSource;
 	var parameters = httpGetParameters();
-	if (parameters['background']) {
-		console.log("Background extrahiert.");
-		imgSource = parameters["background"];
-	} else {
-		console.log("Standard-Bild gesetzt.");
-		imgSource = "img/profile.jpg";
+	var background = parameters['background'];
+	if (background !== "blank") { // keinen Hintergrund zeichnen
+		console.log("Background wird leer gelassen.");
+	} else { // falls kein paramter gesetzt ist, oder eine url angegeben wird.
+		var imgSource;
+		if (background) { // Background mit URL zeichnen
+			console.log("Background extrahiert.");
+			imgSource = background;
+		} else { // Standard-Bild zeichnen
+			console.log("Standard-Bild gesetzt.");
+			imgSource = "img/profile.jpg";
+		}
+		drawImage(context, imgSource);
 	}
-	drawImage(context, imgSource);
 }
 
 function testCanvasFunctions(context) {
