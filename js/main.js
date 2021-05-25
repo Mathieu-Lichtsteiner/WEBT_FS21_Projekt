@@ -19,18 +19,25 @@ function updateCanvas() {
 			imgSource = background;
 		} else { // Standard-Bild zeichnen
 			console.log("Standard-Bild gesetzt.");
+			drawInitialMakeUp(context);
 			imgSource = "img/profile.jpg";
 		}
 		drawImage(context, imgSource);
 	}
 }
 
-function testCanvasFunctions(context) {
-	new Line(200, 200, 300, 300).draw(context);
-	new Circle(200, 200, 50).draw(context);
-	new Arc(300, 300, 400, 400, 20, 130).draw(context);
-	new Rect(200, 300, 400, 400).draw(context);
-	new Triangle(400, 100, 500, 100, 400, 200).draw(context);
+function drawInitialMakeUp(context) {
+	//For testing my Custom Functions
+	var strokes = [
+		new Line(200, 200, 300, 300),
+		new Circle(200, 200, 50),
+		new Arc(300, 300, 400, 400, 20, 130),
+		new Rect(200, 300, 400, 400),
+		new Triangle(400, 100, 500, 100, 400, 200)
+	];
+	strokes.forEach(stroke => {
+		stroke.draw(context);
+	});
 }
 
 // export {updateCanvas};
