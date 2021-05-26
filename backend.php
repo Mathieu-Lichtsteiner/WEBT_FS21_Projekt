@@ -99,7 +99,7 @@ function printHTMLHead() {
 	HTML;
 }
 function printHTMLTail() {
-	echo ("\n</body>\n\n</html>");
+	echo ("\n\n\t<div name=\"footer-Abstand\"></div>\n\n</body>\n\n</html>");
 }
 
 # output-Functions
@@ -288,16 +288,16 @@ if (isset($_GET["upload"])) {
 	try {
 		$newName = saveUploadedFile("fileInput");
 		header("Location: index.html?background=$newName#draw");
-	} catch (FileNotSentException) {
+	} catch (FileNotSentException $fnsEx) {
 		$errorTitle = "Keine Datei hochgeladen!";
 		$errorMessage = "Es wurde vom Server leider keine gültige Datei empfangen.";
-	} catch (FileErrorException) {
+	} catch (FileErrorException $feEx) {
 		$errorTitle = "Fehler in der Datei!";
 		$errorMessage = "Es wurde vom Server leider keine gültige Datei empfangen.";
-	} catch (FileFormatException) {
+	} catch (FileFormatException $ffEx) {
 		$errorTitle = "Falsches Dateiformat hochgeladen!";
 		$errorMessage = "Die hochgeladene Datei ist leider im Falschen Format. Bitte nur .jpg oder .jpeg oder .png hochladen!";
-	} catch (FileSizeException) {
+	} catch (FileSizeException $fsEx) {
 		$errorTitle = "Datei zu gross!";
 		$errorMessage = "Die Datei darf nur maximal 20MB gross sein. Bitte ein kleineres Bild hochladen!";
 	}

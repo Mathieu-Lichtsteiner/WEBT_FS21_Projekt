@@ -50,6 +50,10 @@ div[name="nav-Abstand"] {
 	margin-top: 100px;
 }
 
+div[name="footer-Abstand"] {
+	margin-bottom: 100px;
+}
+
 /* Class-Selectors */
 
 .centerHorizontal {
