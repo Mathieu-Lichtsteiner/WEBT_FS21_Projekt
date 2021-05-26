@@ -1,6 +1,6 @@
 // Canvas zu HTML-Image convertieren: https://meshworld.in/convert-canvas-to-an-image-using-javascript/
 
-function drawImage(context, url) {
+function drawImage(context, url, makeUp = false) {
 	// Image als Objektreferenz
 	var background = new Image();
 	background.src = url;
@@ -17,8 +17,30 @@ function drawImage(context, url) {
 			const xOffset = maxWidth / 2 - newWidth / 2;
 			context.drawImage(this, xOffset, 0, newWidth, maxHeight);
 		}
+		if (makeUp) {
+			makeUp(context);
+		}
 	}
 	console.log(background);
+}
+
+function drawInitialMakeUp(context) {
+	//For testing my Custom Functions
+	var strokes = [
+		new Circle(370, 250, 60),
+		new Circle(520, 250, 60),
+		new Line(430, 250, 460, 250),
+		new Line(450, 100, 420, 150),
+		new Line(420, 150, 480, 150),
+		new Line(480, 150, 450, 200),
+		new Line(580, 250, 630, 280),
+		new Circle(605, 365, 5),
+		new Circle(605, 378, 10),
+		new Circle(605, 406, 20),
+	];
+	strokes.forEach(stroke => {
+		stroke.draw(context);
+	});
 }
 
 function Line(xStart, yStart, xEnd, yEnd) {
@@ -103,5 +125,3 @@ function Triangle(x1, y1, x2, y2, x3, y3) {
 		console.log("Dreieck gezeichnet: (" + this.x1 + "/" + this.y1 + ") - (" + this.x2 + "/" + this.y2 + ") - (" + this.x3 + "/" + this.y3 + ")");
 	}
 }
-
-// export { drawImage, Line, Circle, Arc, Rect, Triangle };

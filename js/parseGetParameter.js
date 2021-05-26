@@ -8,5 +8,3 @@ function httpGetParameters() {
 	}
 	return parameters;
 }
-
-// export { httpGetParameters };
