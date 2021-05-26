@@ -37,9 +37,10 @@ function formatPost(object) {
 	var created = convertDate(object["created"]);
 	var msg = object["msg"];
 
-	var htmlImage = "\t<image href=\"" + object["imgUrl"] + "\" alt=\" Dieser Post wurde von " + firstName + " " + lastName + " am " + created + " erstellt. \"/>\n";
-	var htmlUser = pWithClass(firstName, "firstName") + pWithClass(lastName, "lastName") + pWithClass(created, "date");
-	var htmlMsg = pWithClass(msg, "comment");
+	var htmlImage = "\t<image src=\"" + object["imgUrl"] + "\" alt=\" Dieser Post wurde von " + firstName + " " + lastName + " am " + created + " erstellt. \"/>\n";
+	var htmlUser = divWithClass(pWithClass(firstName, "firstName w3-col l6") + pWithClass(lastName, "lastName w3-col l6") + pWithClass(created, "date") + "\n", "user w3-col m5");
+	var htmlMsg = pWithClass(msg, "comment w3-col m7");
+
 	return divWithClass(htmlImage + htmlUser + htmlMsg, "post");
 }
 

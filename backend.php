@@ -81,13 +81,13 @@ function printHTMLHead() {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="author" content="Mathieu Lichtsteiner" />
-		<meta name="description" content="Das ist das Resultat des Unterrichts im Modul \&quot;Webtechnologien\&quot;. Diese Webseite ist mit Humor zu geniessen..." />
+		<meta name="description" content="Das ist das Resultat des Unterrichts im Modul &quot;Webtechnologien&quot;. Diese Webseite ist mit Humor zu geniessen..." />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>
 			Mathieu's MakeUp Studio
 		</title>
 
-		<link rel="shortcut icon" type="image/png" href="img/lipstick.png" />
+		<link rel="shortcut icon" href="img/lipstick.svg">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 		<link rel="stylesheet" href="css/main.css" />
 	</head>
@@ -203,6 +203,8 @@ function cleanJson($sqlRow) {
 		$path = "img/creations/" . $sqlRow["id"] . ".png";
 		if (file_exists($path)) {
 			$row["imgUrl"] = $path;
+		} else {
+			$row["imgUrl"] = "img/404-error.gif"; // Freie & Kommerzielle nutzung von: https://www.worldwidejournals.com/paripex/images/404-error.gif
 		}
 		unset($sqlRow["id"]);
 		return $sqlRow;
