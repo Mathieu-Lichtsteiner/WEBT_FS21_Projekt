@@ -14,6 +14,7 @@
 	<!--Imports für Skripts -->
 	<script src="js/main.js"></script>
 	<script src="js/parseGetParameter.js"></script>
+	<script src="js/canvasEvents.js"></script>
 	<script src="js/canvasFunctions.js"></script>
 	<script src="js/formFunctions.js"></script>
 	<script src="js/loadPosts.js"></script>
@@ -69,7 +70,6 @@
 					<p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element
 						nicht.</p>
 				</canvas>
-				<!-- Canvas Bild aktualisieren -->
 				<script>initCanvas();</script>
 			</td>
 			<td id="controlColumn" class="stackVertical">
@@ -83,11 +83,11 @@
 							onchange="this.form.submit();" />
 					</label>
 				</form>
-				<button title="Bild zurücksetzen" name="clearImage" class="w3-button">
+				<button title="Bild zurücksetzen" onclick="clearCanvas();" name="clearImage" class="w3-button">
 					&#10060;
 				</button>
 				<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
-				<button title="MakeUp zurücksetzen" name="clearDrawing" class="w3-button">
+				<button title="MakeUp zurücksetzen" onclick="clearMakeUp();" name="clearDrawing" class="w3-button">
 					<img alt="Symbol für löschen" src="img/clear.svg">
 				</button>
 				<button title="Freihand zeichnen" name="freehand" class="w3-button">

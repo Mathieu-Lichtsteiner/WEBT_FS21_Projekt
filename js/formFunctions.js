@@ -25,7 +25,6 @@ function validateForm() {
 // Interessanter Link, langes suchen: https://re-cycledair.com/html-5-canvas-saving-to-a-file-with-php 
 function appendCanvasToForm() {
 	// Bild von Canvas mit dem Formular mitschicken
-	var canvas = document.getElementById("canvas");
 	var formCanvas = document.getElementById("submitCanvas");
 	formCanvas.value = canvas.toDataURL();
 	// Get-Paramter übermitteln, um das Hintergrundbild wieder zu löschen!

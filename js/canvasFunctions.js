@@ -1,30 +1,47 @@
 // Canvas zu HTML-Image convertieren: https://meshworld.in/convert-canvas-to-an-image-using-javascript/
-
-function drawImage(context, url, makeUp = false) {
+function loadImage() {
+	var parameters = httpGetParameters();
+	var imgUrl = parameters["background"];
+	if (imgUrl === "blank") {
+		// keinen Hintergrund zeichnen
+		console.log("Background wird leer gelassen.");
+		return;
+	}
+	var makeUp;
+	if (!imgUrl) {
+		// Standard-Bild zeichnen
+		console.log("Standard-Bild wird gesetzt.");
+		imgUrl = "img/profile.jpg";
+		makeUp = drawInitialMakeUp;
+	} else {
+		// Background mit URL zeichnen
+		console.log("Background extrahiert.");
+	}
 	// Image als Objektreferenz
 	var background = new Image();
-	background.src = url;
-	background.onload = function () {
-		const aspectRatio = this.width / this.height;
-		const maxWidth = 940;
-		const maxHeight = 600;
-		if (aspectRatio > maxWidth / maxHeight) { // Breiter als Canvas-Verhältnis
-			const newHeight = maxWidth / aspectRatio;
-			const yOffset = maxHeight / 2 - newHeight / 2;
-			context.drawImage(this, 0, yOffset, maxWidth, newHeight);
-		} else { // Höher als Canvas-Verhältnis
-			const newWidth = maxHeight * aspectRatio;
-			const xOffset = maxWidth / 2 - newWidth / 2;
-			context.drawImage(this, xOffset, 0, newWidth, maxHeight);
-		}
-		if (makeUp) {
-			makeUp(context);
-		}
-	}
-	console.log(background);
+	background.src = imgUrl;
+	background.onload = drawImage;
 }
 
-function drawInitialMakeUp(context) {
+function drawImage() {
+	const aspectRatio = this.width / this.height;
+	const maxWidth = 940;
+	const maxHeight = 600;
+	if (aspectRatio > maxWidth / maxHeight) { // Breiter als Canvas-Verhältnis
+		const newHeight = maxWidth / aspectRatio;
+		const yOffset = maxHeight / 2 - newHeight / 2;
+		context.drawImage(this, 0, yOffset, maxWidth, newHeight);
+	} else { // Höher als Canvas-Verhältnis
+		const newWidth = maxHeight * aspectRatio;
+		const xOffset = maxWidth / 2 - newWidth / 2;
+		context.drawImage(this, xOffset, 0, newWidth, maxHeight);
+	}
+	if (makeUp) {
+		makeUp();
+	}
+}
+
+function drawInitialMakeUp() {
 	//For testing my Custom Functions
 	var strokes = [
 		new Circle(370, 250, 60),
@@ -39,8 +56,17 @@ function drawInitialMakeUp(context) {
 		new Circle(605, 406, 20),
 	];
 	strokes.forEach(stroke => {
-		stroke.draw(context);
+		stroke.draw();
 	});
+}
+
+function clearCanvas() {
+	context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function clearMakeUp() {
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	loadImage();
 }
 
 function Line(xStart, yStart, xEnd, yEnd) {
@@ -49,7 +75,7 @@ function Line(xStart, yStart, xEnd, yEnd) {
 	this.xEnd = xEnd;
 	this.yEnd = yEnd;
 
-	this.draw = function (context) {
+	this.draw = function () {
 		context.beginPath();
 		context.moveTo(this.xStart, this.yStart);
 		context.lineTo(this.xEnd, this.yEnd);
@@ -63,7 +89,7 @@ function Circle(x, y, radius) {
 	this.y = y;
 	this.radius = radius;
 
-	this.draw = function (context) {
+	this.draw = function () {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
 		context.stroke();
@@ -79,7 +105,7 @@ function Arc(xStart, yStart, xEnd, yEnd, radius, angle) {
 	this.radius = radius;
 	this.angle = angle > Math.PI ? angle * Math.PI / 180 : angle; // If in Degrees, conversion to Radians
 
-	this.draw = function (context) {
+	this.draw = function () {
 		context.beginPath();
 		context.moveTo(xStart, xEnd);
 		context.arcTo(xStart, yStart, xEnd, yEnd, radius);
@@ -95,7 +121,7 @@ function Rect(xStart, yStart, xEnd, yEnd) {
 	this.xEnd = xEnd;
 	this.yEnd = yEnd;
 
-	this.draw = function (context) {
+	this.draw = function () {
 		context.beginPath();
 		context.moveTo(this.xStart, this.yStart);
 		context.lineTo(this.xStart, this.yEnd);
@@ -115,7 +141,7 @@ function Triangle(x1, y1, x2, y2, x3, y3) {
 	this.x3 = x3;
 	this.y3 = y3;
 
-	this.draw = function (context) {
+	this.draw = function () {
 		context.beginPath();
 		context.moveTo(this.x1, this.y1);
 		context.lineTo(this.x2, this.y2);
