@@ -12,7 +12,7 @@ nav {
 }
 
 h2 {
-	margin-top: 50px;
+	padding-top: 50px;
 }
 
 h1, h2, h3, a {
@@ -80,4 +80,8 @@ div[name="footer-Abstand"] {
 
 .w3-panel {
 	text-align: center;
+}
+
+.userName {
+	font-weight: bolder;
 }
