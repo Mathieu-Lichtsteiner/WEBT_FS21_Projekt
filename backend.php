@@ -223,7 +223,7 @@ function deleteTempImage($fileName) {
 
 <?php echo ("\n"); // -------------------- MAIN-PROGRAMM --------------------
 
-# Submit Creation 
+# SUBMIT CREATION
 if (isset($_GET["submit"])) { // Mithilfe des Get-Parameters wird erkannt, dass es sich um das eingereichte Form handelt.
 	printHTMLHead(); // Es wird die Navigation & alle head-Informationen gepostet.
 
@@ -280,7 +280,7 @@ if (isset($_GET["submit"])) { // Mithilfe des Get-Parameters wird erkannt, dass 
 	printHTMLTail(); // Es werden die geöffneten Tags des HTML-Heads geschlossen.
 }
 
-# File-Upload
+# UPLOAD BACKGROUND
 # Anleitung gemäss: https://www.youtube.com/watch?v=JaRq73y5MJk
 if (isset($_GET["upload"])) {
 	$errorTitle = "Es gab einen unbekannten Fehler!";
@@ -305,6 +305,10 @@ if (isset($_GET["upload"])) {
 	printHTMLHead();
 	displayError($errorTitle, $errorMessage);
 	printHTMLTail();
+}
+
+# LOAD POSTS
+if (isset($_GET["load"])) {
 }
 
 ?>

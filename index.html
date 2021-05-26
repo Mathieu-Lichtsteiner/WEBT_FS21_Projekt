@@ -16,6 +16,7 @@
 	<script src="js/parseGetParameter.js"></script>
 	<script src="js/canvasFunctions.js"></script>
 	<script src="js/formValidation.js"></script>
+	<script src="js/loadPosts.js"></script>
 
 	<!-- Idee von https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preload -->
 	<link rel="preload" as="image" href="img/profile.jpg" />
@@ -140,6 +141,9 @@
 
 	<section id="posts">
 		<h2>Bisherige Beiträge ansehen.</h2>
+		<button id="loadMore" onclick="loadPictures();">Mehr Posts laden!</button>
+		<!-- Erste beiträge laden aktualisieren -->
+		<script>loadPictures();</script>
 	</section>
 
 
