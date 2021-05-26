@@ -72,6 +72,18 @@ function clearMakeUp() {
 	loadImage();
 }
 
+function Point(x, y) {
+	this.x = x;
+	this.y = y;
+
+	this.log = function(){
+		console.log("Punkt: X=" + this.x + ", Y=" + this.y);
+	}
+}
+
+function Line(start, end) {
+	return Line(start.x, start.y, end.x, end.y);
+}
 function Line(xStart, yStart, xEnd, yEnd) {
 	this.xStart = xStart;
 	this.yStart = yStart;
@@ -87,6 +99,10 @@ function Line(xStart, yStart, xEnd, yEnd) {
 	}
 }
 
+function Circle(first, second, third) {
+	// http://ambrsoft.com/TrigoCalc/Circle3D.htm
+	alert("Noch nicht Implementiert!");
+}
 function Circle(x, y, radius) {
 	this.x = x;
 	this.y = y;
@@ -100,6 +116,10 @@ function Circle(x, y, radius) {
 	}
 }
 
+function Arc(first, second, third) {
+	alert("Noch nicht Implementiert!");
+	//return Arc(first.x, first.y, second.x, second.y, third.x, third.y);
+}
 function Arc(xStart, yStart, xEnd, yEnd, radius, angle) {
 	this.xStart = xStart;
 	this.yStart = yStart;
@@ -118,7 +138,10 @@ function Arc(xStart, yStart, xEnd, yEnd, radius, angle) {
 	}
 }
 
-function Rect(xStart, yStart, xEnd, yEnd) {
+function Rectangle(first, second) {
+	return Rectangle(first.x, first.y, second.x, second.y);
+}
+function Rectangle(xStart, yStart, xEnd, yEnd) {
 	this.xStart = xStart;
 	this.yStart = yStart;
 	this.xEnd = xEnd;
@@ -136,6 +159,9 @@ function Rect(xStart, yStart, xEnd, yEnd) {
 	}
 }
 
+function Triangle(first, second, third) {
+	return (first.x, first.y, second.x, second.y, third.x, third.y);
+}
 function Triangle(x1, y1, x2, y2, x3, y3) {
 	this.x1 = x1;
 	this.y1 = y1;

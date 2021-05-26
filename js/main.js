@@ -3,6 +3,9 @@ var canvas;
 var context;
 var initial = true;
 var makeUp;
+var onMouseDown, onMouseUp, onMouseMove, onMouseClick;
+var first, second, third;
+var oldMode;
 
 function initCanvas() {
 	canvas = document.getElementById("canvas");
@@ -11,4 +14,5 @@ function initCanvas() {
 	context.strokeStyle = "black";
 
 	initEvents();
+	setMode('freehand');
 }
