@@ -26,7 +26,7 @@
 	<link rel="stylesheet" href="css/main.css" />
 </head>
 
-<body>
+<body onload="initCanvas();">
 
 	<nav class="w3-bar w3-white">
 		<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&#10094;&#10096;</a>
@@ -70,7 +70,6 @@
 					<p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element
 						nicht.</p>
 				</canvas>
-				<script>initCanvas();</script>
 			</td>
 			<td id="controlColumn" class="stackVertical">
 				<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->

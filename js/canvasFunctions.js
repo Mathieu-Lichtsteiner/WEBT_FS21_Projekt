@@ -7,7 +7,6 @@ function loadImage() {
 		console.log("Background wird leer gelassen.");
 		return;
 	}
-	var makeUp;
 	if (!imgUrl) {
 		// Standard-Bild zeichnen
 		console.log("Standard-Bild wird gesetzt.");
