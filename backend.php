@@ -171,7 +171,7 @@ function getPostsFromDatabase($offset) {
 		return;
 	}
 
-	$query = "SELECT id, firstName, lastName, email, created, msg from posts where id > ? and id <= ?";
+	$query = "SELECT id, firstName, lastName, created, msg from posts where id > ? and id <= ?";
 	$stmt = mysqli_prepare($conn, $query);
 	$end = $offset + 3;
 	mysqli_stmt_bind_param($stmt, "ii", $offset, $end);
@@ -190,11 +190,21 @@ function getPostsFromDatabase($offset) {
 
 	$data = array();
 	while ($row = mysqli_fetch_assoc($result)) {
-		array_push($data, $row);
+		array_push($data, cleanJson($row));
 	}
 
 	mysqli_close($conn);
 	return $data;
+}
+function cleanJson($sqlRow) {
+	if (isset($sqlRow["id"])) { // convert id to img URL
+		$path = "img/creations/" . $sqlRow["id"] . ".png";
+		if (file_exists($path)) {
+			$row["imgUrl"] = $path;
+		}
+		unset($sqlRow["id"]);
+		return $sqlRow;
+	}
 }
 
 # File-Exceptions

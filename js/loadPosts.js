@@ -19,7 +19,7 @@ function prependPosts() {
 	var loadMore = document.getElementById("loadMore");
 
 	if (result.length == 0) { // Wenn bereits alle Bilder geladen wurden.
-		loadMore.outerHTML = "<div class=\"w3-panel\"><p>Alle Bilder geladen!</p><div>";
+		loadMore.outerHTML = divWithClass("<p>Alle Bilder geladen!</p>", "w3-panel");;
 		return;
 	}
 
@@ -32,12 +32,28 @@ function prependPosts() {
 }
 
 function formatPost(object) {
-	console.log(
-	+ object["id"]
-	+ object["firstName"]
-	+ object["lastName"]
-	+ object["email"]
-	+ object["created"]
-	+ object["msg"]
-	);
+	var firstName = object["firstName"];
+	var lastName = object["lastName"];
+	var created = convertDate(object["created"]);
+	var msg = object["msg"];
+
+	var htmlImage = "\t<image href=\"" + object["imgUrl"] + "\" alt=\" Dieser Post wurde von " + firstName + " " + lastName + " am " + created + " erstellt. \"/>\n";
+	var htmlUser = pWithClass(firstName, "firstName") + pWithClass(lastName, "lastName") + pWithClass(created, "date");
+	var htmlMsg = pWithClass(msg, "comment");
+	return divWithClass(htmlImage + htmlUser + htmlMsg, "post");
+}
+
+function convertDate(timeStamp) {
+	console.log(timeStamp);
+	var date = timeStamp;
+	console.log(date);
+	return date;
+}
+
+function pWithClass(content, cssClass) {
+	return "\t<p class=\"" + cssClass + "\">" + content + "</p>\n";
+}
+
+function divWithClass(content, cssClass) {
+	return "<div class=\"" + cssClass + "\">\n\t" + content + "\n</div>";
 }
