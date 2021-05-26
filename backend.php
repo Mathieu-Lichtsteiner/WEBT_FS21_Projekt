@@ -1,4 +1,4 @@
-<?php
+<?php // -------------------- FUNKTIONEN -------------------------
 
 # Parameter-Checking
 function isRequiredPostSet($name) {
@@ -62,6 +62,46 @@ function messageIsInvalid() {
 	return true;
 }
 
+# HTML-Functions
+function printHTMLHead() {
+	echo <<<HTML
+	<!DOCTYPE html>
+	<html lang="de">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="author" content="Mathieu Lichtsteiner" />
+		<meta name="description" content="Das ist das Resultat des Unterrichts im Modul \&quot;Webtechnologien\&quot;. Diese Webseite ist mit Humor zu geniessen..." />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>
+			Mathieu's MakeUp Studio
+		</title>
+
+		<link rel="shortcut icon" type="image/png" href="img/lipstick.png" />
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+
+	<body>
+
+		<nav class="w3-bar w3-white">
+			<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&#10094;&#10096;</a>
+			<!-- In den Unterlage &#2261, funktioniert aber in utf8 nicht!, mit &#8801 würde es gehen, aber die html-identity (Congruent & equiv) gefällt mir am besten. -->
+			<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
+			<a href="index.html?background=blank#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
+			<a href="index.html?background=blank#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
+			<a href="index.html?background=blank#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
+			<a href="index.html?background=blank#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
+			<a href="index.html?background=blank#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
+		</nav>
+
+		<div name="nav-Abstand"></div>
+	HTML;
+}
+function printHTMLTail() {
+	echo ("\n</body>\n\n</html>");
+}
+
 # output-Functions
 function displayError($header, $message) {
 	echo ("<div class=\"w3-panel w3-pale-red w3-leftbar w3-border-red w3-border\">\n\t");
@@ -117,19 +157,53 @@ function insertPostToDatabase() {
 	mysqli_close($conn);
 	return $created;
 }
-
+class FileNotSentException extends Exception {
+}
+class FileErrorException extends Exception {
+}
+class FileFormatException extends Exception {
+}
+class FileSizeException extends Exception {
+}
 # File-Functions
-function createNewFileName($fileExt) {
-	return "img/upload/" . uniqid("", true) . "." . $fileExt;
+function saveUploadedFile($parameterName) { // Für die PHP-Exceptions siehe: https://www.php.net/manual/en/spl.exceptions.php
+	if (!isset($_FILES[$parameterName])) {
+		#Error kein File mitgeliefert!
+		throw new FileNotSentException();
+	}
+	$file = $_FILES[$parameterName];
+	if ($file["error"] !== 0) {
+		deleteTempImage($file["tmp_name"]);
+		#Error in file
+		throw new FileErrorException();
+	}
+	$fileExt = getFileExtension($file["name"]);
+	if (!isAllowedFormat($fileExt)) {
+		deleteTempImage($file["tmp_name"]);
+		#Error falsches format
+		throw new FileFormatException();
+	}
+	$maxSize = 5000000; // Entspricht 5mb
+	if ($file["size"] > $maxSize) {
+		deleteTempImage($file["tmp_name"]);
+		#Error zu gross
+		throw new FileSizeException();
+	}
+	$newName = createTempFileName($fileExt);
+	move_uploaded_file($file["tmp_name"], $newName);
+	return $newName;
 }
 function getFileExtension($fileName) {
 	$split = explode(".", $fileName);
 	$last = end($split);
 	return strtolower($last);
 }
-function isImage($fileExt) {
+function isAllowedFormat($fileExt) {
 	$allowedExts = array("jpg", "jpeg", "png", "tif");
 	return in_array($fileExt, $allowedExts);
+}
+function createTempFileName($fileExt) {
+	return "img/upload/" . uniqid("", true) . "." . $fileExt;
 }
 function saveImageData($data, $fileName) {
 	$data = substr($data, strpos($data, ",") + 1); // Die Angaben vor dem Komma dienen zur identifizierung. z.B. png, usw... (aus logging entnommen)
@@ -144,123 +218,93 @@ function deleteTempImage($fileName) {
 		unlink($fileName);
 	}
 }
+
 ?>
 
-<!DOCTYPE html>
-<html lang="de">
+<?php echo ("\n"); // -------------------- MAIN-PROGRAMM --------------------
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="author" content="Mathieu Lichtsteiner" />
-	<meta name="description" content="Das ist das Resultat des Unterrichts im Modul \&quot;Webtechnologien\&quot;. Diese Webseite ist mit Humor zu geniessen..." />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>
-		Mathieu's MakeUp Studio
-	</title>
+# Submit Creation 
+if (isset($_GET["submit"])) { // Mithilfe des Get-Parameters wird erkannt, dass es sich um das eingereichte Form handelt.
+	printHTMLHead(); // Es wird die Navigation & alle head-Informationen gepostet.
 
-	<link rel="shortcut icon" type="image/png" href="img/lipstick.png" />
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-	<link rel="stylesheet" href="css/main.css" />
-</head>
+	$formIsValid = true;
+	if (firstNameIsInvalid()) {
+		displayError(
+			"Formularfehler mit dem Vorname!",
+			"Der Vorname wurde vom Server ungültig empfangen. Bitte das Formular gültig ausfüllen!"
+		);
+		$formIsValid = false;
+	}
+	if (lastNameIsInvalid()) {
+		displayError(
+			"Formularfehler mit dem Nachname!",
+			"Der Nachname wurde vom Server ungültig empfangen. Bitte das Formular gültig ausfüllen!"
+		);
+		$formIsValid = false;
+	}
+	if (emailIsInvalid()) {
+		displayError(
+			"Formularfehler mit der Email-Adresse!",
+			"Die Email-Adresse wurde vom Server ungültig empfangen. Bitte eine gültige Email-Adresse eingeben!"
+		);
+		$formIsValid = false;
+	}
+	if (messageIsInvalid()) {
+		displayError(
+			"Formularfehler mit der Nachricht!",
+			"Die Nachricht wurde vom Server ungültig empfangen. Bitte eine anständige Nachricht mitteilen!"
+		);
+		$formIsValid = false;
+	}
+	if (!isRequiredPostSet("submitCanvas")) {
+		displayError(
+			"Technischer Fehler im Bild!",
+			"Der Server hat leider Ihr gezeichnetes Bild nicht korrekt empfangen!"
+		);
+		$formIsValid = false;
+	}
+	if ($formIsValid) { // Form ist korrekt ausgefüllt!
+		displaySuccess(
+			"Formular erfolgreich eingereicht!",
+			"Vielen Dank, dass Sie Ihr MakeUp mit mir teilen. Sie können auf der Homepage unter <a href=\"index.html?background=blank#posts\">\"Posts ansehen!\"</a> ihren Beitrag ansehen"
+		);
 
-<body>
+		$index = insertPostToDatabase();
+		saveImageData($_POST["submitCanvas"], "img/creations/$index.png");
 
-	<nav class="w3-bar w3-white">
-		<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&#10094;&#10096;</a>
-		<!-- In den Unterlage &#2261, funktioniert aber in utf8 nicht!, mit &#8801 würde es gehen, aber die html-identity (Congruent & equiv) gefällt mir am besten. -->
-		<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
-		<a href="index.html?background=blank#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
-		<a href="index.html?background=blank#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
-		<a href="index.html?background=blank#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
-		<a href="index.html?background=blank#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
-		<a href="index.html?background=blank#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
-	</nav>
-
-	<div name="nav-Abstand"></div>
-
-	<?php echo ("\n");
-
-	# Submit Creation
-	if (isset($_POST["submitCreation"])) {
-		$formIsValid = true;
-		if (firstNameIsInvalid()) {
-			displayError(
-				"Formularfehler mit dem Vorname!",
-				"Der Vorname wurde vom Server ungültig empfangen. Bitte das Formular gültig ausfüllen!"
-			);
-			$formIsValid = false;
-		}
-		if (lastNameIsInvalid()) {
-			displayError(
-				"Formularfehler mit dem Nachname!",
-				"Der Nachname wurde vom Server ungültig empfangen. Bitte das Formular gültig ausfüllen!"
-			);
-			$formIsValid = false;
-		}
-		if (emailIsInvalid()) {
-			displayError(
-				"Formularfehler mit der Email-Adresse!",
-				"Die Email-Adresse wurde vom Server ungültig empfangen. Bitte eine gültige Email-Adresse eingeben!"
-			);
-			$formIsValid = false;
-		}
-		if (messageIsInvalid()) {
-			displayError(
-				"Formularfehler mit der Nachricht!",
-				"Die Nachricht wurde vom Server ungültig empfangen. Bitte eine anständige Nachricht mitteilen!"
-			);
-			$formIsValid = false;
-		}
-		if (!isRequiredPostSet("submitCanvas")) {
-			displayError(
-				"Technischer Fehler im Bild!",
-				"Der Server hat leider Ihr gezeichnetes Bild nicht korrekt empfangen!"
-			);
-			$formIsValid = false;
-		}
-		if ($formIsValid) { # Form ist korrekt ausgefüllt!
-			displaySuccess(
-				"Formular erfolgreich eingereicht!",
-				"Vielen Dank, dass Sie Ihr MakeUp mit mir teilen. Sie können auf der Homepage unter <a href=\"index.html?background=blank#posts\">\"Posts ansehen!\"</a> ihren Beitrag ansehen"
-			);
-
-			$index = insertPostToDatabase();
-			saveImageData($_POST["submitCanvas"], "img/creations/$index.png");
-			if (isRequiredPostSet("deleteImage")) { // Das Temporäre Bild wird, gelöscht, falls eines Hochgeladen wurde.
-				deleteTempImage($_POST["deleteImage"]);
-			}
+		if (isRequiredPostSet("deleteImage")) { // Das Temporäre Bild wird, gelöscht, falls eines Hochgeladen wurde.
+			deleteTempImage($_POST["deleteImage"]);
 		}
 	}
 
-	# File-Upload
-	# Anleitung gemäss: https://www.youtube.com/watch?v=JaRq73y5MJk
-	if (isset($_FILES["fileInput"])) {
-		$file = $_FILES["fileInput"];
-		$fileTmpName = $file["tmp_name"];
-		$fileSize = $file["size"];
-		$maxSize = 5000000; // Entspricht 5mb
-		$fileError = $file["error"];
-		$fileExt = getFileExtension($file["name"]);
+	printHTMLTail(); // Es werden die geöffneten Tags des HTML-Heads geschlossen.
+}
 
-		if (isImage($fileExt)) {
-			if ($fileError === 0) {
-				if ($fileSize  < $maxSize) {
-					$newName = createNewFileName($fileExt);
-					move_uploaded_file($fileTmpName, $newName);
-					header("Location: index.html?background=$newName#draw");
-				} else {
-					#Error zu gross
-				}
-			} else {
-				#Error in file
-			}
-		} else {
-			#Error falsches format
-		}
+# File-Upload
+# Anleitung gemäss: https://www.youtube.com/watch?v=JaRq73y5MJk
+if (isset($_GET["upload"])) {
+	$errorTitle = "Es gab einen unbekannten Fehler!";
+	$errorMessage = "Theoretisch sollten Sie diese Standard-Fehlermeldung nicht sehen!";
+	try {
+		$newName = saveUploadedFile("fileInput");
+		header("Location: index.html?background=$newName#draw");
+	} catch (FileNotSentException) {
+		$errorTitle = "Keine Datei hochgeladen!";
+		$errorMessage = "Es wurde vom Server leider keine gültige Datei empfangen.";
+	} catch (FileErrorException) {
+		$errorTitle = "Fehler in der Datei!";
+		$errorMessage = "Es wurde vom Server leider keine gültige Datei empfangen.";
+	} catch (FileFormatException) {
+		$errorTitle = "Falsches Dateiformat hochgeladen!";
+		$errorMessage = "Die hochgeladene Datei ist leider im Falschen Format. Bitte nur .jpg oder .jpeg oder .png hochladen!";
+	} catch (FileSizeException) {
+		$errorTitle = "Datei zu gross!";
+		$errorMessage = "Die Datei darf nur maximal 20MB gross sein. Bitte ein kleineres Bild hochladen!";
 	}
 
-	?>
+	printHTMLHead();
+	displayError($errorTitle, $errorMessage);
+	printHTMLTail();
+}
 
-</body>
-
-</html>
+?>

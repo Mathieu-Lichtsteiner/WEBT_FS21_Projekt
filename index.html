@@ -75,7 +75,8 @@
 				<script>updateCanvas();</script>
 			</td>
 			<td id="controlColumn" class="stackVertical">
-				<form action="backend.php" method="POST" enctype="multipart/form-data">
+				<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->
+				<form action="backend.php?upload" method="POST" enctype="multipart/form-data">
 					<label title="Bild hochladen" id="fileContainer" class="w3-button">
 						<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
 						<img alt="Symbol für upload" src="img/upload.svg" />
@@ -116,7 +117,8 @@
 	<section id="submit">
 		<!-- Ich habe hier keine labels mit dem "for" Attribut genutzt, da mir das Design mit den Placeholder Attributen deutlich besser gefällt. mit dem "alt" Attribut wird Screenreadern auch genügend information geliefert.-->
 		<h2>Beitrag posten</h2>
-		<form name="submitForm" action="backend.php" method="POST"
+		<!-- Der Action wird der GET-Parameter "submit" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um das eingereichte Form handelt -->
+		<form name="submitForm" action="backend.php?submit" method="POST"
 			onsubmit="appendCanvasToForm(); return validateForm();">
 			<div class="w3-col m6">
 				<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input w3-col l6"
@@ -129,7 +131,7 @@
 			</div>
 			<textarea id="message" name="message" placeholder="Inspiriert von Lady Gaga!" class="w3-input w3-col m6"
 				style="resize: none;" rows="3" alt="Nachricht eingeben."></textarea>
-			<input type="submit" name="submitCreation" id="submitButton" class="w3-input">
+			<input type="submit" id="submitButton" class="w3-input">
 			<!-- Hidden input-Felder für zusätzliche Daten: https://stackoverflow.com/questions/8021748/how-to-add-additional-parameters-on-a-form-submitting-it-with-get-method -->
 			<input type="hidden" id="submitCanvas" name="submitCanvas" />
 			<input type="hidden" id="deleteImage" name="deleteImage" />
