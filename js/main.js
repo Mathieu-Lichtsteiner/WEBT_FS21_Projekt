@@ -8,6 +8,11 @@ function updateCanvas() {
 	context.lineWidth = 5;
 	context.strokeStyle = "black";
 
+	initBackground(context);
+	initEvents(canvas);
+}
+
+function initBackground(context) {
 	var parameters = httpGetParameters();
 	var background = parameters["background"];
 	if (background === "blank") { // keinen Hintergrund zeichnen
@@ -24,6 +29,10 @@ function updateCanvas() {
 		}
 		drawImage(context, imgSource);
 	}
+}
+
+function initEvents(canvas) {
+
 }
 
 // Interessanter Link, langes suchen: https://re-cycledair.com/html-5-canvas-saving-to-a-file-with-php 
