@@ -3,11 +3,11 @@ function loadPosts(clearCookie) {
 	xhr.onload = prependPosts;
 
 	xhr.onerror = function () {
-		confirm("Ladefehler!\nEs gab leider ein Problem, beim laden der Bilder.");
+		alert("Ladefehler!\nEs gab leider ein Problem, beim laden der Bilder.");
 	}
 	xhr.timeout = 3000;  // timeout nach 3 Sekunden
 	xhr.ontimeout = function () {
-		confirm("Zeitüberschreitung!\nEs konnten leider keine neuen Bilder geladen werden.");
+		alert("Zeitüberschreitung!\nEs konnten leider keine neuen Bilder geladen werden.");
 	}
 
 	var script = "backend.php?load";

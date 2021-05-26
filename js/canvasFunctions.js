@@ -3,18 +3,18 @@ function loadImage() {
 	var parameters = httpGetParameters();
 	var imgUrl = parameters["background"];
 	if (imgUrl === "blank") {
-		// keinen Hintergrund zeichnen
+		initial = false;
 		console.log("Background wird leer gelassen.");
 		return;
 	}
 	if (!imgUrl) {
-		// Standard-Bild zeichnen
 		console.log("Standard-Bild wird gesetzt.");
+		initial = true;
 		imgUrl = "img/profile.jpg";
 		makeUp = drawInitialMakeUp;
 	} else {
-		// Background mit URL zeichnen
 		console.log("Background extrahiert.");
+		initial = false;
 	}
 	// Image als Objektreferenz
 	var background = new Image();
@@ -60,11 +60,15 @@ function drawInitialMakeUp() {
 }
 
 function clearCanvas() {
-	context.clearRect(0, 0, canvas.width, canvas.height);
+	// context.clearRect(0, 0, canvas.width, canvas.height);
+	// Das oben auskommentierte Beispiel funktioniert leider nicht, da die Zeichenoperationen im Context gespeichert sin.
+	canvas.outerHTML = "<canvas id=\"canvas\" width=\"940\" height=\"600\"><p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element nicht.</p></canvas>";
+	initCanvas();
+	initial = false;
 }
 
 function clearMakeUp() {
-	context.clearRect(0, 0, canvas.width, canvas.height);
+	clearCanvas();
 	loadImage();
 }
 

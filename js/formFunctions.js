@@ -1,6 +1,6 @@
 function validateForm() {
 	var message = document.getElementById("message").value.trim();
-	if (message.length <= 3) {
+	if (message.length < 4) {
 		alert("Die Nachricht muss mindestens 4 Zeichen lang sein!");
 		return false; // min. länge von 4
 	}
@@ -8,6 +8,11 @@ function validateForm() {
 		alert("Leider kann die Nachricht maximal 1000 Zeichen enthalten!");
 		return false; // max. länge von 1000
 	}
+	if (initial) {
+		alert("Bitte ein eigenes Bild zeichnen!");
+		return false; // das Ursprüngliche Bild kann nicht eingereicht werden!
+	}
+
 	message = message.toLowerCase();
 	var isLegal = true;
 

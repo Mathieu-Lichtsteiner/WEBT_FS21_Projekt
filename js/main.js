@@ -1,6 +1,7 @@
 // Canvas als Objektreferenz
 var canvas;
 var context;
+var initial = true;
 var makeUp;
 
 function initCanvas() {
@@ -10,5 +11,4 @@ function initCanvas() {
 	context.strokeStyle = "black";
 
 	initEvents();
-	loadImage();
 }
