@@ -13,7 +13,7 @@ CREATE DATABASE portofolio;
 -- Datenbank verwenden (standard-verfahren)
 USE portofolio;
 -- Tabelle "posts" erstellen (index wird für dateiname verwendet) (Achtung um Auto_increment zu brauchen, muss der typ von id ein int sein, was ich mit trial & error gemerkt habe)
-CREATE TABLE posts (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, firstName varchar(30) NOT NULL, lastName varchar(30) NOT NULL, email varchar(100) NOT NULL, created timestamp NOT NULL, descr varchar(1000) NOT NULL);
+CREATE TABLE posts (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, firstName varchar(30) NOT NULL, lastName varchar(30) NOT NULL, email varchar(100) NOT NULL, created timestamp NOT NULL, msg varchar(1000) NOT NULL);
 -- Abfrageindex für id erstellen
 CREATE UNIQUE INDEX posts_id ON posts(id);
 -- Abfrageindex für firstName erstellen
@@ -22,4 +22,4 @@ CREATE INDEX posts_firsName ON posts(firstName);
 CREATE INDEX posts_lastName ON posts(lastName);
 
 -- Erste Einträge erstellen
-INSERT INTO posts (firstName, lastName, email, created, descr) VALUES ("Mathieu", "Lichtsteiner", "mathieu.lichtsteiner@stud.hslu.ch", timestamp('2021-05-23 15:00:20'), "Das ist mein erstes Experiment!");
+INSERT INTO posts (firstName, lastName, email, created, msg) VALUES ("Mathieu", "Lichtsteiner", "mathieu.lichtsteiner@stud.hslu.ch", timestamp('2021-05-23 15:00:20'), "Das ist mein erstes Experiment!");

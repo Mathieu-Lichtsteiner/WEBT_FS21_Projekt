@@ -4,6 +4,14 @@
 function isRequiredPostSet($name) {
 	return isset($_POST[$name]) && $_POST[$name] != "";
 }
+function incrementPostsCookie() {
+	$loadedPosts = 3;
+	if (isset($_COOKIE["loadedPosts"])) {
+		$loadedPosts += $_COOKIE["loadedPosts"];
+	}
+	setcookie("loadedPosts", $loadedPosts, time() + 300); // verfällt in 5min.
+	return $loadedPosts;
+}
 
 # Form-Validation in Backend
 function firstNameIsInvalid() {
@@ -132,7 +140,7 @@ function insertPostToDatabase() {
 		);
 		return;
 	}
-	$query = "INSERT INTO posts (firstName, lastName, email, created, descr) VALUES (?, ?, ?, now(), ?)";
+	$query = "INSERT INTO posts (firstName, lastName, email, created, msg) VALUES (?, ?, ?, now(), ?)";
 	$stmt = mysqli_prepare($conn, $query);
 	// Es müssen bereits alle Post-Parameter korrekt sein, bevor diese Methode aufgerufen wird.
 	$firstName = $_POST["firstName"];
@@ -157,6 +165,39 @@ function insertPostToDatabase() {
 	mysqli_close($conn);
 	return $created;
 }
+function getPostsFromDatabase($offset) {
+	$conn = mysqli_connect("localhost", "root", "", "portofolio");
+	if (!$conn) { // Falls Verbindung fehlgeschlagen
+		return;
+	}
+
+	$query = "SELECT id, firstName, lastName, email, created, msg from posts where id > ? and id <= ?";
+	$stmt = mysqli_prepare($conn, $query);
+	$end = $offset + 3;
+	mysqli_stmt_bind_param($stmt, "ii", $offset, $end);
+
+	$exec = mysqli_stmt_execute($stmt);
+	if (!$exec) { // Falls Ausführung fehlgeschlagen.
+		mysqli_close($conn);
+		return;
+	}
+
+	$result = mysqli_stmt_get_result($stmt);
+	if (!$result) { // Falls Resultat fehlgeschlagen.
+		mysqli_close($conn);
+		return;
+	}
+
+	$data = array();
+	while ($row = mysqli_fetch_assoc($result)) {
+		array_push($data, $row);
+	}
+
+	mysqli_close($conn);
+	return $data;
+}
+
+# File-Exceptions
 class FileNotSentException extends Exception {
 }
 class FileErrorException extends Exception {
@@ -165,6 +206,7 @@ class FileFormatException extends Exception {
 }
 class FileSizeException extends Exception {
 }
+
 # File-Functions
 function saveUploadedFile($parameterName) { // Für die PHP-Exceptions siehe: https://www.php.net/manual/en/spl.exceptions.php
 	if (!isset($_FILES[$parameterName])) {
@@ -309,6 +351,9 @@ if (isset($_GET["upload"])) {
 
 # LOAD POSTS
 if (isset($_GET["load"])) {
+	$loadedPosts = incrementPostsCookie();
+	$result = getPostsFromDatabase($loadedPosts);
+	echo (json_encode($result));
 }
 
 ?>
