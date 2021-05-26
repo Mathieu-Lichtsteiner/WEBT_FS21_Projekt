@@ -4,13 +4,15 @@
 function isRequiredPostSet($name) {
 	return isset($_POST[$name]) && $_POST[$name] != "";
 }
-function incrementPostsCookie() {
-	$loadedPosts = 3;
+function getPostsCookieValue() {
 	if (isset($_COOKIE["loadedPosts"])) {
-		$loadedPosts += $_COOKIE["loadedPosts"];
+		return $_COOKIE["loadedPosts"];
 	}
-	setcookie("loadedPosts", $loadedPosts, time() + 300); // verfällt in 5min.
-	return $loadedPosts;
+	$_COOKIE["loadedPosts"] = 0;
+	return 0;
+}
+function incrementPostsCookie($increment) {
+	setcookie("loadedPosts", $_COOKIE["loadedPosts"] + $increment, time() + 300);
 }
 
 # Form-Validation in Backend
@@ -165,7 +167,7 @@ function insertPostToDatabase() {
 	mysqli_close($conn);
 	return $created;
 }
-function getPostsFromDatabase($offset) {
+function getPostsFromDatabase($offset, $amount) {
 	$conn = mysqli_connect("localhost", "root", "", "portofolio");
 	if (!$conn) { // Falls Verbindung fehlgeschlagen
 		return;
@@ -173,7 +175,7 @@ function getPostsFromDatabase($offset) {
 
 	$query = "SELECT id, firstName, lastName, created, msg from posts where id > ? and id <= ?";
 	$stmt = mysqli_prepare($conn, $query);
-	$end = $offset + 3;
+	$end = $offset + $amount;
 	mysqli_stmt_bind_param($stmt, "ii", $offset, $end);
 
 	$exec = mysqli_stmt_execute($stmt);
@@ -361,9 +363,10 @@ if (isset($_GET["upload"])) {
 
 # LOAD POSTS
 if (isset($_GET["load"])) {
-	$loadedPosts = incrementPostsCookie();
-	$result = getPostsFromDatabase($loadedPosts);
+	$offset = getPostsCookieValue();
+	$result = getPostsFromDatabase($offset, 3);
 	echo (json_encode($result));
+	incrementPostsCookie(count($result));
 }
 
 ?>

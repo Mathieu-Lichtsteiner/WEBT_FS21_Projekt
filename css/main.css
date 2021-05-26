@@ -40,8 +40,9 @@ h1, h2, h3, a {
 }
 
 #fileInput {
+	width: 0.1px;
 	position: relative;
-	top: -10000px;
+	margin-left: -1px;
 }
 
 /* Attribute-Selectors */

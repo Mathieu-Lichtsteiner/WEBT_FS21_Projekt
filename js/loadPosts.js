@@ -19,16 +19,16 @@ function prependPosts() {
 	var loadMore = document.getElementById("loadMore");
 
 	if (result.length == 0) { // Wenn bereits alle Bilder geladen wurden.
-		loadMore.outerHTML = divWithClass("<p>Alle Bilder geladen!</p>", "w3-panel");;
+		loadMore.outerHTML = divWithClass("<p>Alle Bilder geladen!</p>", "w3-panel");
 		return;
 	}
 
-	var append = "";
+	var newValue = "";
 	for (let i = 0; i < result.length; i++) {
-		append += formatPost(result[i]);
+		newValue += formatPost(result[i]);
 	}
-	append = result + loadMore.outerHTML;
-	loadMore.outerHTML = append;
+	newValue += loadMore.outerHTML;
+	loadMore.outerHTML = newValue;
 }
 
 function formatPost(object) {
