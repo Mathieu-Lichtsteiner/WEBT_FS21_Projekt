@@ -27,7 +27,7 @@ function updateCanvas() {
 }
 
 // Interessanter Link, langes suchen: https://re-cycledair.com/html-5-canvas-saving-to-a-file-with-php 
-function appendCanvasToForm(){
+function appendCanvasToForm() {
 	// Bild von Canvas mit dem Formular mitschicken
 	var canvas = document.getElementById("canvas");
 	var formCanvas = document.getElementById("submitCanvas");
@@ -36,7 +36,7 @@ function appendCanvasToForm(){
 	var formDelete = document.getElementById("deleteImage");
 	var parameters = httpGetParameters();
 	var background = parameters["background"];
-	if(background !== "blank" && background !== "img/profile.jpg" ){
+	if (background !== "blank" && background !== "img/profile.jpg") {
 		formDelete.value = background;
 	}
 }

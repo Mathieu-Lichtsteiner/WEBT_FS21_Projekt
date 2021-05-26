@@ -5,14 +5,14 @@ function isRequiredPostSet($name) {
 	return isset($_POST[$name]) && $_POST[$name] != "";
 }
 function getPostsCookieValue() {
-	if (isset($_COOKIE["loadedPosts"])) {
+	if (!isset($_GET["clearCookie"]) && (isset($_COOKIE["loadedPosts"]))) {
 		return $_COOKIE["loadedPosts"];
 	}
 	$_COOKIE["loadedPosts"] = 0;
 	return 0;
 }
 function incrementPostsCookie($increment) {
-	setcookie("loadedPosts", $_COOKIE["loadedPosts"] + $increment, time() + 300);
+	setcookie("loadedPosts", $_COOKIE["loadedPosts"] + $increment, time() + 600); // läuft in 10min ab.
 }
 
 # Form-Validation in Backend
@@ -202,9 +202,9 @@ function cleanJson($sqlRow) {
 	if (isset($sqlRow["id"])) { // convert id to img URL
 		$path = "img/creations/" . $sqlRow["id"] . ".png";
 		if (file_exists($path)) {
-			$row["imgUrl"] = $path;
+			$sqlRow["imgUrl"] = $path;
 		} else {
-			$row["imgUrl"] = "img/404-error.gif"; // Freie & Kommerzielle nutzung von: https://www.worldwidejournals.com/paripex/images/404-error.gif
+			$sqlRow["imgUrl"] = "img/404-error.gif"; // Freie & Kommerzielle nutzung von: https://www.worldwidejournals.com/paripex/images/404-error.gif
 		}
 		unset($sqlRow["id"]);
 		return $sqlRow;

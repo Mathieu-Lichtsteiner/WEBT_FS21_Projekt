@@ -1,4 +1,4 @@
-function loadPosts() {
+function loadPosts(clearCookie) {
 	xhr = new XMLHttpRequest();
 	xhr.onload = prependPosts;
 
@@ -10,7 +10,12 @@ function loadPosts() {
 		confirm("Zeitüberschreitung!\nEs konnten leider keine neuen Bilder geladen werden.");
 	}
 
-	xhr.open("POST", "backend.php?load", true);
+	var script = "backend.php?load";
+	if (clearCookie) {
+		script += "&clearCookie";
+	}
+
+	xhr.open("POST", script, true);
 	xhr.send();
 }
 
@@ -36,8 +41,7 @@ function formatPost(object) {
 	var lastName = object["lastName"];
 	var created = convertDate(object["created"]);
 	var msg = object["msg"];
-
-	var htmlImage = "\t<image src=\"" + object["imgUrl"] + "\" alt=\" Dieser Post wurde von " + firstName + " " + lastName + " am " + created + " erstellt. \"/>\n";
+	var htmlImage = "\t<image src=\"" + object["imgUrl"] + "\" class=\"w3-col s12\" alt=\" Dieser Post wurde von " + firstName + " " + lastName + " am " + created + " erstellt. \"/>\n";
 	var htmlUser = divWithClass(pWithClass(firstName, "firstName w3-col l6") + pWithClass(lastName, "lastName w3-col l6") + pWithClass(created, "date") + "\n", "user w3-col m5");
 	var htmlMsg = pWithClass(msg, "comment w3-col m7");
 
