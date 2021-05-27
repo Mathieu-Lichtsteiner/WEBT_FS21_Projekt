@@ -45,6 +45,12 @@ h1, h2, h3, a {
 	margin-left: -1px;
 }
 
+#colorPicker {
+	height: 58px;
+	width: 58px;
+	padding: 0px;
+}
+
 /* Attribute-Selectors */
 
 div[name="nav-Abstand"] {

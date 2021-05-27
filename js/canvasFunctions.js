@@ -52,17 +52,21 @@ function drawInitialMakeUp() {
 		new Line(new Point(580, 250), new Point(630, 280)),
 		new Circle(605, 365, 5),
 		new Circle(605, 378, 10),
-		new Circle(605, 406, 20),
+		new Circle(605, 406, 20)
 	];
+	context.strokeStyle = "black";
 	strokes.forEach(stroke => {
 		stroke.draw();
 	});
+	context.beginPath();
+	context.strokeStyle = strokeColor;
 }
 
 function clearCanvas() {
 	// context.clearRect(0, 0, canvas.width, canvas.height);
 	// Das oben auskommentierte Beispiel funktioniert leider nicht, da die Zeichenoperationen im Context gespeichert sin.
 	canvas.outerHTML = "<canvas id=\"canvas\" width=\"940\" height=\"600\"><p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element nicht.</p></canvas>";
+	oldMode = null;
 	initCanvas();
 	initial = false;
 }

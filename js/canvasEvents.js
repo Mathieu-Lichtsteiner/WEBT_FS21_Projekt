@@ -47,7 +47,7 @@ function createLine(e) {
 	}
 	second = createPoint(e);
 	sleep().then(() => { // wait for the doubleClick to happen, with clickspeed test i found, that 180 is normal, but still quite reactive
-		if(first){
+		if (first) {
 			new Line(first, second).draw();
 			var temp = second;
 			resetPoints();
@@ -77,6 +77,7 @@ function createTriangle(e) {
 	threePointShape(e, Triangle);
 }
 function onMouseDown(e) {
+	context.beginPath();
 	context.moveTo(e.layerX, e.layerY);
 	canvas.addEventListener(mouseMoveEvt, onMouseMove, false);
 }
