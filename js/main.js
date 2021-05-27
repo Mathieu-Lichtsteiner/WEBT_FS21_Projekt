@@ -1,13 +1,15 @@
 // Canvas als Objektreferenz
 var canvas;
 var context;
+var strokeColor = "black";
 // Uploadsperre für erstes Bild
 var initial = true;
 var makeUp;
-var strokeColor = "black";
 // Variablen für Zeichenpunkte & den Modus
 var first, second, third;
 var oldMode;
+// Menü offen?
+var menuOpened = false;
 
 function initCanvas() {
 	canvas = document.getElementById("canvas");
@@ -27,4 +29,24 @@ function toggleSelectedTool(elementName) {
 function setColor(color) {
 	context.strokeStyle = color;
 	strokeColor = color;
+}
+
+// Ich brauche absichtlich kein classlist.toggle, damit ich bei einem Click auf die Links das Menu automatisch schliessen kann. Ausserdem $= (ends with), da im PHP-Skript noch die Url vorher ist.
+function toggleMenu(forceClose = false) {
+	if (forceClose || menuOpened) {
+		document.querySelector("a[href$=\"#home\"").classList.add("w3-hide-small");
+		document.querySelector("a[href$=\"#information\"").classList.add("w3-hide-small");
+		document.querySelector("a[href$=\"#draw\"").classList.add("w3-hide-small");
+		document.querySelector("a[href$=\"#submit\"").classList.add("w3-hide-small");
+		document.querySelector("a[href$=\"#posts\"").classList.add("w3-hide-small");
+		menuOpened = false;
+	}
+	else {
+		document.querySelector("a[href$=\"#home\"").classList.remove("w3-hide-small");
+		document.querySelector("a[href$=\"#information\"").classList.remove("w3-hide-small");
+		document.querySelector("a[href$=\"#draw\"").classList.remove("w3-hide-small");
+		document.querySelector("a[href$=\"#submit\"").classList.remove("w3-hide-small");
+		document.querySelector("a[href$=\"#posts\"").classList.remove("w3-hide-small");
+		menuOpened = true;
+	}
 }

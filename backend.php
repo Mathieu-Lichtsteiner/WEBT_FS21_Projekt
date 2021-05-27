@@ -95,14 +95,13 @@ function printHTMLHead() {
 	<body>
 
 		<nav class="w3-bar w3-white">
-			<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&#10094;&#10096;</a>
 			<!-- In den Unterlage &#2261, funktioniert aber in utf8 nicht!, mit &#8801 würde es gehen, aber die html-identity (Congruent & equiv) gefällt mir am besten. -->
-			<a class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
-			<a href="index.html?background=blank#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
-			<a href="index.html?background=blank#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
-			<a href="index.html?background=blank#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
-			<a href="index.html?background=blank#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
-			<a href="index.html?background=blank#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
+			<a onclick="toggleMenu();" class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
+			<a onclick="toggleMenu(true);" href="index.html?background=blank#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
+			<a onclick="toggleMenu(true);" href="index.html?background=blank#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
+			<a onclick="toggleMenu(true);" href="index.html?background=blank#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
+			<a onclick="toggleMenu(true);" href="index.html?background=blank#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
+			<a onclick="toggleMenu(true);" href="index.html?background=blank#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
 		</nav>
 
 		<div name="nav-Abstand"></div>
