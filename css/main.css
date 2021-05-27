@@ -85,3 +85,7 @@ div[name="footer-Abstand"] {
 .userName {
 	font-weight: bolder;
 }
+
+.activated {
+	background-color: lightgray;
+}
