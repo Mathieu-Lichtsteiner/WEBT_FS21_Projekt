@@ -9,11 +9,14 @@ function removeListener(event, callback) {
 	canvas.removeEventListener(event, callback, false);
 }
 
-// functions to reset all points or create a new Point with the event-reference.
+// helper-functions
 function resetPoints() {
 	first = null;
 	second = null;
-	third = null;
+	// i don't reset third, because it's never checked.
+}
+function sleep(milliseconds = 180) {
+	return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 function createPoint(e) {
 	var p = new Point(e.layerX, e.layerY);
@@ -21,16 +24,7 @@ function createPoint(e) {
 	return p;
 }
 
-// generic functions to draw shapes on the canvas
-function twoPointShape(e, shape) {
-	if (!first) {
-		first = createPoint(e);
-		return;
-	}
-	second = createPoint(e);
-	new shape(first, second).draw();
-	resetPoints();
-}
+// generic function to draw shape with three points on the canvas
 function threePointShape(e, shape) {
 	if (!first) {
 		first = createPoint(e);
@@ -47,7 +41,23 @@ function threePointShape(e, shape) {
 
 // Actions, what can be subscribed to and removed from the events
 function createLine(e) {
-	twoPointShape(e, Line);
+	if (!first) {
+		first = createPoint(e);
+		return;
+	}
+	second = createPoint(e);
+	sleep().then(() => { // wait for the doubleClick to happen, with clickspeed test i found, that 180 is normal, but still quite reactive
+		if(first){
+			new Line(first, second).draw();
+			var temp = second;
+			resetPoints();
+			first = temp;
+		}
+	})
+
+}
+function resetLine(e) {
+	first = null;
 }
 function createCircle(e) {
 	threePointShape(e, Circle);
@@ -56,7 +66,12 @@ function createArc(e) {
 	threePointShape(e, Arc);
 }
 function createRectangle(e) {
-	twoPointShape(e, Rectangle);
+	if (!first) {
+		first = createPoint(e);
+		return;
+	}
+	second = createPoint(e);
+	new Rectangle(first, second).draw();
 }
 function createTriangle(e) {
 	threePointShape(e, Triangle);
@@ -96,6 +111,7 @@ function addNewListener(mode) {
 			break;
 		case 'line':
 			addListener(mouseClickEvt, createLine);
+			addListener(mouseDoubleClickEvt, resetLine);
 			break;
 		case 'circle':
 			addListener(mouseClickEvt, createCircle);
@@ -121,6 +137,7 @@ function removeOldListener(mode) {
 			break;
 		case 'line':
 			removeListener(mouseClickEvt, createLine);
+			removeListener(mouseDoubleClickEvt, resetLine);
 			break;
 		case 'circle':
 			removeListener(mouseClickEvt, createCircle);

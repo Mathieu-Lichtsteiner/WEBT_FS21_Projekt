@@ -1,6 +1,6 @@
 // Ich benutze die "pointer" Events, wegen den Mobilgeräten.
 const mouseClickEvt = "click";
-const doubleClickEvt = "dblclick";
+const mouseDoubleClickEvt = "dblclick";
 const mouseDownEvt = "pointerdown";
 const mouseUpEvt = "pointerup";
 const mouseMoveEvt = "pointermove";
