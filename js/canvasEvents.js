@@ -1,56 +1,37 @@
-function initEvents() {
-	canvas.addEventListener("mousedown", onMouseDown, false);
-	canvas.addEventListener("mouseup", onMouseUp, false);
-	canvas.addEventListener("click", onMouseClick, false);
+function addListener(event, callback) {
+	console.log("Füge zum Event (" + event + ") den Listener hinzu:");
+	console.log(callback);
+	canvas.addEventListener(event, callback, false);
+}
+function removeListener(event, callback) {
+	console.log("Entferne vom Event (" + event + ") den Listener:");
+	console.log(callback);
+	canvas.removeEventListener(event, callback, false);
 }
 
+// functions to reset all points or create a new Point with the event-reference.
 function resetPoints() {
 	first = null;
 	second = null;
+	third = null;
 }
-function resetActions() {
-	onMouseDown = null;
-	onMouseUp = null;
-	onMouseMove = null;
-	onMouseClick = null;
-
-	console.log(onMouseDown);
-	console.log(onMouseUp);
-	console.log(onMouseMove);
-	console.log(onMouseClick);
-}
-
 function createPoint(e) {
-	var point = Point(e.layerX, e.layerY);
-	point.log();
-	return point;
-}
-function createLine() {
-	return Line(first, second);
-}
-function createCircle() {
-	return Circle(first, second, third)
-}
-function createArc() {
-	return Arc(first, second, third);
-}
-function createRectangle() {
-	return Rectangle(first, second);
-}
-function createTriangle() {
-	return Triangle(first, second, third);
+	var p = new Point(e.layerX, e.layerY);
+	console.log(p);
+	return p;
 }
 
-function twoPointCallback(e, callback) {
+// generic functions to draw shapes on the canvas
+function twoPointShape(e, shape) {
 	if (!first) {
 		first = createPoint(e);
 		return;
 	}
 	second = createPoint(e);
-	callback().draw();
+	new shape(first, second).draw();
 	resetPoints();
 }
-function threePointCallback(e, callback) {
+function threePointShape(e, shape) {
 	if (!first) {
 		first = createPoint(e);
 		return;
@@ -60,67 +41,97 @@ function threePointCallback(e, callback) {
 		return;
 	}
 	third = createPoint(e);
-	callback().draw();
+	new shape(first, second, third).draw();
 	resetPoints();
 }
 
+// Actions, what can be subscribed to and removed from the events
+function createLine(e) {
+	twoPointShape(e, Line);
+}
+function createCircle(e) {
+	threePointShape(e, Circle);
+}
+function createArc(e) {
+	threePointShape(e, Arc);
+}
+function createRectangle(e) {
+	twoPointShape(e, Rectangle);
+}
+function createTriangle(e) {
+	threePointShape(e, Triangle);
+}
+function onMouseDown(e) {
+	context.moveTo(e.layerX, e.layerY);
+	canvas.addEventListener(mouseMoveEvt, onMouseMove, false);
+}
+function onMouseUp(e) {
+	canvas.removeEventListener(mouseMoveEvt, onMouseMove, false);
+}
+function onMouseMove(e) {
+	context.lineTo(e.layerX, e.layerY, 3, 3);
+	context.stroke();
+}
+
+// functions to handle userinputs
 function setMode(newMode) {
-
-	console.log(onMouseDown);
-	console.log(onMouseUp);
-	console.log(onMouseMove);
-	console.log(onMouseClick);
-
 	if (newMode === oldMode) {
 		return; // kein neuer Modus angewählt
 	}
-	oldMode = newMode;
+	removeOldListener(oldMode);
 	resetPoints();
-	resetActions();
+	addNewListener(newMode);
 
-	switch (newMode) {
+	console.log("-- Den Zeichen-Modus (" + oldMode + ") auf " + newMode + " gesetzt!");
+	oldMode = newMode;
+}
+function addNewListener(mode) {
+	switch (mode) {
 		case 'freehand':
-			onMouseDown = function (e) {
-				console.log("Canvas - MouseDown: X=" + e.layerX + ", Y=" + e.layerY);
-				context.moveTo(e.layerX, e.layerY);
-				canvas.addEventListener("mousemove", onMouseMove, false);
-			}
-			onMouseUp = function (e) {
-				console.log("Canvas - MouseUp: X=" + e.layerX + ", Y=" + e.layerY);
-				canvas.removeEventListener("mousemove", onMouseMove, false);
-			}
-			onMouseMove = function (e) {
-				context.lineTo(e.layerX, e.layerY, 3, 3);
-				context.stroke();
-			}
+			addListener(mouseDownEvt, onMouseDown);
+			addListener(mouseUpEvt, onMouseUp);
 			break;
 		case 'line':
-			onMouseClick = function (e) { return twoPointCallback(e, createLine); }
+			addListener(mouseClickEvt, createLine);
 			break;
 		case 'circle':
-			onMouseClick = function (e) { return threePointCallback(e, createCircle); }
+			addListener(mouseClickEvt, createCircle);
 			break;
 		case 'arc':
-			onMouseClick = function (e) { return threePointCallback(e, createArc); }
+			addListener(mouseClickEvt, createArc);
 			break;
 		case 'rectangle':
-			onMouseClick = function (e) { return twoPointCallback(e, createRectangle); }
+			addListener(mouseClickEvt, createRectangle);
 			break;
 		case 'triangle':
-			onMouseClick = function (e) { return threePointCallback(e, createTriangle); }
+			addListener(mouseClickEvt, createTriangle);
 			break;
 		default:
 			break;
 	}
-	console.log("Modus auf " + newMode + " gesetzt!");
-
-	console.log(onMouseDown);
-	console.log(onMouseUp);
-	console.log(onMouseMove);
-	console.log(onMouseClick);
 }
-
-
-
-
-
+function removeOldListener(mode) {
+	switch (mode) {
+		case 'freehand':
+			removeListener(mouseDownEvt, onMouseDown);
+			removeListener(mouseUpEvt, onMouseUp);
+			break;
+		case 'line':
+			removeListener(mouseClickEvt, createLine);
+			break;
+		case 'circle':
+			removeListener(mouseClickEvt, createCircle);
+			break;
+		case 'arc':
+			removeListener(mouseClickEvt, createArc);
+			break;
+		case 'rectangle':
+			removeListener(mouseClickEvt, createRectangle);
+			break;
+		case 'triangle':
+			removeListener(mouseClickEvt, createTriangle);
+			break;
+		default:
+			break;
+	}
+}

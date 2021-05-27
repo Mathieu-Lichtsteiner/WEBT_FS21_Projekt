@@ -1,9 +1,10 @@
 // Canvas als Objektreferenz
 var canvas;
 var context;
+// Uploadsperre für erstes Bild
 var initial = true;
 var makeUp;
-var onMouseDown, onMouseUp, onMouseMove, onMouseClick;
+// Variablen für Zeichenpunkte & den Modus
 var first, second, third;
 var oldMode;
 
@@ -13,6 +14,5 @@ function initCanvas() {
 	context.lineWidth = 5;
 	context.strokeStyle = "black";
 
-	initEvents();
 	setMode('freehand');
 }
