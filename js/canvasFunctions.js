@@ -66,6 +66,7 @@ function clearCanvas() {
 	// context.clearRect(0, 0, canvas.width, canvas.height);
 	// Das oben auskommentierte Beispiel funktioniert leider nicht, da die Zeichenoperationen im Context gespeichert sin.
 	canvas.outerHTML = "<canvas id=\"canvas\" width=\"940\" height=\"600\"><p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element nicht.</p></canvas>";
+	toggleSelectedTool(oldMode);
 	oldMode = null;
 	initCanvas();
 	initial = false;
