@@ -70,49 +70,55 @@
 
 	<section id="draw">
 		<h2>MakeUp designen</h2>
-		<canvas id="canvas" width="940" height="600">
-			<p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element
-				nicht.</p>
-		</canvas>
-		<div class="controlColumn">
-			<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->
-			<form action="backend.php?upload" method="POST" enctype="multipart/form-data" id="fileContainer"
-				class="w3-button control">
-				<label title="Bild hochladen">
-					<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
-					<img alt="Symbol für upload" src="img/upload.svg" width="32" height="32" />
-					<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
-					<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png"
-						onchange="this.form.submit();" />
-				</label>
-			</form>
-			<button title="Bild zurücksetzen" onclick="clearCanvas();" name="clearImage" class="w3-button control">
-				&#10060;
-			</button>
-			<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
-			<button title="MakeUp zurücksetzen" onclick="clearMakeUp();" name="clearDrawing" class="w3-button control">
-				<img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32">
-			</button>
-			<button title="Freihand zeichnen" onclick="setMode(this.name);" name="freehand" class="w3-button control">
-				&#128393;
-			</button>
-			<button title="Linie zeichnen" onclick="setMode(this.name);" name="line" class="w3-button control">
-				&#9585;
-			</button>
-			<button title="Kreis zeichnen" onclick="setMode(this.name);" name="circle" class="w3-button control">
-				&#9711;
-			</button>
-			<button title="Bogen zeichnen" onclick="setMode(this.name);" name="arc" class="w3-button control">
-				&#8276;
-			</button>
-			<button title="Rechteck zeichnen" onclick="setMode(this.name);" name="rectangle" class="w3-button control">
-				&rect;
-			</button>
-			<button title="Dreieck zeichnen" onclick="setMode(this.name);" name="triangle" class="w3-button control">
-				&#9651;
-			</button>
-			<input title="Farbe wählen" onchange="setColor(this.value);" type="color" id="colorPicker"
-				class="w3-button control" />
+		<div id="canvasSection">
+			<canvas id="canvas" width="940" height="600">
+				<p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element
+					nicht.</p>
+			</canvas>
+			<div id="controlColumn">
+				<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->
+				<form action="backend.php?upload" method="POST" enctype="multipart/form-data" id="fileContainer"
+					class="w3-button control">
+					<label title="Bild hochladen">
+						<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
+						<img alt="Symbol für upload" src="img/upload.svg" width="32" height="32" />
+						<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
+						<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png"
+							onchange="this.form.submit();" />
+					</label>
+				</form>
+				<button title="Bild zurücksetzen" onclick="clearCanvas();" name="clearImage" class="w3-button control">
+					&#10060;
+				</button>
+				<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
+				<button title="MakeUp zurücksetzen" onclick="clearMakeUp();" name="clearDrawing"
+					class="w3-button control">
+					<img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32">
+				</button>
+				<button title="Freihand zeichnen" onclick="setMode(this.name);" name="freehand"
+					class="w3-button control">
+					&#128393;
+				</button>
+				<button title="Linie zeichnen" onclick="setMode(this.name);" name="line" class="w3-button control">
+					&#9585;
+				</button>
+				<button title="Kreis zeichnen" onclick="setMode(this.name);" name="circle" class="w3-button control">
+					&#9711;
+				</button>
+				<button title="Bogen zeichnen" onclick="setMode(this.name);" name="arc" class="w3-button control">
+					&#8276;
+				</button>
+				<button title="Rechteck zeichnen" onclick="setMode(this.name);" name="rectangle"
+					class="w3-button control">
+					&rect;
+				</button>
+				<button title="Dreieck zeichnen" onclick="setMode(this.name);" name="triangle"
+					class="w3-button control">
+					&#9651;
+				</button>
+				<input title="Farbe wählen" onchange="setColor(this.value);" type="color" id="colorPicker"
+					class="w3-button control" />
+			</div>
 		</div>
 	</section>
 
