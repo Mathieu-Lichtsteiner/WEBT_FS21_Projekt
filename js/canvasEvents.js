@@ -79,10 +79,12 @@ function createTriangle(e) {
 function onMouseDown(e) {
 	context.beginPath();
 	context.moveTo(e.layerX, e.layerY);
-	canvas.addEventListener(mouseMoveEvt, onMouseMove, false);
+	addListener(mouseMoveEvt, onMouseMove);
+	addListener(mouseLeaveEvt, onMouseUp);
 }
 function onMouseUp(e) {
-	canvas.removeEventListener(mouseMoveEvt, onMouseMove, false);
+	removeListener(mouseMoveEvt, onMouseMove);
+	removeListener(mouseLeaveEvt, onMouseUp);
 }
 function onMouseMove(e) {
 	context.lineTo(e.layerX, e.layerY, 3, 3);
