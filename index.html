@@ -29,7 +29,7 @@
 	<link rel="stylesheet" href="css/responsiveCanvas.css" />
 </head>
 
-<body onload="initCanvas(); loadImage();">
+<body onload="initCanvas(); loadImage();" onresize="updateOffset();">
 
 	<nav class="w3-bar w3-white">
 		<!-- In den Unterlage &#2261, funktioniert aber in utf8 nicht!, mit &#8801 würde es gehen, aber die html-identity (Congruent & equiv) gefällt mir am besten. -->
@@ -71,10 +71,12 @@
 	<section id="draw">
 		<h2>MakeUp designen</h2>
 		<div id="canvasSection">
-			<canvas id="canvas" width="940" height="600">
-				<p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element
-					nicht.</p>
-			</canvas>
+			<div id="canvasContainer">
+				<canvas id="canvas" width="940" height="600">
+					<p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element
+						nicht.</p>
+				</canvas>
+			</div>
 			<div id="controlColumn">
 				<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->
 				<form action="backend.php?upload" method="POST" enctype="multipart/form-data" id="fileContainer"

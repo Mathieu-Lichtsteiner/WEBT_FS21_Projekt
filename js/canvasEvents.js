@@ -18,10 +18,14 @@ function resetPoints() {
 function sleep(milliseconds = 180) {
 	return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
+function getX(e) {
+	return e.offsetX * offsetFactor;
+}
+function getY(e) {
+	return e.offsetY * offsetFactor;
+}
 function createPoint(e) {
-	var p = new Point(e.layerX, e.layerY);
-	console.log(p);
-	return p;
+	return new Point(getX(e), getY(e));
 }
 
 // generic function to draw shape with three points on the canvas
@@ -79,7 +83,7 @@ function createTriangle(e) {
 }
 function onMouseDown(e) {
 	context.beginPath();
-	context.moveTo(e.layerX, e.layerY);
+	context.moveTo(getX(e), getY(e));
 	addListener(mouseMoveEvt, onMouseMove);
 	addListener(mouseLeaveEvt, onMouseUp);
 }
@@ -88,7 +92,7 @@ function onMouseUp(e) {
 	removeListener(mouseLeaveEvt, onMouseUp);
 }
 function onMouseMove(e) {
-	context.lineTo(e.layerX, e.layerY, 3, 3);
+	context.lineTo(getX(e), getY(e), 3, 3);
 	context.stroke();
 }
 

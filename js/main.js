@@ -1,7 +1,10 @@
-// Canvas als Objektreferenz
+// Canvas als Objektreferenz & variablen
 var canvas;
 var context;
 var strokeColor = "black";
+var canvasContainer;
+const maxWidth = 940;
+var offsetFactor;
 // Uploadsperre für erstes Bild
 var initial = true;
 var makeUp;
@@ -18,6 +21,8 @@ function initCanvas() {
 	context.strokeStyle = strokeColor;
 
 	setMode('freehand');
+	canvasContainer = document.querySelector("#canvasContainer");
+	updateOffset();
 }
 
 function toggleSelectedTool(elementName) {
@@ -49,4 +54,9 @@ function toggleMenu(forceClose = false) {
 		document.querySelector("a[href$=\"#posts\"").classList.remove("w3-hide-small");
 		menuOpened = true;
 	}
+}
+
+function updateOffset() {
+	var actualWidth = canvasContainer.offsetWidth;
+	offsetFactor = maxWidth / actualWidth;
 }
