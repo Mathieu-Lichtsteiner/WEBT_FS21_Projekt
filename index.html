@@ -76,10 +76,11 @@
 		</canvas>
 		<div class="controlColumn">
 			<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->
-			<form action="backend.php?upload" method="POST" enctype="multipart/form-data" id="fileContainer" class="control">
-				<label title="Bild hochladen" class="w3-button">
+			<form action="backend.php?upload" method="POST" enctype="multipart/form-data" id="fileContainer"
+				class="w3-button control">
+				<label title="Bild hochladen">
 					<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
-					<img alt="Symbol für upload" src="img/upload.svg" />
+					<img alt="Symbol für upload" src="img/upload.svg" width="32" height="32" />
 					<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
 					<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png"
 						onchange="this.form.submit();" />
@@ -90,7 +91,7 @@
 			</button>
 			<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
 			<button title="MakeUp zurücksetzen" onclick="clearMakeUp();" name="clearDrawing" class="w3-button control">
-				<img alt="Symbol für löschen" src="img/clear.svg">
+				<img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32">
 			</button>
 			<button title="Freihand zeichnen" onclick="setMode(this.name);" name="freehand" class="w3-button control">
 				&#128393;
@@ -111,7 +112,7 @@
 				&#9651;
 			</button>
 			<input title="Farbe wählen" onchange="setColor(this.value);" type="color" id="colorPicker"
-				class="control" />
+				class="w3-button control" />
 		</div>
 	</section>
 
