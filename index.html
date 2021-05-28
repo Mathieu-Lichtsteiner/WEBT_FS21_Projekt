@@ -129,16 +129,28 @@
 		<form name="submitForm" action="backend.php?submit" method="POST"
 			onsubmit="appendCanvasToForm(); return validateForm();">
 			<div class="w3-col m6">
-				<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input w3-col l6"
-					alt="Vorname eingeben." required minlength="2" maxlength="30" />
-				<input id="lastName" name="lastName" type="text" placeholder="Mustermann" class="w3-input w3-col l6"
-					alt="Nachname eingeben." required minlength="2" maxlength="30" />
-				<!-- Patternmatching mit RegEx: muss ein x@y.z enthalten, wobei x,y,z buchstaben & zahlen sein können. y&z müssen 2 oder länger sein -->
-				<input id="email" name="email" type="email" placeholder="ihre.email@provider.ch" class="w3-input w3-col"
-					alt="Email-Adresse eingeben." required maxlength="100" pattern="(.+)(@)(.{2,})(\.)(.{2,})" />
+				<div class="w3-col l6">
+					<label for="firstName" class="w3-label">Vorname: </label>
+					<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input" required
+						minlength="2" maxlength="30" />
+				</div>
+				<div class="w3-col l6">
+					<label for="lastName" class="w3-label">Nachname: </label>
+					<input id="lastName" name="lastName" type="text" placeholder="Mustermann" class="w3-input" required
+						minlength="2" maxlength="30" />
+				</div>
+				<div class="w3-col">
+					<label for="email" class="w3-label">Email: </label>
+					<!-- Patternmatching mit RegEx: muss ein x@y.z enthalten, wobei x,y,z buchstaben & zahlen sein können. y&z müssen 2 oder länger sein -->
+					<input id="email" name="email" type="email" placeholder="ihre.email@provider.ch" class="w3-input"
+						required maxlength="100" pattern="(.+)(@)(.{2,})(\.)(.{2,})" />
+				</div>
 			</div>
-			<textarea id="message" name="message" placeholder="Inspiriert von Lady Gaga!" class="w3-input w3-col m6"
-				style="resize: none;" rows="3" alt="Nachricht eingeben."></textarea>
+			<div class="w3-col m6">
+				<label for="message" class="w3-label">Nachricht: </label>
+				<textarea id="message" name="message" placeholder="Inspiriert von Lady Gaga!" class="w3-input"
+					rows="4"></textarea>
+			</div>
 			<input type="submit" id="submitButton" class="w3-input">
 			<!-- Hidden input-Felder für zusätzliche Daten: https://stackoverflow.com/questions/8021748/how-to-add-additional-parameters-on-a-form-submitting-it-with-get-method -->
 			<input type="hidden" id="submitCanvas" name="submitCanvas" />

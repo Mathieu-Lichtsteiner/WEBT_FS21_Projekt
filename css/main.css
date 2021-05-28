@@ -48,6 +48,11 @@ h1, h2, h3, a {
 	left: 0;
 }
 
+#message{
+	resize: none;
+	height: auto;
+}
+
 /* Attribute-Selectors */
 
 div[name="nav-Abstand"] {
