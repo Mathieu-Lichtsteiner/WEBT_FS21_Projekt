@@ -1,40 +1,74 @@
 /*  Ich habe kein Passendes Layout mit w3.css klassen gefunden, deshalb mache ich es selbst. Siehe @media queries: https://www.w3schools.com/cssref/css3_pr_mediaquery.asp */
 
-/* @media only screen and (max-width: 600px){
-	#canvas {
-		width: 100%;
+/* SMALL */
+
+@media only screen and (max-width: 600px) {
+	#controlColumn {
+		display: grid;
+		grid-template-columns: 20% 20% 20% 20% 20%;
+		grid-template-rows: 50% 50%;
+		justify-items: center;
+	}
+	.control {
+		width: auto;
 		height: 100%;
 	}
-	#controlColumn {
-		flex-flow: row;
+	#colorPicker {
+		width: 60px;
+		height: 60px;
 	}
-
-} */
-
-#canvasSection {
-	display: flex;
-	flex-flow: wrap;
 }
+
+/* MEDIUM */
+
+@media only screen and (min-width: 600px) and (max-width: 800px) {
+	#controlColumn {
+		display: grid;
+		grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+	}
+	.control {
+		width: 100%;
+		height: auto;
+	}
+}
+
+/* LARGE */
+
+@media only screen and (min-width: 800px) {
+	#canvasSection {
+		display: grid;
+		grid-template-columns: 94% 6%;
+	}
+	#canvas {
+		grid-column: 1/2;
+	}
+	#controlColumn {
+		grid-column: 2/3;
+		display: grid;
+		grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+	}
+	.control {
+		width: 100%;
+		height: auto;
+	}
+}
+
+/* GENERAL */
 
 #canvas {
-	width: 900px;
-	height: 100%;
-	margin: 0px;
-	background-color: black;
-}
-
-#controlColumn {
-	width: 90px;
-	margin: 0px;
-	display: flex;
-	flex-flow: column;
+	width: 100%;
+	height: auto;
 }
 
 .control {
+	padding: auto;
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	height: 60px;
-	width: 60px;
+	align-content: center;
 	font-size: x-large;
+}
+
+#colorPicker {
+	padding: 0px;
+	height: auto;
 }

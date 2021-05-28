@@ -48,10 +48,6 @@ h1, h2, h3, a {
 	left: 0;
 }
 
-#colorPicker {
-	padding: 0px;
-}
-
 /* Attribute-Selectors */
 
 div[name="nav-Abstand"] {
