@@ -72,6 +72,7 @@ function createRectangle(e) {
 	}
 	second = createPoint(e);
 	new Rectangle(first, second).draw();
+	resetPoints();
 }
 function createTriangle(e) {
 	threePointShape(e, Triangle);
