@@ -26,6 +26,7 @@
 	<link rel="shortcut icon" href="img/lipstick.svg">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/responsiveCanvas.css" />
 </head>
 
 <body onload="initCanvas(); loadImage();">
@@ -46,7 +47,8 @@
 	<div name="nav-Abstand"></div>
 
 	<section id="home">
-		<img id="profile-picture" title="Mathieu Lichtsteiner" alt="Das Profilbild von Mathieu Lichtsteiner, dem Designer." src="img/profile.jpg" class="centerHorizontal" />
+		<img id="profile-picture" title="Mathieu Lichtsteiner"
+			alt="Das Profilbild von Mathieu Lichtsteiner, dem Designer." src="img/profile.jpg" />
 		<h1>Mathieu's MakeUp-Studio</h1>
 		<h3>von Mathieu Lichtsteiner</h3>
 		<!-- Sollte ein relativer URL sein, da es sich aber in der Landing-Section (unbewertet) befindet ist es okay.-->
@@ -68,52 +70,49 @@
 
 	<section id="draw">
 		<h2>MakeUp designen</h2>
-		<table>
-			<td>
-				<canvas id="canvas" width="940" height="600">
-					<p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element
-						nicht.</p>
-				</canvas>
-			</td>
-			<td id="controlColumn" class="stackVertical">
-				<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->
-				<form action="backend.php?upload" method="POST" enctype="multipart/form-data">
-					<label title="Bild hochladen" id="fileContainer" class="w3-button">
-						<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
-						<img alt="Symbol für upload" src="img/upload.svg" />
-						<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
-						<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png"
-							onchange="this.form.submit();" />
-					</label>
-				</form>
-				<button title="Bild zurücksetzen" onclick="clearCanvas();" name="clearImage" class="w3-button">
-					&#10060;
-				</button>
-				<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
-				<button title="MakeUp zurücksetzen" onclick="clearMakeUp();" name="clearDrawing" class="w3-button">
-					<img alt="Symbol für löschen" src="img/clear.svg">
-				</button>
-				<button title="Freihand zeichnen" onclick="setMode(this.name);" name="freehand" class="w3-button">
-					&#128393;
-				</button>
-				<button title="Linie zeichnen" onclick="setMode(this.name);" name="line" class="w3-button">
-					&#9585;
-				</button>
-				<button title="Kreis zeichnen" onclick="setMode(this.name);" name="circle" class="w3-button">
-					&#9711;
-				</button>
-				<button title="Bogen zeichnen" onclick="setMode(this.name);" name="arc" class="w3-button">
-					&#8276;
-				</button>
-				<button title="Rechteck zeichnen" onclick="setMode(this.name);" name="rectangle" class="w3-button">
-					&rect;
-				</button>
-				<button title="Dreieck zeichnen" onclick="setMode(this.name);" name="triangle" class="w3-button">
-					&#9651;
-				</button>
-				<input title="Farbe wählen" onchange="setColor(this.value);" type="color" id="colorPicker" />
-			</td>
-		</table>
+		<canvas id="canvas" width="940" height="600">
+			<p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element
+				nicht.</p>
+		</canvas>
+		<div class="controlColumn">
+			<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->
+			<form action="backend.php?upload" method="POST" enctype="multipart/form-data" id="fileContainer" class="control">
+				<label title="Bild hochladen" class="w3-button">
+					<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
+					<img alt="Symbol für upload" src="img/upload.svg" />
+					<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
+					<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png"
+						onchange="this.form.submit();" />
+				</label>
+			</form>
+			<button title="Bild zurücksetzen" onclick="clearCanvas();" name="clearImage" class="w3-button control">
+				&#10060;
+			</button>
+			<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
+			<button title="MakeUp zurücksetzen" onclick="clearMakeUp();" name="clearDrawing" class="w3-button control">
+				<img alt="Symbol für löschen" src="img/clear.svg">
+			</button>
+			<button title="Freihand zeichnen" onclick="setMode(this.name);" name="freehand" class="w3-button control">
+				&#128393;
+			</button>
+			<button title="Linie zeichnen" onclick="setMode(this.name);" name="line" class="w3-button control">
+				&#9585;
+			</button>
+			<button title="Kreis zeichnen" onclick="setMode(this.name);" name="circle" class="w3-button control">
+				&#9711;
+			</button>
+			<button title="Bogen zeichnen" onclick="setMode(this.name);" name="arc" class="w3-button control">
+				&#8276;
+			</button>
+			<button title="Rechteck zeichnen" onclick="setMode(this.name);" name="rectangle" class="w3-button control">
+				&rect;
+			</button>
+			<button title="Dreieck zeichnen" onclick="setMode(this.name);" name="triangle" class="w3-button control">
+				&#9651;
+			</button>
+			<input title="Farbe wählen" onchange="setColor(this.value);" type="color" id="colorPicker"
+				class="control" />
+		</div>
 	</section>
 
 	<section id="submit">

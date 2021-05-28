@@ -25,24 +25,27 @@ h1, h2, h3, a {
 #profile-picture {
 	width: 50%;
 	height: 50%;
+	/* Rund */
 	border-radius: 50%;
 	object-fit: cover;
-}
-
-#controlColumn {
-	width: 60px;
-	display: flex;
-	justify-content: center;
+	margin: 0;
+	/* Zentriert */
+	position: relative;
+	left: 50%;
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
 }
 
 #fileContainer {
 	overflow: hidden;
+	position: relative;
 }
 
 #fileInput {
-	width: 0.1px;
-	position: relative;
-	margin-left: -1px;
+	width: 0.01px;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 #colorPicker {
@@ -62,27 +65,6 @@ div[name="footer-Abstand"] {
 }
 
 /* Class-Selectors */
-
-.centerHorizontal {
-	margin: 0;
-	position: relative;
-	left: 50%;
-	-ms-transform: translateX(-50%);
-	transform: translateX(-50%);
-}
-
-.centerVertical {
-	margin: 0;
-	position: relative;
-	top: 50%;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-}
-
-.stackVertical {
-	display: flex;
-	flex-flow: column;
-}
 
 .w3-panel {
 	text-align: center;

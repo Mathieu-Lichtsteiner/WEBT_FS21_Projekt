@@ -1,0 +1,11 @@
+/*  Ich habe kein Passendes Layout mit w3.css klassen gefunden, deshalb mache ich es selbst. Siehe @media queries: https://www.w3schools.com/cssref/css3_pr_mediaquery.asp */
+
+.controlColumn {
+	display: flex;
+	flex-flow: column;
+}
+
+.control {
+	display: flex;
+	justify-content: center;
+}
