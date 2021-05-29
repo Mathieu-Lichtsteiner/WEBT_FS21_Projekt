@@ -59,13 +59,79 @@
 
 	<section id="information">
 		<h2>Informationen</h2>
-		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-			et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-			rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-			dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-			magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-			clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-		<!-- <img src="img/tutorial1.jpg" /> -->
+		<p></p>
+		<table>
+			<tr>
+				<td class="symbol"><img alt="Symbol für upload" src="img/upload.svg" width="32" height="32" /></td>
+				<td>
+					<h4>Bild hochladen</h4>
+					<p>Hier können Sie ein Bild auswählen, dass Sie bemalen möchten. <strong>Achtung,</strong> dabei wird Ihr bisheriges "MakeUp" zurückgesetzt!</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="symbol">&#10060;</td>
+				<td>
+					<h4>Bild zurücksetzen</h4>
+					<p>Hier können Sie das Hintergrundbild löschen und auf einer weissen Leinwand malen. Falls Sie Ihr Bild wieder möchten, benutzen Sie den nächsten Knopf <em>"MakeUp zurücksetzen".</em></p>
+				</td>
+			</tr>
+			<tr>
+				<td class="symbol"><img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32"></td>
+				<td>
+					<h4>MakeUp zurücksetzen</h4>
+					<p>Hierbei wird Ihr makeUp gelöscht und auf das hochgeladene Bild zurückgesetzt.</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="symbol">&#128393;</td>
+				<td>
+					<h4>Freihand zeichnen</h4>
+					<p>Einfaches zeichnen, wie Sie es mit Farbstiften tun würden, aber halt mit der maus.</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="symbol">&#9585;</td>
+				<td>
+					<h4>Linie / Pfad zeichnen</h4>
+					<p>Mit diesem Tool können Sie Linien zeichnen. Dabei wird ein Linienzug erstellt, bis Sie einen Doppelklick machen. Dann beginnt ein neuer Pfad.</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="symbol">&#9711;</td>
+				<td>
+					<h4>Kreis zeichnen</h4>
+					<p><strong>Leider ist das bisher noch nicht Implementiert! (Zeitaufwand)</strong> Mit drei Klicks können Sie bestimmen, wo ein Kreis platziert werden soll. Achtung, braucht etwas übung, um es perfekt zu machen.</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="symbol">&#8276;</td>
+				<td>
+					<h4>Bogen zeichnen</h4>
+					<p><strong>Leider ist das bisher noch nicht Implementiert! (Zeitaufwand)</strong> Mit drei Klicks können Sie bestimmen, wo ein Bogen platziert werden soll. Dabei können nur Kreisförmige und keine elliptischen Segmente platziert werden. </p>
+				</td>
+			</tr>
+			<tr>
+				<td class="symbol">&rect;</td>
+				<td>
+					<h4>Rechteck zeichnen</h4>
+					<p>Mittels zwei Klicks können sie die Eckpunkte eines Rechtecks bestimmen, bzw. zeichnen.</p>
+				</td>
+			</tr>
+			<tr>
+				<td class="symbol">&#9651;</td>
+				<td>
+					<h4>Dreieck zeichnen</h4>
+					<p>Mit drei Klicks können Sie ein Dreieck zeichnen. </p>
+				</td>
+			</tr>
+			<tr>
+				<td class="symbol"><div id="colorExample"></div></td>
+				<td>
+					<h4>Farbe auswählen</h4>
+					<p>Mit diesem unbeschrifteten Rechteck können Sie die zeichen-Farbe definieren.</p>
+				</td>
+			</tr>
+		</table>
 	</section>
 
 	<section id="draw">
@@ -80,7 +146,7 @@
 			<div id="controlColumn">
 				<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->
 				<form action="backend.php?upload" method="POST" enctype="multipart/form-data" id="fileContainer"
-					class="w3-button control">
+					class="w3-button control symbol">
 					<label title="Bild hochladen">
 						<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
 						<img alt="Symbol für upload" src="img/upload.svg" width="32" height="32" />
@@ -89,37 +155,41 @@
 							onchange="this.form.submit();" />
 					</label>
 				</form>
-				<button title="Bild zurücksetzen" onclick="clearCanvas();" name="clearImage" class="w3-button control">
+				<button title="Bild zurücksetzen" onclick="clearCanvas();" name="clearImage"
+					class="w3-button control symbol">
 					&#10060;
 				</button>
 				<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
 				<button title="MakeUp zurücksetzen" onclick="clearMakeUp();" name="clearDrawing"
-					class="w3-button control">
+					class="w3-button control symbol">
 					<img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32">
 				</button>
 				<button title="Freihand zeichnen" onclick="setMode(this.name);" name="freehand"
-					class="w3-button control">
+					class="w3-button control symbol">
 					&#128393;
 				</button>
-				<button title="Linie zeichnen" onclick="setMode(this.name);" name="line" class="w3-button control">
+				<button title="Linie zeichnen" onclick="setMode(this.name);" name="line"
+					class="w3-button control symbol">
 					&#9585;
 				</button>
-				<button title="Kreis zeichnen" onclick="setMode(this.name);" name="circle" class="w3-button control">
+				<button title="Kreis zeichnen" onclick="setMode(this.name);" name="circle"
+					class="w3-button control symbol">
 					&#9711;
 				</button>
-				<button title="Bogen zeichnen" onclick="setMode(this.name);" name="arc" class="w3-button control">
+				<button title="Bogen zeichnen" onclick="setMode(this.name);" name="arc"
+					class="w3-button control symbol">
 					&#8276;
 				</button>
 				<button title="Rechteck zeichnen" onclick="setMode(this.name);" name="rectangle"
-					class="w3-button control">
+					class="w3-button control symbol">
 					&rect;
 				</button>
 				<button title="Dreieck zeichnen" onclick="setMode(this.name);" name="triangle"
-					class="w3-button control">
+					class="w3-button control symbol">
 					&#9651;
 				</button>
 				<input title="Farbe wählen" onchange="setColor(this.value);" type="color" id="colorPicker"
-					class="w3-button control" />
+					class="w3-button control symbol" />
 			</div>
 		</div>
 	</section>

@@ -63,13 +63,14 @@
 
 .control {
 	padding: auto;
-	display: flex;
-	justify-content: center;
-	align-content: center;
-	font-size: x-large;
 }
 
 #colorPicker {
 	padding: 0px;
 	height: auto;
+}
+
+#colorExample {
+	width: 60px;
+	height: 60px;
 }

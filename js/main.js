@@ -2,6 +2,7 @@
 var canvas;
 var context;
 var strokeColor = "black";
+var colorExample;
 var canvasContainer;
 const maxWidth = 940;
 var offsetFactor;
@@ -17,8 +18,9 @@ var menuOpened = false;
 function initCanvas() {
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
+	colorExample = document.getElementById("colorExample");
 	context.lineWidth = 5;
-	context.strokeStyle = strokeColor;
+	setColor(strokeColor);
 
 	setMode('freehand');
 	canvasContainer = document.querySelector("#canvasContainer");
@@ -34,6 +36,7 @@ function toggleSelectedTool(elementName) {
 function setColor(color) {
 	context.strokeStyle = color;
 	strokeColor = color;
+	colorExample.style.backgroundColor = color;
 }
 
 // Ich brauche absichtlich kein classlist.toggle, damit ich bei einem Click auf die Links das Menu automatisch schliessen kann. Ausserdem $= (ends with), da im PHP-Skript noch die Url vorher ist.

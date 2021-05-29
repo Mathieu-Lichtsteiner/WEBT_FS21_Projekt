@@ -48,7 +48,7 @@ h1, h2, h3, a {
 	left: 0;
 }
 
-#message{
+#message {
 	resize: none;
 	height: auto;
 }
@@ -75,4 +75,11 @@ div[name="footer-Abstand"] {
 
 .activated {
 	background-color: lightgray;
+}
+
+.symbol {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	font-size: x-large;
 }
