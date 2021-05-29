@@ -10,7 +10,7 @@ var offsetFactor;
 var initial = true;
 var makeUp;
 // Variablen für Zeichenpunkte & den Modus
-var first, second, third;
+var first, second;
 var oldMode;
 // Menü offen?
 var menuOpened = false;

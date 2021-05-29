@@ -13,7 +13,6 @@ function removeListener(event, callback) {
 function resetPoints() {
 	first = null;
 	second = null;
-	// i don't reset third, because it's never checked.
 }
 function sleep(milliseconds = 180) {
 	return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -57,9 +56,7 @@ function createCircle(e) {
 		second = createPoint(e);
 		return;
 	}
-	third = createPoint(e);
-	circle = threePointCircle(first, second, third);
-	circle.draw();
+	threePointCircle(first, second, createPoint(e)).draw();;
 	resetPoints();
 }
 function createArc(e) {
@@ -71,8 +68,7 @@ function createArc(e) {
 		second = createPoint(e);
 		return;
 	}
-	third = createPoint(e);
-	new Arc(first, second, third).draw();
+	new Arc(first, second, createPoint(e)).draw();
 	resetPoints();
 }
 function createRectangle(e) {
@@ -94,8 +90,7 @@ function createTriangle(e) {
 		new Line(first, second).draw();
 		return;
 	}
-	third = createPoint(e);
-	new Triangle(first, second, third).draw();
+	new Triangle(first, second, createPoint(e)).draw();
 	resetPoints();
 }
 function onMouseDown(e) {
