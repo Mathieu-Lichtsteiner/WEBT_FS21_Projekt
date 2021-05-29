@@ -58,31 +58,50 @@ function threePointCircle(first, second, third) {
 	var y = - (C / (2 * A));
 	var r = Math.sqrt(sqr(x - x1) + sqr(y - y1));
 	// Mittelpunktskreis zurückgeben.
-	return new Circle(x, y, r);
+	return new Circle(new Point(x, y), r);
+}
+
+// Ich verstehe den Rückgabe-Wert von atan2 nicht, deshalb verwende ich meine Eigene Implementation, um Polar nach polar zu konvertieren.
+function convertToPolar(point) {
+	var x = point.x;
+	var y = point.y;
+	var atan = Math.atan(y / x);
+	// Quadrant bestimmen
+	if (x > 0 && y >= 0) { // Quadrant 1
+		return atan;
+	}
+	if (x > 0 && y < 0) { // Quadrant 4
+		return atan + 2 * Math.PI;
+	}
+	if (x < 0) { // Quadrant 2 & 3
+		return atan + Math.PI;
+	}
 }
 
 function Arc(first, second, third) {
-	this.first = first;
-	this.second = second;
-	this.third = third;
-
-	// this.xStart = xStart;
-	// this.yStart = yStart;
-	// this.xEnd = xEnd;
-	// this.yEnd = yEnd;
-	// this.radius = radius;
-	// this.angle = angle > Math.PI ? angle * Math.PI / 180 : angle; // If in Degrees, conversion to Radians
-
+	var circle = threePointCircle(first, second, third);
+	this.x = circle.center.x;
+	this.y = circle.center.y;
+	this.radius = circle.radius;
+	// Kreismittelpunkt auf "0,0" setzen & Kordinatensystem auf klassisch y+ nach oben ausrichten
+	var p1 = new Point((first.x - this.x), -(first.y - this.y));
+	var p2 = new Point((second.x - this.x), -(second.y - this.y));
+	var p3 = new Point((third.x - this.x), -(third.y - this.y));
+	// punkte auf Polar-Winkel umrechnen
+	this.startAngle = -convertToPolar(p1);
+	this.endAngle = -convertToPolar(p3);
+	// Bestimmen, in welchem Segment der Mittelpunkt liegt.
+	var midAngle = -convertToPolar(p2);
+	this.counterClockWise = (midAngle < this.startAngle) && (midAngle > this.endAngle);
+	
 	this.toString = function () {
-		return "ARC: first=(" + this.first + "), second=(" + this.second + "), third=(" + this.third + ")";
+		return "ARC: Center=(" + new Point(this.x, this.y) + "), radius=(" + this.radius + "), startAngle=(" + this.startAngle + "), endAngle=(" + this.endAngle + "), counterClockWise=(" + this.counterClockWise + ")";
 	}
 	this.draw = function () {
-		// context.beginPath();
-		// context.moveTo(xStart, xEnd);
-		// context.arcTo(xStart, yStart, xEnd, yEnd, radius);
-		// context.lineTo(xEnd, yEnd);
-		// context.stroke();
-		console.log("NOT IMPLEMENTED! " + this);
+		context.beginPath();
+		context.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle, this.counterClockWise);
+		context.stroke();
+		console.log(this);
 	}
 }
 
