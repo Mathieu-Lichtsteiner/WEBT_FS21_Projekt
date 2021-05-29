@@ -36,6 +36,12 @@ h1, h2, h3, a {
 	transform: translateX(-50%);
 }
 
+#informationTable tr {
+	display: grid;
+	grid-template-columns: 10% 90%;
+	align-items: center;
+}
+
 #fileContainer {
 	overflow: hidden;
 	position: relative;

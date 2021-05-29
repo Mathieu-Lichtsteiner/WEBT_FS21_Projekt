@@ -79,7 +79,18 @@ function createRectangle(e) {
 	resetPoints();
 }
 function createTriangle(e) {
-	threePointShape(e, Triangle);
+	if (!first) {
+		first = createPoint(e);
+		return;
+	}
+	if (!second) {
+		second = createPoint(e);
+		new Line(first, second).draw();
+		return;
+	}
+	third = createPoint(e);
+	new Triangle(first, second, third).draw();
+	resetPoints();
 }
 function onMouseDown(e) {
 	context.beginPath();
