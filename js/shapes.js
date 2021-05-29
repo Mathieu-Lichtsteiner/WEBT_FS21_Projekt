@@ -38,23 +38,27 @@ function Circle(x, y, radius) {
 	}
 }
 
-// function Circle(first, second, third) {
-// 	// http://ambrsoft.com/TrigoCalc/Circle3D.htm
-// 	alert("Noch nicht Implementiert!");
-// 	this.first = first;
-// 	this.second = second;
-// 	this.third = third;
+function sqr(number) {
+	return Math.pow(number, 2);
+}
 
-// 	this.toString = function () {
-// 		return "CIRCLE: first=(" + this.first + "), second=(" + this.second + "), third=(" + this.third + ")";
-// 	}
-// 	this.draw = function () {
-// 		// context.beginPath();
-// 		// context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-// 		// context.stroke();
-// 		console.log("NOT IMPLEMENTED! " + this);
-// 	}
-// }
+function threePointCircle(first, second, third) {
+	// http://ambrsoft.com/TrigoCalc/Circle3D.htm
+	x1 = first.x;
+	y1 = first.y;
+	x2 = second.x;
+	y2 = second.y;
+	x3 = third.x;
+	y3 = third.y;
+
+	A = x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2;
+	B = (sqr(x1) + sqr(y1)) * (y3 - y2) + (sqr(x2) + sqr(y2)) * (y1 - y3) + (sqr(x3) + sqr(y3)) * (y2 - y1);
+	C = (sqr(x1) + sqr(y1)) * (x2 - x3) + (sqr(x2) + sqr(y2)) * (x3 - x1) + (sqr(x3) + sqr(y3)) * (x1 - x2);
+	x = - (B / (2 * A));
+	y = - (C / (2 * A));
+	r = Math.sqrt(sqr(x - x1) + sqr(y - y1));
+	return new Circle(x, y, r);
+}
 
 function Arc(first, second, third) {
 	alert("Noch nicht Implementiert!");

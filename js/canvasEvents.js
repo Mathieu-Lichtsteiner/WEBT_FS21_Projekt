@@ -28,21 +28,6 @@ function createPoint(e) {
 	return new Point(getX(e), getY(e));
 }
 
-// generic function to draw shape with three points on the canvas
-function threePointShape(e, shape) {
-	if (!first) {
-		first = createPoint(e);
-		return;
-	}
-	if (!second) {
-		second = createPoint(e);
-		return;
-	}
-	third = createPoint(e);
-	new shape(first, second, third).draw();
-	resetPoints();
-}
-
 // Actions, what can be subscribed to and removed from the events
 function createLine(e) {
 	if (!first) {
@@ -64,10 +49,31 @@ function resetLine(e) {
 	first = null;
 }
 function createCircle(e) {
-	threePointShape(e, Circle);
+	if (!first) {
+		first = createPoint(e);
+		return;
+	}
+	if (!second) {
+		second = createPoint(e);
+		return;
+	}
+	third = createPoint(e);
+	circle = threePointCircle(first, second, third);
+	circle.draw();
+	resetPoints();
 }
 function createArc(e) {
-	threePointShape(e, Arc);
+	if (!first) {
+		first = createPoint(e);
+		return;
+	}
+	if (!second) {
+		second = createPoint(e);
+		return;
+	}
+	third = createPoint(e);
+	new Arc(first, second, third).draw();
+	resetPoints();
 }
 function createRectangle(e) {
 	if (!first) {
