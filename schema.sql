@@ -22,4 +22,4 @@ CREATE INDEX posts_firsName ON posts(firstName);
 CREATE INDEX posts_lastName ON posts(lastName);
 
 -- Erste Einträge erstellen
-INSERT INTO posts (firstName, lastName, email, created, msg) VALUES ("Mathieu", "Lichtsteiner", "mathieu.lichtsteiner@stud.hslu.ch", timestamp('2021-05-23 15:00:20'), "Das ist mein erstes Experiment!");
+INSERT INTO posts (firstName, lastName, email, created, msg) VALUES ("Mathieu", "Lichtsteiner", "mathieu.lichts@fakemail.com", timestamp('2021-05-23 15:00:20'), "Das ist mein erstes Kustwerk! WOW!");
