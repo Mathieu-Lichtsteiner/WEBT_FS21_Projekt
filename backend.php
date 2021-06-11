@@ -104,11 +104,11 @@ function printHTMLHead() {
 			<a onclick="toggleMenu(true);" href="index.html?background=blank#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
 		</nav>
 
-		<div name="nav-Abstand"></div>
+		<div title="nav-Abstand"></div>
 	HTML;
 }
 function printHTMLTail() {
-	echo ("\n\n\t<div name=\"footer-Abstand\"></div>\n\n</body>\n\n</html>");
+	echo ("\n\n\t<div title=\"footer-Abstand\"></div>\n\n</body>\n\n</html>");
 }
 
 # output-Functions
