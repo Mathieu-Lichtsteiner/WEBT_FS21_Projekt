@@ -61,11 +61,11 @@ h1, h2, h3, a {
 
 /* Attribute-Selectors */
 
-div[name="nav-Abstand"] {
+div[title="nav-Abstand"] {
 	margin-top: 100px;
 }
 
-div[name="footer-Abstand"] {
+div[title="footer-Abstand"] {
 	margin-bottom: 100px;
 }
 
