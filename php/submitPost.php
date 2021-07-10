@@ -162,6 +162,14 @@ function insertPostToDatabase() {
 
 # File-Functions
 function saveImageData($data, $fileName) {
+	// find the last occurance of "/" (Equivalent to the Slash separating the FileName)
+	$lastSlash = strrpos($fileName, "/");
+	$dir = substr($fileName, 0, $lastSlash);
+	// Create the Directory, if it does not Exist.
+	if (is_dir($dir)== false) {
+		mkdir($dir);
+	}
+	// Remove File-Attribute Data
 	$data = substr($data, strpos($data, ",") + 1); // Die Angaben vor dem Komma dienen zur identifizierung. z.B. png, usw... (aus logging entnommen)
 	$binary = base64_decode($data);
 	$resource = fopen($fileName, "wb"); // Schreiben und Binär erzwingen, siehe: https://www.php.net/manual/de/function.fopen.php
