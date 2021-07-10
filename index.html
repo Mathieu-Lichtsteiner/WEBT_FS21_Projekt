@@ -159,8 +159,7 @@
 				</canvas>
 			</div>
 			<div id="controlColumn">
-				<!-- Der Action wird der GET-Parameter "upload" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um den Dateiupload handelt -->
-				<form action="backend.php?upload" method="POST" enctype="multipart/form-data" id="fileContainer"
+				<form action="php/submitUpload.php" method="POST" enctype="multipart/form-data" id="fileContainer"
 					class="w3-button control symbol">
 					<label title="Bild hochladen">
 						<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
@@ -212,8 +211,7 @@
 	<section id="submit">
 		<!-- Ich habe hier keine labels mit dem "for" Attribut genutzt, da mir das Design mit den Placeholder Attributen deutlich besser gefällt. mit dem "alt" Attribut wird Screenreadern auch genügend information geliefert.-->
 		<h2>Beitrag posten</h2>
-		<!-- Der Action wird der GET-Parameter "submit" übergeben. Dadurch wird im Serverskript entschieden, dass es sich um das eingereichte Form handelt -->
-		<form name="submitForm" action="backend.php?submit" method="POST"
+		<form name="submitForm" action="php/submitPost.php" method="POST"
 			onsubmit="appendCanvasToForm(); return validateForm();">
 			<div class="w3-col m6">
 				<div class="w3-col l6">

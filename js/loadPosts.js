@@ -10,9 +10,9 @@ function loadPosts(clearCookie) {
 		alert("Zeitüberschreitung!\nEs konnten leider keine neuen Bilder geladen werden.");
 	}
 
-	var script = "backend.php?load";
+	var script = "php/loadPosts.php";
 	if (clearCookie) {
-		script += "&clearCookie";
+		script += "?clearCookie";
 	}
 
 	xhr.open("POST", script, true);
@@ -20,9 +20,9 @@ function loadPosts(clearCookie) {
 }
 
 function prependPosts() {
+	// console.log(this.response);
 	var result = JSON.parse(this.response);
 	var loadMore = document.getElementById("loadMore");
-
 	if (result.length == 0) { // Wenn bereits alle Bilder geladen wurden.
 		loadMore.outerHTML = divWithClass("<p>Alle Bilder geladen!</p>", "w3-panel");
 		return;
@@ -39,20 +39,13 @@ function prependPosts() {
 function formatPost(object) {
 	var firstName = object["firstName"];
 	var lastName = object["lastName"];
-	var created = convertDate(object["created"]);
+	var created = object["created"];
 	var msg = object["msg"];
 	var htmlImage = "\t<image src=\"" + object["imgUrl"] + "\" class=\"w3-col s12\" alt=\" Dieser Post wurde von " + firstName + " " + lastName + " am " + created + " erstellt. \"/>\n";
 	var htmlUser = divWithClass(pWithClass(firstName + " " + lastName, "userName") + pWithClass(created, "date") + "\n", "user w3-col m5");
 	var htmlMsg = pWithClass(msg, "comment w3-col m7");
 
 	return divWithClass(htmlImage + htmlUser + htmlMsg, "post");
-}
-
-function convertDate(timeStamp) {
-	console.log(timeStamp);
-	var date = timeStamp;
-	console.log(date);
-	return date;
 }
 
 function pWithClass(content, cssClass) {
