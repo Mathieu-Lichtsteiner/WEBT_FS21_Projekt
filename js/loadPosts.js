@@ -22,6 +22,7 @@ function loadPosts(clearCookie) {
 function prependPosts() {
 	// console.log(this.response);
 	var result = JSON.parse(this.response);
+	// console.log(result);
 	var loadMore = document.getElementById("loadMore");
 	if (result.length == 0) { // Wenn bereits alle Bilder geladen wurden.
 		loadMore.outerHTML = divWithClass("<p>Alle Bilder geladen!</p>", "w3-panel");

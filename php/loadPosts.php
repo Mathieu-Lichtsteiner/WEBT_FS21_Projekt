@@ -1,49 +1,42 @@
 <?php
 
-loadPosts();
+$amount = 3;
+$result = array();
+$index = getPostIndexCookie();
 
-# LOAD POSTS
-function loadPosts() {
-	$amount = 3;
-	$result = false;
-	$end = 0;
-
-	do {
-		$offset = getPostsCookieValue();
-		$result = getPostsFromDatabase($offset, $amount);
-		$end = $offset + $amount;
-		setPostsCookie($end);
-	} while (empty($result) && $end < getMaxId());
-
-	echo (json_encode($result));
+while ($amount > 0 && $index < getMaxId()) {
+	$result = array_merge($result, tryGetPostFromDatabase($index, $amount));
+	$index += $amount;
+	setPostIndexCookie($index);
+	$amount -= count($result);
 }
+
+echo (json_encode($result));
 
 # Parameter-Checking
-function getPostsCookieValue() {
-	if (!isset($_GET["clearCookie"]) && (isset($_COOKIE["loadedPosts"]))) {
-		return $_COOKIE["loadedPosts"];
+function getPostIndexCookie() {
+	if (isset($_GET["clearCookie"])) {
+		$_COOKIE["loadedPostIndex"] = 0;
 	}
-	$_COOKIE["loadedPosts"] = 0;
-	return 0;
+	if (isset($_COOKIE["loadedPostIndex"])) {
+		return $_COOKIE["loadedPostIndex"];
+	}
 }
-function incrementPostsCookie($increment) {
-	setcookie("loadedPosts", $_COOKIE["loadedPosts"] + $increment, time() + 600); // läuft in 10min ab.
-}
-function setPostsCookie($newValue) {
-	setcookie("loadedPosts", $newValue, time() + 600); // läuft in 10min ab.
+function setPostIndexCookie($newValue) {
+	setcookie("loadedPostIndex", $newValue, time() + 600); // läuft in 10min ab.
 }
 
 # SQL-Functions
-function getPostsFromDatabase($offset, $amount) {
+function tryGetPostFromDatabase($index, $amount) {
 	$conn = mysqli_connect("localhost", "root", "", "portofolio");
 	if (!$conn) { // Falls Verbindung fehlgeschlagen
 		return;
 	}
 
-	$query = "SELECT id, firstName, lastName, created, msg FROM posts WHERE id > ? AND id <= ?";
+	$query = "SELECT id, firstName, lastName, created, msg FROM posts WHERE id >= ? AND id < ?";
 	$stmt = mysqli_prepare($conn, $query);
-	$end = $offset + $amount;
-	mysqli_stmt_bind_param($stmt, "ii", $offset, $end);
+	$end = ($index + $amount);
+	mysqli_stmt_bind_param($stmt, "ii", $index, $end);
 
 	$exec = mysqli_stmt_execute($stmt);
 	if (!$exec) { // Falls Ausführung fehlgeschlagen.
@@ -59,13 +52,13 @@ function getPostsFromDatabase($offset, $amount) {
 
 	$data = array();
 	while ($row = mysqli_fetch_assoc($result)) {
-		array_push($data, cleanJson($row));
+		array_push($data, cleanSQLResult($row));
 	}
 
 	mysqli_close($conn);
 	return $data;
 }
-function cleanJson($sqlRow) {
+function cleanSQLResult($sqlRow) {
 	if (isset($sqlRow["id"])) { // convert id to img URL
 		$path = "img/creations/" . $sqlRow["id"] . ".png";
 		if (file_exists("../" . $path)) {
