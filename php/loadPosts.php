@@ -1,19 +1,27 @@
 <?php
 
-$amount = 3;
+$amount = getAmount();
 $result = array();
 $index = getPostIndexCookie();
 
-while ($amount > 0 && $index < getMaxId()) {
+while ($amount > 0 && $index <= getMaxId()) {
 	$result = array_merge($result, tryGetPostFromDatabase($index, $amount));
 	$index += $amount;
 	setPostIndexCookie($index);
 	$amount -= count($result);
 }
 
-echo (json_encode($result));
+if ($result) { // Check if there are any posts to return.
+	echo (json_encode($result));
+}
 
 # Parameter-Checking
+function getAmount() {
+	if (isset($_GET["amount"])) {
+		return $_GET["amount"];
+	}
+	return 3; // default value
+}
 function getPostIndexCookie() {
 	if (isset($_GET["clearCookie"])) {
 		$_COOKIE["loadedPostIndex"] = 0;

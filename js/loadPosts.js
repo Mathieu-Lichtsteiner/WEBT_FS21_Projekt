@@ -1,7 +1,13 @@
+const amount = 3; // defines, how many Posts are loaded
+
 function loadPosts(clearCookie) {
+	var script = "php/loadPosts.php?amount=" + amount;
+	if (clearCookie) {
+		script += "&clearCookie";
+	}
+
 	xhr = new XMLHttpRequest();
 	xhr.onload = prependPosts;
-
 	xhr.onerror = function () {
 		alert("Ladefehler!\nEs gab leider ein Problem, beim laden der Bilder.");
 	}
@@ -10,31 +16,37 @@ function loadPosts(clearCookie) {
 		alert("Zeitüberschreitung!\nEs konnten leider keine neuen Bilder geladen werden.");
 	}
 
-	var script = "php/loadPosts.php";
-	if (clearCookie) {
-		script += "?clearCookie";
-	}
-
 	xhr.open("POST", script, true);
 	xhr.send();
 }
 
-function prependPosts() {
-	// console.log(this.response);
-	var result = JSON.parse(this.response);
-	// console.log(result);
+function remove_LoadMoreButton() {
 	var loadMore = document.getElementById("loadMore");
-	if (result.length == 0) { // Wenn bereits alle Bilder geladen wurden.
-		loadMore.outerHTML = divWithClass("<p>Alle Bilder geladen!</p>", "w3-panel");
+	loadMore.outerHTML = divWithClass("<p>Alle Bilder geladen!</p>", "w3-panel");
+}
+
+function prependPosts() {
+	var result;
+	try {
+		result = JSON.parse(this.response);
+	}
+	catch (e) {// Wenn ein Fehler auftritt, oder bereits alle Bilder geladen wurden.
+		remove_LoadMoreButton();
 		return;
 	}
 
+	var loadMore = document.getElementById("loadMore");
 	var newValue = "";
 	for (let i = 0; i < result.length; i++) {
 		newValue += formatPost(result[i]);
 	}
+	// as a improvement i could use the .prepend() method: https://developer.mozilla.org/en-US/docs/Web/API/Element/prepend
 	newValue += loadMore.outerHTML;
 	loadMore.outerHTML = newValue;
+
+	if (result.length < amount) { // asume, that every available post has been loaded, since the server always tries to return the maximum amount
+		remove_LoadMoreButton();
+	}
 }
 
 function formatPost(object) {

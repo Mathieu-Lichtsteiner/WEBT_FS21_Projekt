@@ -154,7 +154,6 @@ function insertPostToDatabase() {
 			"Fehler beim Upload!",
 			"Es ist ein Fehler aufgetreten, bei dem Versuch, ihren Beitrag zu speichern!"
 		);
-		echo $res;
 	}
 	mysqli_close($conn);
 	return $created;
@@ -166,7 +165,7 @@ function saveImageData($data, $fileName) {
 	$lastSlash = strrpos($fileName, "/");
 	$dir = substr($fileName, 0, $lastSlash);
 	// Create the Directory, if it does not Exist.
-	if (is_dir($dir)== false) {
+	if (is_dir($dir) == false) {
 		mkdir($dir);
 	}
 	// Remove File-Attribute Data
