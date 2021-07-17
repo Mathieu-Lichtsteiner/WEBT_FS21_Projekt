@@ -93,7 +93,7 @@ function Arc(first, second, third) {
 	// Bestimmen, in welchem Segment der Mittelpunkt liegt.
 	var midAngle = -convertToPolar(p2);
 	this.counterClockWise = (midAngle < this.startAngle) && (midAngle > this.endAngle);
-	
+
 	this.toString = function () {
 		return "ARC: Center=(" + new Point(this.x, this.y) + "), radius=(" + this.radius + "), startAngle=(" + this.startAngle + "), endAngle=(" + this.endAngle + "), counterClockWise=(" + this.counterClockWise + ")";
 	}
