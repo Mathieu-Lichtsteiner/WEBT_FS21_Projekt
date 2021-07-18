@@ -15,6 +15,7 @@ define("CONTROLLER", APP . "controller" . SLASH);
 define("MODEL", APP . "model" . SLASH);
 define("VIEW", APP . "view" . SLASH);
 define("DATA", APP . "data" . SLASH);
+define("COMPONENT", APP . "html_components" . SLASH);
 
 // Database configuration
 define("DB_HOST", "localhost");
