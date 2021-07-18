@@ -1,4 +1,11 @@
 <?php
+// Folders / Navigation
+define("SLASH", DIRECTORY_SEPARATOR);
+define("ROOT", dirname(__DIR__) . SLASH);
+define("APP", ROOT . "application" . SLASH);
+define("PUBLIC", ROOT . "public" . SLASH);
+
+// Application Folders
 define("CORE", APP . "core" . SLASH);
 define("CONTROLLER", APP . "controller" . SLASH);
 define("MODEL", APP . "model" . SLASH);
