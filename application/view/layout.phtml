@@ -1,4 +1,54 @@
-<?php 
-require COMPONENT . "head" . PHTML;
-require $content;
-require COMPONENT . "tail" . PHTML;
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="author" content="Mathieu Lichtsteiner" />
+	<meta name="description" content="Das ist das Resultat des Unterrichts im Modul &quot;Webtechnologien&quot;. Diese Webseite ist mit Humor zu geniessen..." />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>
+		Mathieu's MakeUp Studio
+	</title>
+
+	<!--Imports für Skripts -->
+	<script src="js/main.js"></script>
+	<script src="js/constants.js"></script>
+	<script src="js/shapes.js"></script>
+	<script src="js/parseGetParameter.js"></script>
+	<script src="js/canvasFunctions.js"></script>
+	<script src="js/canvasEvents.js"></script>
+	<script src="js/formFunctions.js"></script>
+	<script src="js/loadPosts.js"></script>
+
+	<!-- Trick gelernt von: https://css-tricks.com/emojis-as-favicons/ dabei habe Ich den Code des Inline-SVGs gespeichert und nutze hier nur den link auf die Datei. -->
+	<!-- &#128132; from https://www.utf8icons.com/character/128132/lipstick -->
+	<link rel="shortcut icon" href="img/lipstick.svg">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/responsiveCanvas.css" />
+</head>
+
+<body>
+
+	<nav class="w3-bar w3-white">
+		<a onclick="toggleMenu();" class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
+		<a onclick="toggleMenu(true);" href="#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
+		<a onclick="toggleMenu(true);" href="#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
+		<a onclick="toggleMenu(true);" href="#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
+		<a onclick="toggleMenu(true);" href="#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
+		<a onclick="toggleMenu(true);" href="#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
+	</nav>
+
+	<div title="nav-Abstand"></div>
+
+	<div title="content-Container">
+
+		<?php require $content; ?>
+
+	</div>
+
+	<div title="footer-Abstand"></div>
+
+</body>
+
+</html>
