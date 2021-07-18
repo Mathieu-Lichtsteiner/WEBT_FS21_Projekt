@@ -1,6 +1,10 @@
 <?php
-// Folders / Navigation
+// Standards
 define("SLASH", DIRECTORY_SEPARATOR);
+define("PHP", ".php");
+define("PHTML", ".phtml");
+
+// Folders / Navigation
 define("ROOT", dirname(__DIR__) . SLASH);
 define("APP", ROOT . "application" . SLASH);
 define("PUBLIC", ROOT . "public" . SLASH);
