@@ -1,0 +1,91 @@
+/* Element-Selectors */
+
+body {
+	max-width: 1000px;
+	margin: auto;
+}
+
+nav {
+	top: 0;
+	position: fixed;
+	z-index: 10;
+}
+
+h2 {
+	padding-top: 50px;
+}
+
+h1, h2, h3, h4 {
+	display: flex;
+	justify-content: center;
+}
+
+/* Id-Selectors */
+
+#profile-picture {
+	width: 50%;
+	height: 50%;
+	/* Rund */
+	border-radius: 50%;
+	object-fit: cover;
+	margin: 0;
+	/* Zentriert */
+	position: relative;
+	left: 50%;
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
+#informationTable tr {
+	display: grid;
+	grid-template-columns: 10% 90%;
+	align-items: center;
+}
+
+#fileContainer {
+	overflow: hidden;
+	position: relative;
+}
+
+#fileInput {
+	width: 0.01px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#message {
+	resize: none;
+	height: auto;
+}
+
+/* Attribute-Selectors */
+
+div[title="nav-Abstand"] {
+	margin-top: 100px;
+}
+
+div[title="footer-Abstand"] {
+	margin-bottom: 100px;
+}
+
+/* Class-Selectors */
+
+.w3-panel {
+	text-align: center;
+}
+
+.userName {
+	font-weight: bolder;
+}
+
+.activated {
+	background-color: lightgray;
+}
+
+.symbol {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	font-size: x-large;
+}
