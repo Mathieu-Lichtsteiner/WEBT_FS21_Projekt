@@ -1,13 +1,5 @@
 <?php
 
-# HTML-Functions
-function printHTMLHead() {
-	readfile("../html-Components/start.html");
-}
-function printHTMLTail() {
-	readfile("../html-Components/end.html");
-}
-
 # output-Functions
 function displayError($header, $message) {
 	echo ("<div class=\"w3-panel w3-pale-red w3-leftbar w3-border-red w3-border\">\n\t");
