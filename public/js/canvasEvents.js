@@ -1,11 +1,7 @@
 function addListener(event, callback) {
-	// console.log("Füge zum Event (" + event + ") den Listener hinzu:");
-	// console.log(callback);
 	canvas.addEventListener(event, callback, false);
 }
 function removeListener(event, callback) {
-	// console.log("Entferne vom Event (" + event + ") den Listener:");
-	// console.log(callback);
 	canvas.removeEventListener(event, callback, false);
 }
 
@@ -120,7 +116,9 @@ function setMode(newMode) {
 	addNewListener(newMode);
 	toggleSelectedTool(newMode);
 
-	console.log("-- Den Zeichen-Modus (" + oldMode + ") auf " + newMode + " gesetzt!");
+	if (DEBUG) {
+		console.log("-- Den Zeichen-Modus (" + oldMode + ") auf " + newMode + " gesetzt!");
+	}
 	oldMode = newMode;
 }
 function addNewListener(mode) {

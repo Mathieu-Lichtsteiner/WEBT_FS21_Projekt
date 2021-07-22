@@ -21,7 +21,9 @@ function Line(start, end) {
 		context.moveTo(this.start.x, this.start.y);
 		context.lineTo(this.end.x, this.end.y);
 		context.stroke();
-		console.log(this);
+		if (DEBUG) {
+			console.log(this.toString());
+		}
 	}
 }
 
@@ -29,11 +31,16 @@ function Circle(center, radius) {
 	this.center = center;
 	this.radius = radius;
 
+	this.toString = function() {
+		return "CIRCLE: center=(" + this.center + "), radius=" + this.radius + ")";
+	}
 	this.draw = function () {
 		context.beginPath();
 		context.arc(this.center.x, this.center.y, this.radius, 0, 2 * Math.PI, false);
 		context.stroke();
-		console.log("Kreis gezeichnet: Mitte: " + this.center + ", radius=" + this.radius);
+		if (DEBUG) {
+			console.log(this.toString());
+		}
 	}
 }
 
@@ -101,7 +108,9 @@ function Arc(first, second, third) {
 		context.beginPath();
 		context.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle, this.counterClockWise);
 		context.stroke();
-		console.log(this);
+		if (DEBUG) {
+			console.log(this.toString());
+		}
 	}
 }
 
@@ -120,7 +129,9 @@ function Rectangle(start, end) {
 		context.lineTo(this.end.x, this.start.y);
 		context.closePath();
 		context.stroke();
-		console.log(this);
+		if (DEBUG) {
+			console.log(this.toString());
+		}
 	}
 }
 
@@ -139,6 +150,8 @@ function Triangle(first, second, third) {
 		context.lineTo(this.third.x, this.third.y);
 		context.closePath();
 		context.stroke();
-		console.log(this);
+		if (DEBUG) {
+			console.log(this.toString());
+		}
 	}
 }

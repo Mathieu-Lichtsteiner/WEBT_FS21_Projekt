@@ -1,3 +1,6 @@
+// Debug Constant
+const DEBUG = true;
+
 // Canvas als Objektreferenz & variablen
 var canvas;
 var context;

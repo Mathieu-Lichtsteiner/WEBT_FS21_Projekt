@@ -4,16 +4,22 @@ function loadImage() {
 	var imgUrl = parameters["background"];
 	if (imgUrl === "blank") {
 		initial = false;
-		console.log("Background wird leer gelassen.");
+		if (DEBUG) {	
+			console.log("Background wird leer gelassen.");
+		}
 		return;
 	}
 	if (!imgUrl) {
-		console.log("Standard-Bild wird gesetzt.");
+		if (DEBUG) {
+			console.log("Standard-Bild wird gesetzt.");
+		}
 		initial = true;
 		imgUrl = "img/profile.jpg";
 		makeUp = drawInitialMakeUp;
 	} else {
-		console.log("Background extrahiert.");
+		if (DEBUG) {
+			console.log("Background extrahiert.");
+		}
 		initial = false;
 	}
 	// Image als Objektreferenz
