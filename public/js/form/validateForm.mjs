@@ -8,7 +8,7 @@ function validateForm() {
 		alert("Leider kann die Nachricht maximal 1000 Zeichen enthalten!");
 		return false; // max. länge von 1000
 	}
-	if (initial) {
+	if (Window.variables.initial) {
 		alert("Bitte ein eigenes Bild zeichnen!");
 		return false; // das Ursprüngliche Bild kann nicht eingereicht werden!
 	}
@@ -27,16 +27,4 @@ function validateForm() {
 	return isLegal;
 }
 
-// Interessanter Link, langes suchen: https://re-cycledair.com/html-5-canvas-saving-to-a-file-with-php 
-function appendCanvasToForm() {
-	// Bild von Canvas mit dem Formular mitschicken
-	var formCanvas = document.getElementById("submitCanvas");
-	formCanvas.value = canvas.toDataURL();
-	// Get-Paramter übermitteln, um das Hintergrundbild wieder zu löschen!
-	var formDelete = document.getElementById("deleteImage");
-	var parameters = httpGetParameters();
-	var background = parameters["background"];
-	if (background !== "blank" && background !== "img/profile.jpg") {
-		formDelete.value = background;
-	}
-}
+export { validateForm };

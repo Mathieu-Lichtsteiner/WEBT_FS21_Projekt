@@ -10,15 +10,18 @@
 		Mathieu's MakeUp Studio
 	</title>
 
-	<!--Imports für Skripts -->
-	<script src="js/main.js"></script>
-	<script src="js/constants.js"></script>
-	<script src="js/shapes.js"></script>
-	<script src="js/parseGetParameter.js"></script>
-	<script src="js/canvasFunctions.js"></script>
-	<script src="js/canvasEvents.js"></script>
-	<script src="js/formFunctions.js"></script>
-	<script src="js/loadPosts.js"></script>
+	<script type="module">
+		import toggleNav from "./js/nav/toggleNav.mjs";
+		// Add the Events for the Nav-Menu
+		for (const button of document.getElementsByName("navButton")) {
+			button.addEventListener("click", () => {
+				toggleNav(true);
+			});
+		}
+		document.getElementById("hamburger").addEventListener("click", () => {
+			toggleNav();
+		});
+	</script>
 
 	<!-- Trick gelernt von: https://css-tricks.com/emojis-as-favicons/ dabei habe Ich den Code des Inline-SVGs gespeichert und nutze hier nur den link auf die Datei. -->
 	<!-- &#128132; from https://www.utf8icons.com/character/128132/lipstick -->
@@ -31,12 +34,12 @@
 <body>
 
 	<nav class="w3-bar w3-white">
-		<a onclick="toggleMenu();" class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
-		<a onclick="toggleMenu(true);" href="#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
-		<a onclick="toggleMenu(true);" href="#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
-		<a onclick="toggleMenu(true);" href="#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
-		<a onclick="toggleMenu(true);" href="#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
-		<a onclick="toggleMenu(true);" href="#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
+		<a id="hamburger" class="w3-bar-item w3-button w3-mobile w3-hide-medium w3-hide-large">&equiv;</a>
+		<a name="navButton" href="#home" class="w3-bar-item w3-button w3-mobile w3-hide-small">Home</a>
+		<a name="navButton" href="#information" class="w3-bar-item w3-button w3-mobile w3-hide-small">Informationen</a>
+		<a name="navButton" href="#draw" class="w3-bar-item w3-button w3-mobile w3-hide-small">Zeichnen!</a>
+		<a name="navButton" href="#submit" class="w3-bar-item w3-button w3-mobile w3-hide-small">Beitragen!</a>
+		<a name="navButton" href="#posts" class="w3-bar-item w3-button w3-mobile w3-hide-small">Posts ansehen!</a>
 	</nav>
 
 	<div title="nav-Abstand"></div>

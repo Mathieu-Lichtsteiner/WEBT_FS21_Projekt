@@ -1,11 +1,26 @@
-<script>
+<script type="module">
+	import constants from "./js/shared/constants.mjs";
+	import variables from "./js/shared/variables.mjs";
+	Window.variables = variables;
+	Window.constants = constants;
+
+	import {
+		initEventListener,
+		initCanvas,
+		loadImage,
+		updateOffset,
+		loadPosts,
+	} from "./js/main.mjs";
+
 	window.onload = function() {
+		initEventListener();
 		initCanvas();
 		loadImage();
-	}
+		loadPosts(true);
+	};
 	window.onresize = function() {
 		updateOffset();
-	}
+	};
 </script>
 
 <section id="home">
@@ -14,88 +29,118 @@
 	<h3>von Mathieu Lichtsteiner</h3>
 	<!-- Sollte ein relativer URL sein, da es sich aber in der Landing-Section (unbewertet) befindet ist es okay.-->
 	<h4>
-		<a id="test" title="Github-Repository mit Github-Pages öffnen" href="https://github.com/Mathieu-Lichtsteiner/WEBT_FS21_Projekt" target="_blank" rel="noreferrer noopener">Github-Repository</a>
+		<a title="Github-Repository mit Github-Pages öffnen" href="https://github.com/Mathieu-Lichtsteiner/WEBT_FS21_Projekt" target="_blank" rel="noreferrer noopener">Github-Repository</a>
 	</h4>
 </section>
 
 <section id="information">
 	<h2>Informationen</h2>
-	<p style="text-align: center;">Willkommen auf meiner Webseite!<br /> Diese habe ich als Abschlussprojekt im
-		Modul <em>Webtechnologien</em>
-		gestaltet und eingereicht. Es geht darum eigene Bilder hochzuladen und diese mit einem lustigen MakeUp zu
-		versehen. Schlussendlich kann unter <a href="#submit">"Beitrag posten"</a> die Kreation hochgeladen werden
-		und unter <a href="#posts">"Bisherige Beiträge ansehen"</a> bestaunt werden.
+	<p style="text-align: center">
+		Willkommen auf meiner Webseite!<br />
+		Diese habe ich als Abschlussprojekt im Modul
+		<em>Webtechnologien</em> gestaltet und eingereicht. Es geht darum eigene
+		Bilder hochzuladen und diese mit einem lustigen MakeUp zu versehen.
+		Schlussendlich kann unter <a href="#submit">"Beitrag posten"</a> die
+		Kreation hochgeladen werden und unter
+		<a href="#posts">"Bisherige Beiträge ansehen"</a> bestaunt werden.
 		<br />
 		<strong>Viel Spass!</strong>
 	</p>
 	<table id="informationTable">
 		<tr>
-			<td class="symbol"><img alt="Symbol für upload" src="img/upload.svg" width="32" height="32" /></td>
+			<td class="symbol">
+				<img alt="Symbol für upload" src="img/upload.svg" width="32" height="32" />
+			</td>
 			<td>
 				<h4>Bild hochladen</h4>
-				<p>Hier können Sie ein Bild auswählen, dass Sie bemalen möchten. <strong>Achtung,</strong> dabei
-					wird Ihr bisheriges "MakeUp" zurückgesetzt!</p>
+				<p>
+					Hier können Sie ein Bild auswählen, dass Sie bemalen möchten.
+					<strong>Achtung,</strong> dabei wird Ihr bisheriges "MakeUp"
+					zurückgesetzt!
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="symbol">&#10060;</td>
 			<td>
 				<h4>Bild zurücksetzen</h4>
-				<p>Hier können Sie das Hintergrundbild löschen und auf einer weissen Leinwand malen. Falls Sie Ihr
-					Bild wieder möchten, benutzen Sie den nächsten Knopf <em>"MakeUp zurücksetzen".</em></p>
+				<p>
+					Hier können Sie das Hintergrundbild löschen und auf einer weissen
+					Leinwand malen. Falls Sie Ihr Bild wieder möchten, benutzen Sie den
+					nächsten Knopf <em>"MakeUp zurücksetzen".</em>
+				</p>
 			</td>
 		</tr>
 		<tr>
-			<td class="symbol"><img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32"></td>
+			<td class="symbol">
+				<img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32" />
+			</td>
 			<td>
 				<h4>MakeUp zurücksetzen</h4>
-				<p>Hierbei wird Ihr makeUp gelöscht und auf das hochgeladene Bild zurückgesetzt.</p>
+				<p>
+					Hierbei wird Ihr makeUp gelöscht und auf das hochgeladene Bild
+					zurückgesetzt.
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="symbol">&#128393;</td>
 			<td>
 				<h4>Freihand zeichnen</h4>
-				<p>Einfaches zeichnen, wie Sie es mit Farbstiften tun würden, aber halt mit der maus. Funktioniert
-					ähnlich wie "Drag & Drop" also drücken & halten um zu zeichnen!</p>
+				<p>
+					Einfaches zeichnen, wie Sie es mit Farbstiften tun würden, aber halt
+					mit der maus. Funktioniert ähnlich wie "Drag & Drop" also drücken &
+					halten um zu zeichnen!
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="symbol">&#9585;</td>
 			<td>
 				<h4>Linie / Pfad zeichnen</h4>
-				<p>Mit diesem Tool können Sie Linien zeichnen. Dabei wird ein Linienzug erstellt, bis Sie einen
-					Doppelklick machen. Dann beginnt ein neuer Pfad.</p>
+				<p>
+					Mit diesem Tool können Sie Linien zeichnen. Dabei wird ein Linienzug
+					erstellt, bis Sie einen Doppelklick machen. Dann beginnt ein neuer
+					Pfad.
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="symbol">&#9711;</td>
 			<td>
 				<h4>Kreis zeichnen</h4>
-				<p>Mit drei Klicks können Sie bestimmen, wo ein Kreis platziert werden soll. Achtung, braucht etwas
-					übung, um es perfekt zu machen.</p>
+				<p>
+					Mit drei Klicks können Sie bestimmen, wo ein Kreis platziert werden
+					soll. Achtung, braucht etwas übung, um es perfekt zu machen.
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="symbol">&#8276;</td>
 			<td>
 				<h4>Bogen zeichnen</h4>
-				<p>Mit drei Klicks können Sie bestimmen, wo ein Bogen platziert werden soll. Dabei können nur
-					Kreisförmige und keine elliptischen Segmente platziert werden. </p>
+				<p>
+					Mit drei Klicks können Sie bestimmen, wo ein Bogen platziert werden
+					soll. Dabei können nur Kreisförmige und keine elliptischen Segmente
+					platziert werden.
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="symbol">&rect;</td>
 			<td>
 				<h4>Rechteck zeichnen</h4>
-				<p>Mittels zwei Klicks können sie die Eckpunkte eines Rechtecks bestimmen, bzw. zeichnen.</p>
+				<p>
+					Mittels zwei Klicks können sie die Eckpunkte eines Rechtecks
+					bestimmen, bzw. zeichnen.
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<td class="symbol">&#9651;</td>
 			<td>
 				<h4>Dreieck zeichnen</h4>
-				<p>Mit drei Klicks können Sie ein Dreieck zeichnen. </p>
+				<p>Mit drei Klicks können Sie ein Dreieck zeichnen.</p>
 			</td>
 		</tr>
 		<tr>
@@ -104,7 +149,10 @@
 			</td>
 			<td>
 				<h4>Farbe auswählen</h4>
-				<p>Mit diesem unbeschrifteten Rechteck können Sie die zeichen-Farbe definieren.</p>
+				<p>
+					Mit diesem unbeschrifteten Rechteck können Sie die zeichen-Farbe
+					definieren.
+				</p>
 			</td>
 		</tr>
 	</table>
@@ -115,8 +163,10 @@
 	<div id="canvasSection">
 		<div id="canvasContainer">
 			<canvas id="canvas" width="940" height="600">
-				<p>Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das benötigte Canvas-Element
-					nicht.</p>
+				<p>
+					Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das
+					benötigte Canvas-Element nicht.
+				</p>
 			</canvas>
 		</div>
 		<div id="controlColumn">
@@ -125,35 +175,35 @@
 					<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
 					<img alt="Symbol für upload" src="img/upload.svg" width="32" height="32" />
 					<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
-					<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png" onchange="this.form.submit();" />
+					<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png" />
 				</label>
 			</form>
-			<button title="Bild zurücksetzen" onclick="clearCanvas();" name="clearImage" class="w3-button control symbol">
+			<button title="Bild zurücksetzen" name="clearImage" class="w3-button control symbol">
 				&#10060;
 			</button>
 			<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
-			<button title="MakeUp zurücksetzen" onclick="clearMakeUp();" name="clearDrawing" class="w3-button control symbol">
-				<img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32">
+			<button title="MakeUp zurücksetzen" name="clearDrawing" class="w3-button control symbol">
+				<img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32" />
 			</button>
-			<button title="Freihand zeichnen" onclick="setMode(this.name);" name="freehand" class="w3-button control symbol">
+			<button title="Freihand zeichnen" name="freehand" class="w3-button control symbol modeBtn">
 				&#128393;
 			</button>
-			<button title="Linie zeichnen" onclick="setMode(this.name);" name="line" class="w3-button control symbol">
+			<button title="Linie zeichnen" name="line" class="w3-button control symbol modeBtn">
 				&#9585;
 			</button>
-			<button title="Kreis zeichnen" onclick="setMode(this.name);" name="circle" class="w3-button control symbol">
+			<button title="Kreis zeichnen" name="circle" class="w3-button control symbol modeBtn">
 				&#9711;
 			</button>
-			<button title="Bogen zeichnen" onclick="setMode(this.name);" name="arc" class="w3-button control symbol">
+			<button title="Bogen zeichnen" name="arc" class="w3-button control symbol modeBtn">
 				&#8276;
 			</button>
-			<button title="Rechteck zeichnen" onclick="setMode(this.name);" name="rectangle" class="w3-button control symbol">
+			<button title="Rechteck zeichnen" name="rectangle" class="w3-button control symbol modeBtn">
 				&rect;
 			</button>
-			<button title="Dreieck zeichnen" onclick="setMode(this.name);" name="triangle" class="w3-button control symbol">
+			<button title="Dreieck zeichnen" name="triangle" class="w3-button control symbol modeBtn">
 				&#9651;
 			</button>
-			<input title="Farbe wählen" onchange="setColor(this.value);" type="color" id="colorPicker" class="w3-button control symbol" />
+			<input title="Farbe wählen" type="color" id="colorPicker" class="w3-button control symbol" />
 		</div>
 	</div>
 </section>
@@ -161,7 +211,7 @@
 <section id="submit">
 	<!-- Ich habe hier keine labels mit dem "for" Attribut genutzt, da mir das Design mit den Placeholder Attributen deutlich besser gefällt. mit dem "alt" Attribut wird Screenreadern auch genügend information geliefert.-->
 	<h2>Beitrag posten</h2>
-	<form name="submitForm" action="php/submitPost.php" method="POST" onsubmit="appendCanvasToForm(); return validateForm();">
+	<form name="submitForm" action="php/submitPost.php" method="POST">
 		<div class="w3-col m6">
 			<div class="w3-col l6">
 				<label for="firstName" class="w3-label">Vorname: </label>
@@ -181,7 +231,7 @@
 			<label for="message" class="w3-label">Nachricht: </label>
 			<textarea id="message" name="message" placeholder="Inspiriert von Lady Gaga!" class="w3-input" rows="4"></textarea>
 		</div>
-		<input type="submit" id="submitButton" class="w3-input">
+		<input type="submit" id="submitButton" class="w3-input" />
 		<!-- Hidden input-Felder für zusätzliche Daten: https://stackoverflow.com/questions/8021748/how-to-add-additional-parameters-on-a-form-submitting-it-with-get-method -->
 		<input type="hidden" id="submitCanvas" name="submitCanvas" />
 		<input type="hidden" id="deleteImage" name="deleteImage" />
@@ -190,9 +240,7 @@
 
 <section id="posts">
 	<h2>Bisherige Beiträge ansehen.</h2>
-	<button id="loadMore" class="w3-input" onclick="loadPosts();">Mehr Posts laden!</button>
-	<!-- Erste beiträge laden aktualisieren -->
-	<script>
-		loadPosts(true);
-	</script>
+	<button id="loadMore" class="w3-input">
+		Mehr Posts laden!
+	</button>
 </section>
