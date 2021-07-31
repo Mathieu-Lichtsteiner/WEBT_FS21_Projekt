@@ -1,3 +1,4 @@
+import { variables } from "../shared/variables.mjs";
 import { Circle, Line, Point } from "./shapes.mjs";
 
 function drawInitialMakeUp() {
@@ -14,12 +15,12 @@ function drawInitialMakeUp() {
 		new Circle(new Point(605, 378), 10),
 		new Circle(new Point(605, 406), 20)
 	];
-	Window.variables.context.strokeStyle = "black";
+	variables.context.strokeStyle = "black";
 	strokes.forEach(stroke => {
-		stroke.draw(Window.variables.context);
+		stroke.draw(variables.context);
 	});
-	Window.variables.context.beginPath();
-	Window.variables.context.strokeStyle = Window.variables.strokeColor;
+	variables.context.beginPath();
+	variables.context.strokeStyle = variables.strokeColor;
 }
 
 export { drawInitialMakeUp };

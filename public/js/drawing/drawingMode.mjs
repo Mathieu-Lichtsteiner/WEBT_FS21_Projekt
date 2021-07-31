@@ -1,135 +1,138 @@
+import { variables } from "../shared/variables.mjs";
+import { constants } from "../shared/constants.mjs";
+
 import * as Shapes from "./shapes.mjs";
 import { toggleSelectedTool } from "./toggleSelectedTool.mjs";
 import logConditional from "../shared/logConditional.mjs";
 
 // functions to handle userinputs
 function setMode(newMode) {
-	if (newMode === Window.variables.oldMode) {
+	if (newMode === variables.oldMode) {
 		return; // kein neuer Modus angewählt
 	}
-	removeOldListener(Window.variables.oldMode);
-	toggleSelectedTool(Window.variables.oldMode);
+	removeOldListener(variables.oldMode);
+	toggleSelectedTool(variables.oldMode);
 	resetPoints();
 
 	addNewListener(newMode);
 	toggleSelectedTool(newMode);
 
-	logConditional("-- Den Zeichen-Modus (" + Window.variables.oldMode + ") auf " + newMode + " gesetzt!");
-	Window.variables.oldMode = newMode;
+	logConditional("-- Den Zeichen-Modus (" + variables.oldMode + ") auf " + newMode + " gesetzt!");
+	variables.oldMode = newMode;
 }
 
 export { setMode };
 
 // Actions, what can be subscribed to and removed from the events
 function createLine(e) {
-	if (!Window.variables.first) {
-		Window.variables.first = createPoint(e);
+	if (!variables.first) {
+		variables.first = createPoint(e);
 		return;
 	}
-	Window.variables.second = createPoint(e);
+	variables.second = createPoint(e);
 	sleep(180).then(() => { // wait for the doubleClick to happen, with clickspeed test i found, that 180 is normal, but still quite reactive
-		if (Window.variables.first) {
-			new Shapes.Line(Window.variables.first, Window.variables.second).draw(Window.variables.context);
-			var temp = Window.variables.second;
+		if (variables.first) {
+			new Shapes.Line(variables.first, variables.second).draw(variables.context);
+			var temp = variables.second;
 			resetPoints();
-			Window.variables.first = temp;
+			variables.first = temp;
 		}
 	})
 
 }
 function resetLine(e) {
-	Window.variables.first = null;
+	variables.first = null;
 }
 function createCircle(e) {
-	if (!Window.variables.first) {
-		Window.variables.first = createPoint(e);
+	if (!variables.first) {
+		variables.first = createPoint(e);
 		return;
 	}
-	if (!Window.variables.second) {
-		Window.variables.second = createPoint(e);
+	if (!variables.second) {
+		variables.second = createPoint(e);
 		return;
 	}
-	new Shapes.Circle(Window.variables.first, Window.variables.second, createPoint(e)).draw(Window.variables.context);
+	new Shapes.Circle(variables.first, variables.second, createPoint(e)).draw(variables.context);
 	resetPoints();
 }
 function createArc(e) {
-	if (!Window.variables.first) {
-		Window.variables.first = createPoint(e);
+	if (!variables.first) {
+		variables.first = createPoint(e);
 		return;
 	}
-	if (!Window.variables.second) {
-		Window.variables.second = createPoint(e);
+	if (!variables.second) {
+		variables.second = createPoint(e);
 		return;
 	}
-	new Shapes.Arc(Window.variables.first, Window.variables.second, createPoint(e)).draw(Window.variables.context);
+	new Shapes.Arc(variables.first, variables.second, createPoint(e)).draw(variables.context);
 	resetPoints();
 }
 function createRectangle(e) {
-	if (!Window.variables.first) {
-		Window.variables.first = createPoint(e);
+	if (!variables.first) {
+		variables.first = createPoint(e);
 		return;
 	}
-	Window.variables.second = createPoint(e);
-	new Shapes.Rectangle(Window.variables.first, Window.variables.second).draw(Window.variables.context);
+	variables.second = createPoint(e);
+	new Shapes.Rectangle(variables.first, variables.second).draw(variables.context);
 	resetPoints();
 }
 function createTriangle(e) {
-	if (!Window.variables.first) {
-		Window.variables.first = createPoint(e);
+	if (!variables.first) {
+		variables.first = createPoint(e);
 		return;
 	}
-	if (!Window.variables.second) {
-		Window.variables.second = createPoint(e);
-		new Shapes.Line(Window.variables.first, Window.variables.second).draw(Window.variables.context);
+	if (!variables.second) {
+		variables.second = createPoint(e);
+		new Shapes.Line(variables.first, variables.second).draw(variables.context);
 		return;
 	}
-	new Shapes.Triangle(Window.variables.first, Window.variables.second, createPoint(e)).draw(Window.variables.context);
+	new Shapes.Triangle(variables.first, variables.second, createPoint(e)).draw(variables.context);
 	resetPoints();
 }
 function onMouseDown(e) {
-	Window.variables.context.beginPath();
-	Window.variables.context.moveTo(getX(e), getY(e));
-	addListener(Window.constants.mouseMoveEvt, onMouseMove);
-	addListener(Window.constants.mouseLeaveEvt, onMouseUp);
+	variables.context.beginPath();
+	variables.context.moveTo(getX(e), getY(e));
+	addListener(constants.mouseMoveEvt, onMouseMove);
+	addListener(constants.mouseLeaveEvt, onMouseUp);
 }
 function onMouseUp(e) {
-	removeListener(Window.constants.mouseMoveEvt, onMouseMove);
-	removeListener(Window.constants.mouseLeaveEvt, onMouseUp);
+	removeListener(constants.mouseMoveEvt, onMouseMove);
+	removeListener(constants.mouseLeaveEvt, onMouseUp);
 }
 function onMouseMove(e) {
-	Window.variables.context.lineTo(getX(e), getY(e), 3, 3);
-	Window.variables.context.stroke();
+	variables.context.lineTo(getX(e), getY(e), 3, 3);
+	variables.context.stroke();
 }
 
 // Listener-Functions
 function addListener(event, callback) {
-	Window.variables.canvas.addEventListener(event, callback, false);
+	variables.canvas.addEventListener(event, callback, false);
 }
 function removeListener(event, callback) {
-	Window.variables.canvas.removeEventListener(event, callback, false);
+	variables.canvas.removeEventListener(event, callback, false);
 }
 
 function addNewListener(mode) {
 	switch (mode) {
 		case 'freehand':
-			addListener(Window.constants.mouseDownEvt, onMouseDown);
-			addListener(Window.constants.mouseUpEvt, onMouseUp);
+			addListener(constants.mouseDownEvt, onMouseDown);
+			addListener(constants.mouseUpEvt, onMouseUp);
 			break;
 		case 'line':
-			addListener(Window.constants.mouseClickEvt, createLine);
-			addListener(Window.constants.mouseDoubleClickEvt, resetLine);
+			addListener(constants.mouseClickEvt, createLine);
+			addListener(constants.mouseDoubleClickEvt, resetLine);
 			break;
 		case 'circle':
-			addListener(Window.constants.mouseClickEvt, createCircle);
+			addListener(constants.mouseClickEvt, createCircle);
 			break;
 		case 'arc':
-			addListener(Window.constants.mouseClickEvt, createArc);
+			addListener(constants.mouseClickEvt, createArc);
 			break;
 		case 'rectangle':
-			addListener(Window.constants.mouseClickEvt, createRectangle);
+			addListener(constants.mouseClickEvt, createRectangle);
 			break;
 		case 'triangle':
-			addListener(Window.constants.mouseClickEvt, createTriangle);
+			addListener(constants.mouseClickEvt, createTriangle);
 			break;
 		default:
 			break;
@@ -138,24 +141,24 @@ function addNewListener(mode) {
 function removeOldListener(mode) {
 	switch (mode) {
 		case 'freehand':
-			removeListener(Window.constants.mouseDownEvt, onMouseDown);
-			removeListener(Window.constants.mouseUpEvt, onMouseUp);
+			removeListener(constants.mouseDownEvt, onMouseDown);
+			removeListener(constants.mouseUpEvt, onMouseUp);
 			break;
 		case 'line':
-			removeListener(Window.constants.mouseClickEvt, createLine);
-			removeListener(Window.constants.mouseDoubleClickEvt, resetLine);
+			removeListener(constants.mouseClickEvt, createLine);
+			removeListener(constants.mouseDoubleClickEvt, resetLine);
 			break;
 		case 'circle':
-			removeListener(Window.constants.mouseClickEvt, createCircle);
+			removeListener(constants.mouseClickEvt, createCircle);
 			break;
 		case 'arc':
-			removeListener(Window.constants.mouseClickEvt, createArc);
+			removeListener(constants.mouseClickEvt, createArc);
 			break;
 		case 'rectangle':
-			removeListener(Window.constants.mouseClickEvt, createRectangle);
+			removeListener(constants.mouseClickEvt, createRectangle);
 			break;
 		case 'triangle':
-			removeListener(Window.constants.mouseClickEvt, createTriangle);
+			removeListener(constants.mouseClickEvt, createTriangle);
 			break;
 		default:
 			break;
@@ -164,17 +167,17 @@ function removeOldListener(mode) {
 
 // helper-functions
 function resetPoints() {
-	Window.variables.first = null;
-	Window.variables.second = null;
+	variables.first = null;
+	variables.second = null;
 }
 function sleep(milliseconds) {
 	return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 function getX(e) {
-	return e.offsetX * Window.variables.offsetFactor;
+	return e.offsetX * variables.offsetFactor;
 }
 function getY(e) {
-	return e.offsetY * Window.variables.offsetFactor;
+	return e.offsetY * variables.offsetFactor;
 }
 function createPoint(e) {
 	return new Shapes.Point(getX(e), getY(e));

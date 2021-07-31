@@ -1,6 +1,8 @@
+import { variables } from "../shared/variables.mjs";
+
 function updateOffset() {
-	var actualWidth = Window.variables.canvasContainer.offsetWidth;
-	Window.variables.offsetFactor = Window.variables.maxWidth / actualWidth;
+	var actualWidth = variables.canvasContainer.offsetWidth;
+	variables.offsetFactor = variables.maxWidth / actualWidth;
 }
 
 export { updateOffset };

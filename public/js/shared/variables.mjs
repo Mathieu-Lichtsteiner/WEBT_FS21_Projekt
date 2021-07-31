@@ -22,4 +22,4 @@ const variables = {
 	menuOpened: false
 }
 
-export default variables;
+export { variables };

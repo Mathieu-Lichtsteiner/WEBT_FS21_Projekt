@@ -1,3 +1,5 @@
+import { variables } from "../shared/variables.mjs";
+
 function validateForm() {
 	var message = document.getElementById("message").value.trim();
 	if (message.length < 4) {
@@ -8,7 +10,7 @@ function validateForm() {
 		alert("Leider kann die Nachricht maximal 1000 Zeichen enthalten!");
 		return false; // max. länge von 1000
 	}
-	if (Window.variables.initial) {
+	if (variables.initial) {
 		alert("Bitte ein eigenes Bild zeichnen!");
 		return false; // das Ursprüngliche Bild kann nicht eingereicht werden!
 	}
