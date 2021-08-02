@@ -1,10 +1,11 @@
 const variables = {
 
 	// Canvas als Objektreferenz & variablen
-	canvas,
+	canvas: null,
 	context: null,
 	strokeColor: "black",
-	colorExample: null,
+	// No longer works, because the information is on another page than the colorPicker
+	// colorExample: null,
 	canvasContainer: null,
 	maxWidth: 940,
 	offsetFactor: null,

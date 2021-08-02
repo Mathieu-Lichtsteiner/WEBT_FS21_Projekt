@@ -1,5 +1,5 @@
 import { formatPost } from "./formatPosts.mjs";
-import { divWithClass } from "./elements.mjs";
+import { divWithClass, pWithClass } from "./elements.mjs";
 
 function prependPosts(response, amount) {
 	var result;
@@ -11,14 +11,11 @@ function prependPosts(response, amount) {
 		return;
 	}
 
+	var main = document.getElementById("postsContainer");
 	var loadMore = document.getElementById("loadMore");
-	var newValue = "";
 	for (let i = 0; i < result.length; i++) {
-		newValue += formatPost(result[i]);
+		main.insertBefore(formatPost(result[i]), loadMore);
 	}
-	// as a improvement i could use the .prepend() method: https://developer.mozilla.org/en-US/docs/Web/API/Element/prepend
-	newValue += loadMore.outerHTML;
-	loadMore.outerHTML = newValue;
 
 	if (result.length < amount) { // asume, that every available post has been loaded, since the server always tries to return the maximum amount
 		remove_LoadMoreButton();
@@ -26,8 +23,13 @@ function prependPosts(response, amount) {
 }
 
 function remove_LoadMoreButton() {
+	var main = document.getElementById("postsContainer");
 	var loadMore = document.getElementById("loadMore");
-	loadMore.outerHTML = divWithClass("<p>Alle Bilder geladen!</p>", "w3-panel");
+	var panelElement = divWithClass("", "w3-panel");
+	var textElement = pWithClass("Alle Bilder geladen!");
+	panelElement.append(textElement);
+	main.insertBefore(panelElement, loadMore);
+	loadMore.remove();
 }
 
 export { prependPosts };

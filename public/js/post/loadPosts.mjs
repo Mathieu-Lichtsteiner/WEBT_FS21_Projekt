@@ -2,9 +2,9 @@ import { prependPosts } from "./prependPosts.mjs";
 
 const amount = 3; // defines, how many Posts are loaded
 
-function loadPosts(clearCookie) {
-	var script = "php/loadPosts.php?amount=" + amount;
-	if (clearCookie) {
+function loadPosts(clearCookie = false) {
+	var script = "?loadPosts&amount=" + amount;
+	if (typeof clearCookie === "boolean" && clearCookie) {
 		script += "&clearCookie";
 	}
 

@@ -5,7 +5,8 @@ include "exceptions.php";
 uploadImage();
 
 # UPLOAD BACKGROUND
-function uploadImage() {
+function uploadImage()
+{
 	# Anleitung gemäss: https://www.youtube.com/watch?v=JaRq73y5MJk
 	$errorTitle = "Es gab einen unbekannten Fehler!";
 	$errorMessage = "Theoretisch sollten Sie diese Standard-Fehlermeldung nicht sehen!";
@@ -26,13 +27,12 @@ function uploadImage() {
 		$errorMessage = "Die Datei darf nur maximal 20MB gross sein. Bitte ein kleineres Bild hochladen!";
 	}
 
-	printHTMLHead();
 	displayError($errorTitle, $errorMessage);
-	printHTMLTail();
 }
 
 # File-Functions
-function saveUploadedFile($parameterName) { // Für die PHP-Exceptions siehe: https://www.php.net/manual/en/spl.exceptions.php
+function saveUploadedFile($parameterName)
+{ // Für die PHP-Exceptions siehe: https://www.php.net/manual/en/spl.exceptions.php
 	if (!isset($_FILES[$parameterName])) {
 		#Error kein File mitgeliefert!
 		throw new FileNotSentException();
@@ -59,15 +59,18 @@ function saveUploadedFile($parameterName) { // Für die PHP-Exceptions siehe: ht
 	move_uploaded_file($file["tmp_name"], "../" . $newName);
 	return $newName;
 }
-function getFileExtension($fileName) {
+function getFileExtension($fileName)
+{
 	$split = explode(".", $fileName);
 	$last = end($split);
 	return strtolower($last);
 }
-function isAllowedFormat($fileExt) {
+function isAllowedFormat($fileExt)
+{
 	$allowedExts = array("jpg", "jpeg", "png", "tif");
 	return in_array($fileExt, $allowedExts);
 }
-function createTempFileName($fileExt) {
+function createTempFileName($fileExt)
+{
 	return "img/upload/" . uniqid("", true) . "." . $fileExt;
 }

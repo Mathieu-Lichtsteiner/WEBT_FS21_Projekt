@@ -1,0 +1,87 @@
+<script type="module">
+	import {
+		initDrawing,
+		updateOffset
+	} from "./js/main.mjs";
+
+	window.onload = initDrawing;
+	window.onresize = updateOffset;
+</script>
+
+<main>
+	<h2>MakeUp designen</h2>
+	<div id="canvasSection">
+		<div id="canvasContainer">
+			<canvas id="canvas" width="940" height="600">
+				<p>
+					Wenn Sie das sehen, unterstützt Ihr Browser leider kein HTML5 und das
+					benötigte Canvas-Element nicht.
+				</p>
+			</canvas>
+		</div>
+		<div id="controlColumn">
+			<form action="?submitUpload" method="POST" enctype="multipart/form-data" id="fileContainer" class="w3-button control symbol">
+				<label title="Bild hochladen">
+					<!-- Icon von https://materialdesignicons.com/ "tray-arrow-up" gespeichert als upload.svg -->
+					<img alt="Symbol für upload" src="img/upload.svg" width="32" height="32" />
+					<!-- Der input ist versteckt, aber das Label delegiert den Click direkt weiter (idee hier aufgenommen: https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button)-->
+					<input id="fileInput" name="fileInput" type="file" accept=".jpg,.jpeg,.png" />
+				</label>
+			</form>
+			<button title="Bild zurücksetzen" name="clearImage" class="w3-button control symbol">
+				&#10060;
+			</button>
+			<!-- Icon von https://materialdesignicons.com/ "autorenew" gespeichert als clear.svg -->
+			<button title="MakeUp zurücksetzen" name="clearDrawing" class="w3-button control symbol">
+				<img alt="Symbol für löschen" src="img/clear.svg" width="32" height="32" />
+			</button>
+			<button title="Freihand zeichnen" name="freehand" class="w3-button control symbol modeBtn">
+				&#128393;
+			</button>
+			<button title="Linie zeichnen" name="line" class="w3-button control symbol modeBtn">
+				&#9585;
+			</button>
+			<button title="Kreis zeichnen" name="circle" class="w3-button control symbol modeBtn">
+				&#9711;
+			</button>
+			<button title="Bogen zeichnen" name="arc" class="w3-button control symbol modeBtn">
+				&#8276;
+			</button>
+			<button title="Rechteck zeichnen" name="rectangle" class="w3-button control symbol modeBtn">
+				&rect;
+			</button>
+			<button title="Dreieck zeichnen" name="triangle" class="w3-button control symbol modeBtn">
+				&#9651;
+			</button>
+			<input title="Farbe wählen" type="color" id="colorPicker" class="w3-button control symbol" />
+		</div>
+	</div>
+
+	<!-- Ich habe hier keine labels mit dem "for" Attribut genutzt, da mir das Design mit den Placeholder Attributen deutlich besser gefällt. mit dem "alt" Attribut wird Screenreadern auch genügend information geliefert.-->
+	<h2>Beitrag posten</h2>
+	<form name="submitForm" action="?submitPost" method="POST">
+		<div class="w3-col m6">
+			<div class="w3-col l6">
+				<label for="firstName" class="w3-label">Vorname: </label>
+				<input id="firstName" name="firstName" type="text" placeholder="Angelica" class="w3-input" required minlength="2" maxlength="30" />
+			</div>
+			<div class="w3-col l6">
+				<label for="lastName" class="w3-label">Nachname: </label>
+				<input id="lastName" name="lastName" type="text" placeholder="Mustermann" class="w3-input" required minlength="2" maxlength="30" />
+			</div>
+			<div class="w3-col">
+				<label for="email" class="w3-label">Email: </label>
+				<!-- Patternmatching mit RegEx: muss ein x@y.z enthalten, wobei x,y,z buchstaben & zahlen sein können. y&z müssen 2 oder länger sein -->
+				<input id="email" name="email" type="email" placeholder="ihre.email@provider.ch" class="w3-input" required maxlength="100" pattern="(.+)(@)(.{2,})(\.)(.{2,})" />
+			</div>
+		</div>
+		<div class="w3-col m6">
+			<label for="message" class="w3-label">Nachricht: </label>
+			<textarea id="message" name="message" placeholder="Inspiriert von Lady Gaga!" class="w3-input" rows="4"></textarea>
+		</div>
+		<input type="submit" id="submitButton" class="w3-input" />
+		<!-- Hidden input-Felder für zusätzliche Daten: https://stackoverflow.com/questions/8021748/how-to-add-additional-parameters-on-a-form-submitting-it-with-get-method -->
+		<input type="hidden" id="submitCanvas" name="submitCanvas" />
+		<input type="hidden" id="deleteImage" name="deleteImage" />
+	</form>
+</main>

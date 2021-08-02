@@ -4,8 +4,8 @@ include "shared.php";
 submitCreation();
 
 # SUBMIT CREATION
-function submitCreation() {
-	printHTMLHead(); // Es wird die Navigation & alle head-Informationen gepostet.
+function submitCreation()
+{
 
 	$formIsValid = true;
 	if (firstNameIsInvalid()) {
@@ -56,18 +56,17 @@ function submitCreation() {
 			deleteTempImage("../" . $_POST["deleteImage"]);
 		}
 	}
-
-	printHTMLTail(); // Es werden die geöffneten Tags des HTML-Heads geschlossen.
-
 }
 
 # Parameter-Checking
-function isRequiredPostSet($name) {
+function isRequiredPostSet($name)
+{
 	return isset($_POST[$name]) && $_POST[$name] != "";
 }
 
 # Form-Validation in Backend
-function firstNameIsInvalid() {
+function firstNameIsInvalid()
+{
 	if (isRequiredPostSet("firstName")) {
 		$firstName = $_POST["firstName"];
 		if (
@@ -79,7 +78,8 @@ function firstNameIsInvalid() {
 	}
 	return true;
 }
-function lastNameIsInvalid() {
+function lastNameIsInvalid()
+{
 	if (isRequiredPostSet("lastName")) {
 		$lastName = $_POST["lastName"];
 		if (
@@ -91,7 +91,8 @@ function lastNameIsInvalid() {
 	}
 	return true;
 }
-function emailIsInvalid() {
+function emailIsInvalid()
+{
 	if (isRequiredPostSet("email")) {
 		$email = $_POST["email"];
 		if (
@@ -107,7 +108,8 @@ function emailIsInvalid() {
 	}
 	return true;
 }
-function messageIsInvalid() {
+function messageIsInvalid()
+{
 	if (isRequiredPostSet("message")) {
 		$message = $_POST["message"];
 		$islegal = true;
@@ -124,7 +126,8 @@ function messageIsInvalid() {
 }
 
 # SQL-Functions
-function insertPostToDatabase() {
+function insertPostToDatabase()
+{
 	$conn = mysqli_connect("localhost", "root", "", "portofolio");
 	if (!$conn) {
 		// Connection Failed
@@ -160,7 +163,8 @@ function insertPostToDatabase() {
 }
 
 # File-Functions
-function saveImageData($data, $fileName) {
+function saveImageData($data, $fileName)
+{
 	// find the last occurance of "/" (Equivalent to the Slash separating the FileName)
 	$lastSlash = strrpos($fileName, "/");
 	$dir = substr($fileName, 0, $lastSlash);
